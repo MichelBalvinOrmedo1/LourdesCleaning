@@ -1,0 +1,91 @@
+---
+import content from "../data/content.json";
+const { contact } = content;
+
+type IconKey = "phone" | "map-pin" | "clock" | "instagram";
+
+interface ContactCard {
+  icon: IconKey;
+  title: string;
+  subtitle: string;
+  description: string;
+  buttonText: string;
+  buttonHref: string;
+  isExternal?: boolean;
+}
+
+const contactCards: ContactCard[] = contact.cards as ContactCard[];
+
+const icons: Record<IconKey, string> = {
+  phone:
+    '<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>',
+  "map-pin":
+    '<path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/>',
+  clock:
+    '<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>',
+  instagram:
+    '<rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>',
+};
+---
+
+<section id="contact" class="py-20 sm:py-28 lg:py-32 bg-background">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center space-y-4 mb-16">
+      <h2
+        class="text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-pretty"
+      >
+        Ready to Get <span class="text-primary">Clean?</span>
+      </h2>
+      <p class="text-lg text-foreground/70 max-w-2xl mx-auto">
+        Contact us today and let our professional team handle your cleaning
+        needs
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+      {
+        contactCards.map((card) => (
+          <div class="bg-gradient-to-br from-accent/20 to-accent/5 p-8 rounded-xl border border-accent/20 hover:border-accent/40 transition-colors text-center group">
+            <div class="w-16 h-16 rounded-full bg-accent/20 flex items-center justify-center mx-auto mb-4 group-hover:bg-accent/30 transition-colors">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="32"
+                height="32"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="text-primary"
+                set:html={icons[card.icon]}
+              />
+            </div>
+            <h3 class="text-xl font-semibold text-foreground mb-3">
+              {card.title}
+            </h3>
+            {card.icon === "phone" ? (
+              <a
+                href={card.buttonHref}
+                class="text-primary hover:text-primary/80 font-bold text-lg mb-4 block"
+              >
+                {card.subtitle}
+              </a>
+            ) : (
+              <p class="text-primary font-bold text-lg mb-2">{card.subtitle}</p>
+            )}
+            <p class="text-sm text-foreground/60 mb-4">{card.description}</p>
+            <a
+              href={card.buttonHref}
+              target={card.isExternal ? "_blank" : undefined}
+              rel={card.isExternal ? "noopener noreferrer" : undefined}
+              class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 py-2 w-full border border-primary text-primary hover:bg-primary/5 bg-transparent"
+            >
+              {card.buttonText}
+            </a>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,79 @@
+---
+import content from "../data/content.json";
+const { promo } = content;
+---
+
+<section
+  class="relative py-12 md:py-16 bg-primary text-primary-foreground overflow-hidden"
+>
+  <!-- Background gradient accent -->
+  <div class="absolute inset-0 opacity-10">
+    <div
+      class="absolute top-0 right-0 w-96 h-96 bg-accent rounded-full blur-3xl"
+    >
+    </div>
+  </div>
+
+  <div class="relative z-10 max-w-6xl mx-auto px-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+      <!-- Left side - Offer text -->
+      <div class="flex flex-col justify-center">
+        <div class="inline-block mb-4">
+          <span
+            class="bg-accent text-foreground px-4 py-1 rounded-full text-sm font-semibold"
+          >
+            LIMITED TIME OFFER
+          </span>
+        </div>
+
+        <h2
+          class="text-4xl md:text-5xl font-bold mb-4 text-balance leading-tight"
+        >
+          First Cleaning on Us
+        </h2>
+
+        <p class="text-lg md:text-xl mb-6 opacity-95">
+          Get <span class="font-bold text-accent text-2xl">20% OFF</span> your first
+          cleaning service when you book through our Instagram
+        </p>
+
+        <p class="text-base mb-8 opacity-85">
+          Join our community of satisfied clients in NYC and experience premium
+          cleaning service today
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a
+            href="https://www.instagram.com/lules_housekeeping?igsh=ZG50cmFod3Y0ZDJ1&utm_source=qr"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center justify-center px-6 py-3 bg-accent text-foreground font-semibold rounded-lg hover:bg-white transition-colors"
+          >
+            Follow on Instagram
+          </a>
+
+          <a
+            href="#contact"
+            class="inline-flex items-center justify-center px-6 py-3 bg-white/10 text-primary-foreground font-semibold rounded-lg border border-primary-foreground/30 hover:bg-white/20 transition-colors"
+          >
+            Get Free Quote
+          </a>
+        </div>
+      </div>
+
+      <!-- Right side - QR Code -->
+      <div class="flex justify-center md:justify-end">
+        <div class="bg-white p-8 rounded-2xl shadow-2xl max-w-sm">
+          <img
+            src="/images/imagen-20de-20whatsapp-202025-12-08-20a-20las-2018.webp"
+            alt="Lules Housekeeping Instagram QR Code"
+            class="w-full rounded-lg"
+          />
+          <p class="text-center text-foreground text-sm font-medium mt-4">
+            Scan to follow @lules_housekeeping
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

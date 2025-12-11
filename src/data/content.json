@@ -1,0 +1,309 @@
+{
+  "businessInfo": {
+    "name": "Lules",
+    "fullName": "Lules Premium Cleaning",
+    "tagline": "PREMIUM CLEANING",
+    "description": "Premium cleaning services serving all of New York City with excellence and care.",
+    "foundedYear": 2014,
+    "phone": "(347) 617-8182",
+    "phoneRaw": "+13476178182",
+    "email": "info@lulescleaning.com",
+    "location": "New York City, NY",
+    "serviceArea": "All 5 Boroughs Served",
+    "hours": {
+      "schedule": "Mon - Sun: 7:00 AM - 11:00 PM",
+      "emergency": "24/7 Emergency Available"
+    },
+    "social": {
+      "instagram": {
+        "handle": "@lules_housekeeping",
+        "url": "https://www.instagram.com/lules_housekeeping?igsh=ZG50cmFod3Y0ZDJ1&utm_source=qr"
+      },
+      "facebook": "#",
+      "linkedin": "#"
+    }
+  },
+  "navigation": {
+    "items": [
+      { "label": "Home", "href": "#home" },
+      { "label": "About", "href": "#about" },
+      { "label": "Services", "href": "#services" },
+      { "label": "Gallery", "href": "#gallery" },
+      { "label": "Contact", "href": "#contact" }
+    ]
+  },
+  "hero": {
+    "badge": "✨ Professional Cleaning Excellence",
+    "title": "Premium Cleaning for NYC Luxury",
+    "description": "Expert team of professional cleaners delivering immaculate results. Eco-friendly products, attention to detail, and service excellence that sets us apart.",
+    "primaryCTA": "Get a Free Quote",
+    "secondaryCTA": "Call Now",
+    "stats": [
+      { "value": "500+", "label": "Happy Clients" },
+      { "value": "10+", "label": "Years Experience" },
+      { "value": "24/7", "label": "Support" }
+    ],
+    "image": {
+      "src": "/images/foto-principal.webp",
+      "alt": "Luxury NYC apartment with premium cleaning"
+    }
+  },
+  "promo": {
+    "badge": "LIMITED TIME OFFER",
+    "title": "First Cleaning on Us",
+    "offer": "20% OFF",
+    "description": "Get 20% OFF your first cleaning service when you book through our Instagram",
+    "subtitle": "Join our community of satisfied clients in NYC and experience premium cleaning service today",
+    "primaryCTA": "Follow on Instagram",
+    "secondaryCTA": "Get Free Quote",
+    "qrCode": {
+      "src": "/images/imagen-20de-20whatsapp-202025-12-08-20a-20las-2018.webp",
+      "alt": "Lules Housekeeping Instagram QR Code",
+      "caption": "Scan to follow @lules_housekeeping"
+    }
+  },
+  "about": {
+    "title": "Why Choose Lules",
+    "subtitle": "We set the standard for premium cleaning services in New York City",
+    "vision": {
+      "title": "Our Vision",
+      "description": "To achieve recognition and establish our team as leaders in cleaning services, while always maintaining friendly relationships with our clients."
+    },
+    "goal": {
+      "title": "Our Goal",
+      "description": "To provide tailored cleaning solutions that exceed expectations and create employment opportunities for our growing team."
+    },
+    "benefits": [
+      {
+        "icon": "zap",
+        "title": "Professional Team",
+        "description": "Our dedicated team of trained cleaners brings extensive expertise and experience in premium cleaning services."
+      },
+      {
+        "icon": "leaf",
+        "title": "Eco-Friendly",
+        "description": "We use only sustainable, environmentally responsible cleaning products and practices."
+      },
+      {
+        "icon": "check-circle",
+        "title": "Quality Guaranteed",
+        "description": "Meticulous attention to detail ensures immaculate results every single time."
+      },
+      {
+        "icon": "users",
+        "title": "100% Trustworthy",
+        "description": "All staff thoroughly vetted, insured, and committed to your complete satisfaction."
+      }
+    ]
+  },
+  "services": {
+    "title": "Our Services",
+    "subtitle": "Comprehensive cleaning solutions tailored to your unique needs",
+    "list": [
+      {
+        "icon": "home",
+        "title": "Residential Cleaning",
+        "description": "Thorough home cleaning that keeps your space pristine and welcoming for your family.",
+        "features": ["Weekly/Monthly Plans", "Deep Cleaning", "Move-in/Out"]
+      },
+      {
+        "icon": "building",
+        "title": "Office Cleaning",
+        "description": "Professional cleaning for corporate spaces that creates a productive work environment.",
+        "features": ["Customizable Schedules", "After-Hours Service", "Eco-Friendly"]
+      },
+      {
+        "icon": "sparkles",
+        "title": "Deep Cleaning",
+        "description": "Our team delivers intensive cleaning reaching every corner and crevice of your space.",
+        "features": ["Steam Cleaning", "Carpet Care", "Detailed Surfaces"]
+      },
+      {
+        "icon": "package",
+        "title": "Move-In/Out Cleaning",
+        "description": "Complete cleaning when moving, ensuring pristine conditions for new occupants.",
+        "features": ["Floor Stripping", "Window Cleaning", "Final Walkthrough"]
+      },
+      {
+        "icon": "store",
+        "title": "Commercial Cleaning",
+        "description": "Specialized cleaning for retail and hospitality businesses that impress clients.",
+        "features": ["Daily Service", "Professional Standards", "Business Hours"]
+      },
+      {
+        "icon": "wind",
+        "title": "Specialized Services",
+        "description": "Post-construction, carpet care, and other specialized cleaning needs.",
+        "features": ["Post-Construction", "Carpet/Upholstery", "Maintenance Plans"]
+      }
+    ]
+  },
+  "coverage": {
+    "title": "Service Coverage Area",
+    "subtitle": "We proudly serve all five boroughs of New York City",
+    "areas": [
+      {
+        "name": "Manhattan",
+        "description": "All neighborhoods from Downtown to Upper Manhattan"
+      },
+      {
+        "name": "Brooklyn",
+        "description": "Including Williamsburg, DUMBO, Park Slope, and more"
+      },
+      {
+        "name": "Queens",
+        "description": "Long Island City, Astoria, Forest Hills, and surrounding areas"
+      },
+      {
+        "name": "Bronx",
+        "description": "All major neighborhoods and residential areas"
+      },
+      {
+        "name": "Staten Island",
+        "description": "Complete coverage throughout the borough"
+      }
+    ],
+    "footer": {
+      "main": "📍 Serving all of New York City with premium cleaning excellence since 2014",
+      "question": "Not sure if we cover your area?",
+      "cta": "Call us at (347) 617-8182 for details"
+    }
+  },
+  "testimonials": {
+    "title": "Trusted by NYC's Finest",
+    "subtitle": "Real testimonials from our satisfied clients across New York City",
+    "list": [
+      {
+        "name": "Sarah Anderson",
+        "role": "Manhattan Penthouse Owner",
+        "content": "Lules transformed our penthouse. The attention to detail is unmatched. We've never had our home cleaner!",
+        "rating": 5
+      },
+      {
+        "name": "Michael Chen",
+        "role": "CEO, Tech Startup",
+        "content": "Our office has never looked better. Professional, efficient, and they work around our schedule perfectly.",
+        "rating": 5
+      },
+      {
+        "name": "Jessica Martinez",
+        "role": "Interior Designer",
+        "content": "I recommend Lules to all my clients. The eco-friendly approach and premium results are exceptional.",
+        "rating": 5
+      },
+      {
+        "name": "David Thompson",
+        "role": "Real Estate Developer",
+        "content": "For move-in/out cleaning, Lules is our go-to. Reliable, thorough, and always on time.",
+        "rating": 5
+      }
+    ]
+  },
+  "gallery": {
+    "title": "Our Work Speaks",
+    "subtitle": "Gallery of pristine spaces we've transformed",
+    "images": [
+      {
+        "src": "/images/foto-principal.webp",
+        "alt": "Luxury NYC apartment with professional cleaning",
+        "title": "Luxury Residences"
+      },
+      {
+        "src": "/images/image.webp",
+        "alt": "Modern office space professionally cleaned",
+        "title": "Corporate Spaces"
+      },
+      {
+        "src": "/premium-kitchen-after-professional-cleaning-sparkl.webp",
+        "alt": "Premium kitchen cleaning results",
+        "title": "Kitchen Excellence"
+      },
+      {
+        "src": "/luxury-bathroom-pristine-professional-cleaning.webp",
+        "alt": "Luxury bathroom cleaning",
+        "title": "Bathroom Perfection"
+      },
+      {
+        "src": "/modern-living-room-floor-detail-cleaning.webp",
+        "alt": "Living room floor cleaning",
+        "title": "Floor Care"
+      },
+      {
+        "src": "/commercial-office-workspace-professional-detail-cl.webp",
+        "alt": "Commercial office cleaning",
+        "title": "Office Spaces"
+      }
+    ]
+  },
+  "contact": {
+    "title": "Ready to Get Clean?",
+    "subtitle": "Contact us today and let our professional team handle your cleaning needs",
+    "cards": [
+      {
+        "icon": "phone",
+        "title": "Call Us",
+        "subtitle": "(347) 617-8182",
+        "description": "Available 24/7",
+        "buttonText": "Call Now",
+        "buttonHref": "tel:+13476178182"
+      },
+      {
+        "icon": "map-pin",
+        "title": "Service Area",
+        "subtitle": "NYC Metro",
+        "description": "All 5 Boroughs Served",
+        "buttonText": "View Coverage",
+        "buttonHref": "#coverage"
+      },
+      {
+        "icon": "clock",
+        "title": "Hours",
+        "subtitle": "7:00 AM - 11:00 PM",
+        "description": "Mon - Sun",
+        "buttonText": "Book Now",
+        "buttonHref": "#contact"
+      },
+      {
+        "icon": "instagram",
+        "title": "Follow Us",
+        "subtitle": "@lules_housekeeping",
+        "description": "See our work",
+        "buttonText": "Follow",
+        "buttonHref": "https://www.instagram.com/lules_housekeeping?igsh=ZG50cmFod3Y0ZDJ1&utm_source=qr",
+        "isExternal": true
+      }
+    ]
+  },
+  "footer": {
+    "brand": {
+      "name": "Lules",
+      "description": "Premium cleaning services serving all of New York City with excellence and care."
+    },
+    "services": {
+      "title": "Services",
+      "links": [
+        { "label": "Residential Cleaning", "href": "#services" },
+        { "label": "Office Cleaning", "href": "#services" },
+        { "label": "Deep Cleaning", "href": "#services" },
+        { "label": "Move Services", "href": "#services" }
+      ]
+    },
+    "company": {
+      "title": "Company",
+      "links": [
+        { "label": "About Us", "href": "#about" },
+        { "label": "Portfolio", "href": "#gallery" },
+        { "label": "Contact", "href": "#contact" },
+        { "label": "Careers", "href": "#" }
+      ]
+    },
+    "legal": {
+      "copyright": "Lules Premium Cleaning. All rights reserved.",
+      "links": [
+        { "label": "Privacy Policy", "href": "#" },
+        { "label": "Terms of Service", "href": "#" },
+        { "label": "Sitemap", "href": "#" }
+      ]
+    }
+  }
+}

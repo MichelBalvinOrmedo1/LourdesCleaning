@@ -1,0 +1,85 @@
+---
+import content from '../data/content.json';
+const { coverage } = content;
+
+interface Area {
+  name: string;
+  description: string;
+}
+
+const areas: Area[] = coverage.areas as Area[];
+---
+
+<section id="coverage" class="py-20 sm:py-28 lg:py-32 bg-muted/40">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center space-y-4 mb-16">
+      <h2 class="text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-pretty">
+        {coverage.title.split('Coverage Area')[0]}<span class="text-primary">Coverage Area</span>
+      </h2>
+      <p class="text-lg text-foreground/70 max-w-2xl mx-auto">
+        {coverage.subtitle}
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-6">
+      {areas.map((area, index) => (
+        <div
+          class="area-card p-8 bg-background rounded-xl border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-lg space-y-3 text-center"
+          style={`animation-delay: ${index * 0.1}s`}
+        >
+          <div class="flex justify-center">
+            <div class="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center">
+              <!-- MapPin Icon -->
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="text-accent"
+              >
+                <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+            </div>
+          </div>
+          <h3 class="text-lg font-semibold text-foreground">{area.name}</h3>
+          <p class="text-sm text-foreground/60">{area.description}</p>
+        </div>
+      ))}
+    </div>
+
+    <div class="mt-16 p-8 bg-primary/5 rounded-2xl border border-primary/20 text-center space-y-4">
+      <p class="text-lg text-foreground/70">
+        📍 Serving all of New York City with premium cleaning excellence since 2014
+      </p>
+      <p class="text-sm text-foreground/60">
+        Not sure if we cover your area?{" "}
+        <span class="font-semibold text-primary">Call us at (347) 617-8182</span> for details
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  @keyframes scale-in {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .area-card {
+    animation: scale-in 0.6s ease-out forwards;
+    opacity: 0;
+    transform-origin: center;
+  }
+</style>

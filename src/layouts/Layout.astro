@@ -1,0 +1,60 @@
+---
+import "../styles/global.css";
+// import { Analytics } from "@vercel/analytics/astro"; // TODO: Install @vercel/analytics if needed: npx astro add vercel
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Lules Premium Cleaning Services | NYC",
+  description = "Professional premium cleaning services for luxury homes and offices in New York City. Expert cleaners, eco-friendly products, and impeccable results.",
+} = Astro.props;
+
+const keywords =
+  "cleaning services NYC, premium cleaning, residential cleaning, office cleaning, deep cleaning";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+
+    <!-- Icons -->
+    <link rel="icon" type="image/svg+xml" href="/perfi.svg" />
+    <link
+      rel="icon"
+      type="image/webp"
+      href="/perfil.webp"
+      media="(prefers-color-scheme: light)"
+    />
+    <link
+      rel="icon"
+      type="image/webp"
+      href="/perfil.webp"
+      media="(prefers-color-scheme: dark)"
+    />
+    <link rel="apple-touch-icon" href="/apple-icon.png" />
+
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Metadata -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="keywords" content={keywords} />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Lules Premium Cleaning Services | NYC" />
+    <meta
+      property="og:description"
+      content="Professional premium cleaning services for luxury homes and offices in New York City."
+    />
+    <meta property="og:type" content="website" />
+  </head>
+  <body class="font-sans antialiased">
+    <slot />
+    <!-- <Analytics /> -->
+  </body>
+</html>
