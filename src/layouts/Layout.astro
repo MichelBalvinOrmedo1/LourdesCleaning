@@ -22,7 +22,7 @@ const keywords =
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Icons -->
     <link rel="icon" type="image/svg+xml" href="/perfi.svg" />
@@ -58,9 +58,9 @@ const keywords =
     <!-- Additional head content -->
     <slot name="head" />
   </head>
-  <body class="font-sans antialiased">
+  <body class="font-sans antialiased overflow-x-hidden">
+    <Navigation />
     <div class="min-h-screen flex flex-col">
-      <Navigation />
       <main class="flex-1">
         <slot />
       </main>
