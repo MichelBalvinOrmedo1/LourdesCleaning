@@ -5,10 +5,10 @@ const { services: servicesData } = content;
 type IconKey = "home" | "building" | "sparkles" | "package" | "store" | "wind";
 
 interface Service {
+  slug: string;
   icon: IconKey;
   title: string;
-  description: string;
-  features: string[];
+  image?: string;
 }
 
 const services: Service[] = servicesData.list as Service[];
@@ -27,58 +27,51 @@ const icons: Record<IconKey, string> = {
 };
 ---
 
-<section id="services" class="py-20 sm:py-28 lg:py-32 bg-background">
-  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center space-y-4 mb-16">
-      <h2
-        class="text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-pretty"
-      >
-        Our <span class="text-primary">Services</span>
-      </h2>
-      <p class="text-lg text-foreground/70 max-w-2xl mx-auto">
-        Comprehensive cleaning solutions tailored to your unique needs
-      </p>
-    </div>
-
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+<section id="services" class="py-16 px-4 bg-background">
+  <div class="max-w-6xl mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
       {
-        services.map((service, index) => (
-          <div
-            class="service-card group rounded-lg border bg-card text-card-foreground shadow-sm hover:shadow-xl transition-shadow duration-300 border-border/50 hover:border-primary/30"
-            style={`animation-delay: ${index * 0.08}s`}
+        services.slice(0, 4).map((service) => (
+          <a
+            href={`/service/${service.slug}`}
+            class="service-card group relative h-96 overflow-hidden rounded-lg shadow-lg transition-transform duration-300 hover:scale-105"
           >
-            <div class="flex flex-col space-y-1.5 p-6">
-              <div class="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center mb-4 group-hover:bg-accent/20 transition-colors">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  class="text-accent"
-                  set:html={icons[service.icon]}
-                />
-              </div>
-              <h3 class="text-xl font-semibold leading-none tracking-tight">
+            {/* Background Image */}
+            <img
+              src={service.image || "/images/foto-principal.webp"}
+              alt={service.title}
+              class="absolute inset-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-110"
+            />
+
+            {/* Dark Overlay */}
+            <div class="absolute inset-0 bg-black/40 transition-opacity duration-300 group-hover:bg-black/50" />
+
+            {/* Content */}
+            <div class="relative h-full flex flex-col items-center justify-center gap-4 p-6 text-center">
+              {/* Icon */}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="48"
+                height="48"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="text-accent drop-shadow-lg transition-transform duration-300 group-hover:scale-110"
+                set:html={icons[service.icon]}
+              />
+
+              {/* Title */}
+              <h3 class="text-white text-lg font-bold leading-tight drop-shadow-lg uppercase">
                 {service.title}
               </h3>
-              <p class="text-sm text-muted-foreground">{service.description}</p>
             </div>
-            <div class="p-6 pt-0">
-              <ul class="space-y-2">
-                {service.features.map((feature) => (
-                  <li class="flex items-center gap-2 text-sm text-foreground/70">
-                    <span class="w-1.5 h-1.5 rounded-full bg-accent" />
-                    {feature}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
+
+            {/* Hover Effect - Subtle shine */}
+            <div class="absolute inset-0 bg-gradient-to-t from-accent/0 via-transparent to-accent/0 opacity-0 transition-opacity duration-300 group-hover:opacity-20" />
+          </a>
         ))
       }
     </div>
@@ -86,6 +79,11 @@ const icons: Record<IconKey, string> = {
 </section>
 
 <style>
+  .service-card {
+    animation: fade-in-up 0.6s ease-out forwards;
+    opacity: 0;
+  }
+
   @keyframes fade-in-up {
     from {
       opacity: 0;
@@ -95,10 +93,5 @@ const icons: Record<IconKey, string> = {
       opacity: 1;
       transform: translateY(0);
     }
-  }
-
-  .service-card {
-    animation: fade-in-up 0.6s ease-out forwards;
-    opacity: 0;
   }
 </style>

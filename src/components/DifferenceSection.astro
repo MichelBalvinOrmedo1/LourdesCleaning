@@ -1,0 +1,108 @@
+---
+import content from "../data/content.json";
+
+const { difference } = content;
+const { title, subtitle, features, cta } = difference;
+
+---
+
+<section class="py-20 md:py-28 relative overflow-hidden">
+  <!-- Background Pattern -->
+  <div class="absolute inset-0 opacity-5">
+    <div class="absolute inset-0" style="background-image: radial-gradient(circle at 2px 2px, #8b5cf6 1px, transparent 0); background-size: 40px 40px;"></div>
+  </div>
+
+  <div class="container mx-auto px-4 relative z-10">
+    <!-- Header -->
+    <div class="text-center mb-16 max-w-3xl mx-auto section-header">
+      <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4" style="color: #1a1a1a;">
+        {title}
+      </h2>
+      <p class="text-base md:text-lg" style="color: #6b7280;">
+        {subtitle}
+      </p>
+    </div>
+
+    <!-- Features Grid -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+      {features.map((feature, index) => (
+        <div 
+          class="feature-card group relative bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2"
+          style={`animation-delay: ${index * 0.1}s`}
+        >
+          <!-- Image -->
+          <div class="relative w-full h-48 mb-6 rounded-xl overflow-hidden shadow-lg">
+            <img 
+              src={feature.image} 
+              alt={feature.title}
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              loading="lazy"
+            />
+          </div>
+
+          <!-- Title -->
+          <h3 class="text-xl font-bold mb-3" style="color: #1a1a1a;">
+            {feature.title}
+          </h3>
+
+          <!-- Description -->
+          <p class="text-sm leading-relaxed" style="color: #6b7280;">
+            {feature.description}
+          </p>
+        </div>
+      ))}
+    </div>
+
+    <!-- Bottom CTA -->
+    <div class="text-center mt-16 cta-box">
+      <div class="inline-flex flex-col sm:flex-row items-center gap-4 bg-gradient-to-r from-purple-50 to-pink-50 rounded-2xl p-8 shadow-lg">
+        <div class="text-left">
+          <p class="text-lg font-semibold mb-1" style="color: #1a1a1a;">
+            {cta.title}
+          </p>
+          <p class="text-sm" style="color: #6b7280;">
+            {cta.subtitle}
+          </p>
+        </div>
+        <a
+          href={cta.buttonLink}
+          class="whitespace-nowrap rounded-lg px-8 py-3 text-base font-semibold text-white bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+        >
+          {cta.buttonText}
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .section-header {
+    opacity: 0;
+    animation: fadeInUp 0.8s ease-out forwards;
+  }
+
+  .feature-card {
+    opacity: 0;
+    animation: fadeInUp 0.8s ease-out forwards;
+  }
+
+  .cta-box {
+    opacity: 0;
+    animation: fadeInUp 0.8s ease-out 0.4s forwards;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .feature-card:hover {
+    box-shadow: 0 20px 60px rgba(139, 92, 246, 0.15);
+  }
+</style>

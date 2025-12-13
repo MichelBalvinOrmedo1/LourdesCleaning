@@ -1,5 +1,7 @@
 ---
 import "../styles/global.css";
+import Navigation from "../components/Navigation.astro";
+import Footer from "../components/Footer.astro";
 // import { Analytics } from "@vercel/analytics/astro"; // TODO: Install @vercel/analytics if needed: npx astro add vercel
 
 interface Props {
@@ -52,9 +54,18 @@ const keywords =
       content="Professional premium cleaning services for luxury homes and offices in New York City."
     />
     <meta property="og:type" content="website" />
+
+    <!-- Additional head content -->
+    <slot name="head" />
   </head>
   <body class="font-sans antialiased">
-    <slot />
+    <div class="min-h-screen flex flex-col">
+      <Navigation />
+      <main class="flex-1">
+        <slot />
+      </main>
+      <Footer />
+    </div>
     <!-- <Analytics /> -->
   </body>
 </html>

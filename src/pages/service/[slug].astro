@@ -1,0 +1,585 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import content from "../../data/content.json";
+
+export function getStaticPaths() {
+  const { services } = content;
+  return services.list.map((service: any) => ({
+    params: { slug: service.slug },
+    props: { service },
+  }));
+}
+
+const { service } = Astro.props;
+const { businessInfo, services } = content;
+const serviceLinks = services.list.map((s: any) => ({
+  slug: s.slug,
+  label: s.title,
+}));
+
+type IconKey = "home" | "building" | "sparkles" | "package" | "store" | "wind";
+
+const icons: Record<IconKey, string> = {
+  home: '<path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>',
+  building:
+    '<rect width="16" height="20" x="4" y="2" rx="2" ry="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01"/><path d="M16 6h.01"/><path d="M12 6h.01"/><path d="M12 10h.01"/><path d="M12 14h.01"/><path d="M16 10h.01"/><path d="M16 14h.01"/><path d="M8 10h.01"/><path d="M8 14h.01"/>',
+  sparkles:
+    '<path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/><path d="M20 3v4"/><path d="M22 5h-4"/><path d="M4 17v2"/><path d="M5 18H3"/>',
+  package:
+    '<path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/>',
+  store:
+    '<path d="m2 7 4.41-4.41A2 2 0 0 1 7.83 2h8.34a2 2 0 0 1 1.42.59L22 7"/><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><path d="M15 22v-4a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4"/><path d="M2 7h20"/><path d="M22 7v3a2 2 0 0 1-2 2a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 16 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 12 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 8 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 4 12a2 2 0 0 1-2-2V7"/>',
+  wind: '<path d="M17.7 7.7a2.5 2.5 0 1 1 1.8 4.3H2"/><path d="M9.6 4.6A2 2 0 1 1 11 8H2"/><path d="M12.6 19.4A2 2 0 1 0 14 16H2"/>',
+};
+---
+
+<Layout
+  title={`${service.title} - ${businessInfo.fullName} | NYC`}
+  description={service.description}
+>
+  <!-- Preload gallery images -->
+  <Fragment slot="head">
+    {service.gallery?.map((item: any) => (
+      <>
+        {item.type === 'before-after' ? (
+          <>
+            <link rel="preload" as="image" href={item.before} />
+            <link rel="preload" as="image" href={item.after} />
+          </>
+        ) : (
+          <link rel="preload" as="image" href={item.image} />
+        )}
+      </>
+    ))}
+  </Fragment>
+    <!-- Service Navigation Tabs -->
+    <div class="bg-background border-b border-border/30 sticky top-[70px] z-40">
+      <div class="container mx-auto px-4">
+        <div class="flex overflow-x-auto pb-0 no-scrollbar">
+          {serviceLinks.map((item: any) => (
+            <a
+              href={`/service/${item.slug}`}
+              class={`px-6 py-4 text-sm font-medium whitespace-nowrap border-b-2 transition-colors ${
+                service.slug === item.slug
+                  ? "border-accent text-primary"
+                  : "border-transparent text-foreground/60 hover:text-foreground"
+              }`}
+            >
+              {item.label}
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container mx-auto px-4 py-16">
+      <div class="grid lg:grid-cols-3 gap-12">
+        <!-- Left Column - Content -->
+        <div class="lg:col-span-2 space-y-12">
+          <!-- Service Title & Description -->
+          <div>
+            <h1 class="text-5xl font-serif font-bold text-primary mb-4 uppercase">{service.title}</h1>
+            <p class="text-xl text-foreground/70 mb-6">{service.description}</p>
+            <p class="text-foreground/60 leading-relaxed">{service.longDescription}</p>
+            <p class="text-foreground/60 leading-relaxed mt-4">{service.fullText}</p>
+          </div>
+
+          <!-- Before & After Gallery -->
+          {service.gallery && service.gallery.length > 0 && (
+            <div>
+              <h2 class="text-3xl font-serif font-bold text-primary mb-8">Experience the Lules Difference!</h2>
+              
+              <!-- Main Gallery Display -->
+              <div class="relative">
+                <!-- Previous Arrow -->
+                <button
+                  id="gallery-prev"
+                  class="absolute left-4 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full bg-white/90 backdrop-blur-sm shadow-xl hover:bg-accent hover:text-white transition-all disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center"
+                  aria-label="Previous image"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="m15 18-6-6 6-6"/>
+                  </svg>
+                </button>
+
+                <!-- Gallery Items Container -->
+                <div class="relative overflow-hidden rounded-xl h-96 md:h-[500px]">
+                  {service.gallery.map((item: any, index: number) => (
+                    <div class={`gallery-item absolute inset-0 transition-opacity duration-300 ${index === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'}`} data-index={index}>
+                      {item.type === 'before-after' ? (
+                        <div class="relative overflow-hidden rounded-xl shadow-2xl bg-background" data-slider={index}>
+                          <div class="relative w-full h-96 md:h-[500px]">
+                            <img
+                              src={item.after}
+                              alt={`${item.alt} - After`}
+                              class="absolute inset-0 w-full h-full object-cover"
+                            />
+                            <div class="absolute inset-0 overflow-hidyden" style="clip-path: inset(0 50% 0 0);" data-before-container={index}>
+                              <img
+                                src={item.before}
+                                alt={`${item.alt} - Before`}
+                                class="absolute inset-0 w-full h-full object-cover"
+                              />
+                            </div>
+                            <div class="absolute inset-y-0 left-1/2 -translate-x-1/2 w-1 bg-accent cursor-ew-resize z-10" data-slider-line={index}>
+                              <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 bg-white rounded-full shadow-2xl flex items-center justify-center pointer-events-none">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-accent">
+                                  <path d="m15 18-6-6 6-6"/>
+                                  <path d="m9 18 6-6-6-6"/>
+                                </svg>
+                              </div>
+                            </div>
+                            <div class="absolute top-4 left-4 z-20">
+                              <span class="px-4 py-2 bg-black/70 text-white font-bold text-sm rounded-full backdrop-blur-sm">BEFORE</span>
+                            </div>
+                            <div class="absolute top-4 right-4 z-20">
+                              <span class="px-4 py-2 bg-accent text-white font-bold text-sm rounded-full shadow-lg">AFTER</span>
+                            </div>
+                          </div>
+                        </div>
+                      ) : (
+                        <div class="relative overflow-hidden rounded-xl shadow-xl group">
+                          <img
+                            src={item.image}
+                            alt={item.alt}
+                            class="w-full h-96 md:h-[500px] object-cover transition-transform duration-500 group-hover:scale-105"
+                          />
+                          <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+
+                <!-- Next Arrow -->
+                <button
+                  id="gallery-next"
+                  class="absolute right-4 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full bg-white/90 backdrop-blur-sm shadow-xl hover:bg-accent hover:text-white transition-all disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center"
+                  aria-label="Next image"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="m9 18 6-6-6-6"/>
+                  </svg>
+                </button>
+
+                <!-- Counter -->
+                <div class="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 px-4 py-2 bg-black/70 text-white text-sm font-medium rounded-full backdrop-blur-sm">
+                  <span id="current-slide">1</span> / <span id="total-slides">{service.gallery.length}</span>
+                </div>
+              </div>
+
+              <!-- Thumbnail Gallery -->
+              {service.gallery.length > 1 && (
+                <div class="mt-8 pt-8 border-t border-border">
+                  <h3 class="text-xl font-semibold text-foreground mb-4">View All Results</h3>
+                  <div class="relative">
+                    <!-- Previous Button -->
+                    <button
+                      id="thumb-prev"
+                      class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 w-10 h-10 rounded-full bg-white shadow-lg hover:bg-accent hover:text-white transition-all disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center"
+                      aria-label="Previous"
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="m15 18-6-6 6-6"/>
+                      </svg>
+                    </button>
+
+                    <!-- Thumbnails Container -->
+                    <div class="overflow-hidden">
+                      <div id="thumbnails-track" class="flex gap-3 transition-transform duration-300">
+                        {service.gallery.map((item: any, index: number) => (
+                          <button
+                            class="thumbnail-item relative shrink-0 w-32 overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-accent"
+                            data-thumbnail={index}
+                          >
+                            <img
+                              src={item.type === 'before-after' ? item.after : item.image}
+                              alt={item.alt}
+                              class="w-full h-24 object-cover"
+                              loading="lazy"
+                            />
+                            {item.type === 'before-after' && (
+                              <div class="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-accent/50 flex items-center justify-center">
+                                <span class="text-white text-xs font-bold bg-black/70 px-2 py-1 rounded-full">Before/After</span>
+                              </div>
+                            )}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    <!-- Next Button -->
+                    <button
+                      id="thumb-next"
+                      class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 w-10 h-10 rounded-full bg-white shadow-lg hover:bg-accent hover:text-white transition-all disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center"
+                      aria-label="Next"
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="m9 18 6-6-6-6"/>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+
+          <!-- Benefits -->
+          <div>
+            <h2 class="text-3xl font-serif font-bold text-primary mb-8">{service.whyChoose}</h2>
+            <div class="grid md:grid-cols-2 gap-4">
+              {service.benefits.map((benefit: string) => (
+                <div class="flex items-start gap-3">
+                  <div class="w-5 h-5 rounded-full bg-accent/30 flex items-center justify-center shrink-0 mt-1">
+                    <div class="w-2 h-2 rounded-full bg-accent"></div>
+                  </div>
+                  <p class="text-foreground/70">{benefit}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <!-- Coverage Info -->
+          <div class="p-6 bg-primary/5 rounded-lg border border-primary/10">
+            <p class="text-foreground/70">
+              Our {service.title.toLowerCase()} services are available throughout{" "}
+              <strong class="text-primary">{service.coverage.join(", ")}</strong>. Contact us today to get started
+              with a free estimate.
+            </p>
+          </div>
+
+          <!-- FAQs -->
+          {service.faqs && service.faqs.length > 0 && (
+            <div>
+              <h2 class="text-3xl font-serif font-bold text-primary mb-8 uppercase">
+                {service.title.split(" ")[0]} FAQ
+              </h2>
+              <p class="text-foreground/70 mb-8">
+                Check out our commonly asked questions about {service.title.toLowerCase()}
+              </p>
+              <div class="space-y-6">
+                {service.faqs.map((faq: any) => (
+                  <div>
+                    <h3 class="font-bold text-primary mb-3">{faq.question}</h3>
+                    <p class="text-foreground/70 leading-relaxed">{faq.answer}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+
+        <!-- Right Column - Contact Form -->
+        <div class="lg:col-span-1">
+          <div class="sticky top-[140px] rounded-lg border bg-card text-card-foreground shadow-sm border-border/30">
+            <div class="p-8">
+              <h3 class="text-2xl font-bold text-primary mb-6">GET IN TOUCH</h3>
+              <p class="text-sm text-foreground/70 mb-6">
+                To ask questions or schedule an appointment, please fill out the form below
+              </p>
+
+              <form class="space-y-4" id="contact-form">
+                <div class="grid grid-cols-2 gap-4">
+                  <div>
+                    <label class="text-xs font-medium text-primary block mb-2">FIRST NAME *</label>
+                    <input
+                      type="text"
+                      name="firstName"
+                      class="w-full px-3 py-2 border border-border rounded text-sm focus:outline-none focus:border-accent"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label class="text-xs font-medium text-primary block mb-2">LAST NAME *</label>
+                    <input
+                      type="text"
+                      name="lastName"
+                      class="w-full px-3 py-2 border border-border rounded text-sm focus:outline-none focus:border-accent"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                  <div>
+                    <label class="text-xs font-medium text-primary block mb-2">EMAIL *</label>
+                    <input
+                      type="email"
+                      name="email"
+                      class="w-full px-3 py-2 border border-border rounded text-sm focus:outline-none focus:border-accent"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label class="text-xs font-medium text-primary block mb-2">PHONE</label>
+                    <input
+                      type="tel"
+                      name="phone"
+                      class="w-full px-3 py-2 border border-border rounded text-sm focus:outline-none focus:border-accent"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label class="text-xs font-medium text-primary block mb-2">MESSAGE</label>
+                  <textarea
+                    name="message"
+                    rows="4"
+                    class="w-full px-3 py-2 border border-border rounded text-sm focus:outline-none focus:border-accent resize-none"
+                    placeholder="Tell us about your cleaning needs (min 20 characters)"
+                  ></textarea>
+                </div>
+
+                <div class="flex items-start gap-2 pt-2">
+                  <input type="checkbox" id="privacy" class="mt-1" required />
+                  <label for="privacy" class="text-xs text-foreground/60">
+                    By providing a telephone number and submitting this form, you are consenting to be contacted by
+                    SMS text message. Message & data rates may apply.
+                  </label>
+                </div>
+
+                <button
+                  type="submit"
+                  class="w-full bg-accent hover:bg-accent/90 text-white font-bold py-3 rounded-full transition-colors"
+                >
+                  SUBMIT
+                </button>
+              </form>
+
+              <!-- Contact Info Below Form -->
+              <div class="mt-8 pt-8 border-t border-border/30 space-y-4">
+                <div>
+                  <p class="text-xs font-medium text-primary mb-2">PHONE</p>
+                  <a href={`tel:${businessInfo.phoneRaw}`} class="text-foreground/70 hover:text-primary transition-colors">
+                    {businessInfo.phone}
+                  </a>
+                </div>
+                <div>
+                  <p class="text-xs font-medium text-primary mb-2">HOURS</p>
+                  <p class="text-foreground/70">{businessInfo.hours.schedule}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Social Share -->
+    <div class="container mx-auto px-4 py-12 border-t border-border/30">
+      <p class="font-medium text-primary mb-4">Share:</p>
+      <div class="flex gap-4">
+        <a href="#" class="text-foreground/60 hover:text-accent transition-colors text-xl">f</a>
+        <a href="#" class="text-foreground/60 hover:text-accent transition-colors text-xl">𝕏</a>
+        <a href="#" class="text-foreground/60 hover:text-accent transition-colors text-xl">📌</a>
+        <a href="#" class="text-foreground/60 hover:text-accent transition-colors text-xl">in</a>
+        <a href="#" class="text-foreground/60 hover:text-accent transition-colors text-xl">✉</a>
+      </div>
+    </div>
+</Layout>
+
+<style>
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .gallery-item {
+    scroll-margin-top: 120px;
+  }
+</style>
+
+<script>
+  // Before/After Slider Functionality
+  document.addEventListener('DOMContentLoaded', () => {
+    // Precargar TODAS las imágenes de la galería inmediatamente
+    const allImages = document.querySelectorAll<HTMLImageElement>('.gallery-item img');
+    const imageCache: HTMLImageElement[] = [];
+    allImages.forEach((img) => {
+      const preloadImg = new Image();
+      preloadImg.src = img.src;
+      imageCache.push(preloadImg);
+    });
+
+    const sliders = document.querySelectorAll('[data-slider]');
+    let activeSlider: {
+      element: Element;
+      beforeContainer: Element | null;
+      sliderLine: Element | null;
+      updateSlider: (x: number) => void;
+    } | null = null;
+    let hasMoved = false;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      if (activeSlider) {
+        hasMoved = true;
+        activeSlider.updateSlider(e.clientX);
+      }
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      if (activeSlider && e.touches.length > 0) {
+        hasMoved = true;
+        activeSlider.updateSlider(e.touches[0].clientX);
+      }
+    };
+
+    const stopDragging = (e: MouseEvent | TouchEvent) => {
+      // Si no hubo movimiento, es un click - actualizar posición
+      if (activeSlider && !hasMoved) {
+        const x = 'touches' in e && e.changedTouches.length > 0 
+          ? e.changedTouches[0].clientX 
+          : (e as MouseEvent).clientX;
+        activeSlider.updateSlider(x);
+      }
+      
+      if (activeSlider) {
+        activeSlider.element.classList.remove('select-none');
+        activeSlider = null;
+      }
+      hasMoved = false;
+    };
+    
+    sliders.forEach((slider) => {
+      const index = slider.getAttribute('data-slider');
+      const beforeContainer = slider.querySelector(`[data-before-container="${index}"]`);
+      const sliderLine = slider.querySelector(`[data-slider-line="${index}"]`);
+
+      const updateSlider = (x: number) => {
+        const rect = slider.getBoundingClientRect();
+        const position = Math.max(0, Math.min(x - rect.left, rect.width));
+        const percentage = (position / rect.width) * 100;
+        
+        if (beforeContainer && sliderLine) {
+          (beforeContainer as HTMLElement).style.clipPath = `inset(0 ${100 - percentage}% 0 0)`;
+          (sliderLine as HTMLElement).style.left = `${percentage}%`;
+        }
+      };
+
+      const startDragging = (e: Event) => {
+        e.preventDefault();
+        hasMoved = false;
+        activeSlider = { element: slider, beforeContainer, sliderLine, updateSlider };
+        slider.classList.add('select-none');
+      };
+
+      // Mouse events
+      slider.addEventListener('mousedown', startDragging);
+
+      // Touch events
+      slider.addEventListener('touchstart', startDragging);
+    });
+
+    // Global event listeners (only once)
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', (e) => stopDragging(e));
+    document.addEventListener('touchmove', handleTouchMove, { passive: false });
+    document.addEventListener('touchend', (e) => stopDragging(e));
+
+    // Gallery navigation
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    const galleryPrevBtn = document.getElementById('gallery-prev');
+    const galleryNextBtn = document.getElementById('gallery-next');
+    const currentSlideSpan = document.getElementById('current-slide');
+    let currentGalleryIndex = 0;
+
+    const showGalleryItem = (index: number) => {
+      galleryItems.forEach((item, i) => {
+        if (i === index) {
+          item.classList.remove('opacity-0', 'z-0');
+          item.classList.add('opacity-100', 'z-10');
+        } else {
+          item.classList.remove('opacity-100', 'z-10');
+          item.classList.add('opacity-0', 'z-0');
+        }
+      });
+
+      if (currentSlideSpan) {
+        currentSlideSpan.textContent = (index + 1).toString();
+      }
+
+      if (galleryPrevBtn) {
+        (galleryPrevBtn as HTMLButtonElement).disabled = index === 0;
+      }
+      if (galleryNextBtn) {
+        (galleryNextBtn as HTMLButtonElement).disabled = index === galleryItems.length - 1;
+      }
+    };
+
+    if (galleryPrevBtn) {
+      galleryPrevBtn.addEventListener('click', () => {
+        if (currentGalleryIndex > 0) {
+          currentGalleryIndex--;
+          showGalleryItem(currentGalleryIndex);
+        }
+      });
+    }
+
+    if (galleryNextBtn) {
+      galleryNextBtn.addEventListener('click', () => {
+        if (currentGalleryIndex < galleryItems.length - 1) {
+          currentGalleryIndex++;
+          showGalleryItem(currentGalleryIndex);
+        }
+      });
+    }
+
+    // Initial gallery state
+    if (galleryItems.length > 0) {
+      showGalleryItem(0);
+    }
+
+    // Thumbnail navigation
+    const thumbnails = document.querySelectorAll('[data-thumbnail]');
+
+    thumbnails.forEach((thumbnail) => {
+      thumbnail.addEventListener('click', () => {
+        const index = parseInt(thumbnail.getAttribute('data-thumbnail') || '0');
+        currentGalleryIndex = index;
+        showGalleryItem(currentGalleryIndex);
+      });
+    });
+
+    // Thumbnail carousel navigation
+    const track = document.getElementById('thumbnails-track');
+    const prevBtn = document.getElementById('thumb-prev');
+    const nextBtn = document.getElementById('thumb-next');
+    
+    if (track && prevBtn && nextBtn && thumbnails.length > 0) {
+      const itemsPerPage = 5;
+      const itemWidth = 128 + 12; // width + gap (w-32 = 128px + gap-3 = 12px)
+      let currentPage = 0;
+      const totalPages = Math.ceil(thumbnails.length / itemsPerPage);
+
+      const updateCarousel = () => {
+        const offset = -(currentPage * itemWidth * itemsPerPage);
+        (track as HTMLElement).style.transform = `translateX(${offset}px)`;
+        
+        // Update button states
+        (prevBtn as HTMLButtonElement).disabled = currentPage === 0;
+        (nextBtn as HTMLButtonElement).disabled = currentPage >= totalPages - 1;
+      };
+
+      prevBtn.addEventListener('click', () => {
+        if (currentPage > 0) {
+          currentPage--;
+          updateCarousel();
+        }
+      });
+
+      nextBtn.addEventListener('click', () => {
+        if (currentPage < totalPages - 1) {
+          currentPage++;
+          updateCarousel();
+        }
+      });
+
+      // Initial state
+      updateCarousel();
+    }
+  });
+</script>

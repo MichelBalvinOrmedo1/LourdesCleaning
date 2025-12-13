@@ -1,0 +1,291 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import content from "../../data/content.json";
+
+const { businessInfo, services: servicesData } = content;
+
+type IconKey = "home" | "building" | "sparkles" | "package" | "store" | "wind";
+
+interface Service {
+  slug: string;
+  icon: IconKey;
+  title: string;
+  description: string;
+  image?: string;
+  features: string[];
+}
+
+const services: Service[] = servicesData.list as Service[];
+
+const icons: Record<IconKey, string> = {
+  home: '<path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>',
+  building:
+    '<rect width="16" height="20" x="4" y="2" rx="2" ry="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01"/><path d="M16 6h.01"/><path d="M12 6h.01"/><path d="M12 10h.01"/><path d="M12 14h.01"/><path d="M16 10h.01"/><path d="M16 14h.01"/><path d="M8 10h.01"/><path d="M8 14h.01"/>',
+  sparkles:
+    '<path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/><path d="M20 3v4"/><path d="M22 5h-4"/><path d="M4 17v2"/><path d="M5 18H3"/>',
+  package:
+    '<path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/>',
+  store:
+    '<path d="m2 7 4.41-4.41A2 2 0 0 1 7.83 2h8.34a2 2 0 0 1 1.42.59L22 7"/><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><path d="M15 22v-4a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4"/><path d="M2 7h20"/><path d="M22 7v3a2 2 0 0 1-2 2a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 16 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 12 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 8 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 4 12a2 2 0 0 1-2-2V7"/>',
+  wind: '<path d="M17.7 7.7a2.5 2.5 0 1 1 1.8 4.3H2"/><path d="M9.6 4.6A2 2 0 1 1 11 8H2"/><path d="M12.6 19.4A2 2 0 1 0 14 16H2"/>',
+};
+---
+
+<Layout
+  title={`Services - ${businessInfo.fullName} | NYC Cleaning`}
+  description={servicesData.subtitle}
+>
+  <!-- Hero Section with Background -->
+  <section class="relative py-32 md:py-40 overflow-hidden">
+    <!-- Background Image with Overlay -->
+    <div class="absolute inset-0 z-0">
+      <img
+        src="/images/foto-principal.webp"
+        alt="Professional Cleaning Services"
+        class="w-full h-full object-cover"
+      />
+      <div
+        class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-background"
+      >
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="max-w-4xl mx-auto text-center">
+        <h1
+          class="text-5xl md:text-6xl lg:text-7xl font-serif font-bold text-white mb-6 drop-shadow-2xl"
+        >
+          Our <span class="text-accent">Premium Services</span>
+        </h1>
+        <p
+          class="text-xl md:text-2xl text-white/90 leading-relaxed drop-shadow-lg"
+        >
+          {servicesData.subtitle}
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Grid with Images -->
+  <section class="py-20 bg-background">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {
+          services.map((service, index) => (
+            <a
+              href={`/service/${service.slug}`}
+              id={service.slug}
+              class="service-card group relative h-[500px] overflow-hidden rounded-xl shadow-xl hover:shadow-2xl transition-all duration-500"
+              style={`animation-delay: ${index * 0.1}s`}
+            >
+              {/* Background Image */}
+              <div class="absolute inset-0">
+                <img
+                  src={service.image || "/images/foto-principal.webp"}
+                  alt={service.title}
+                  class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+                <div class="absolute inset-0 bg-gradient-to-b from-black/50 via-black/60 to-black/80 group-hover:from-black/60 group-hover:via-black/70 group-hover:to-black/90 transition-all duration-500" />
+              </div>
+
+              {/* Content */}
+              <div class="relative h-full flex flex-col justify-between p-8">
+                {/* Top Section - Icon & Title */}
+                <div class="space-y-4">
+                  <div class="w-16 h-16 rounded-xl bg-accent/20 backdrop-blur-sm flex items-center justify-center group-hover:bg-accent/30 group-hover:scale-110 transition-all duration-300">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="32"
+                      height="32"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="text-accent"
+                      set:html={icons[service.icon]}
+                    />
+                  </div>
+                  <h3 class="text-2xl font-bold text-white drop-shadow-lg uppercase tracking-wide">
+                    {service.title}
+                  </h3>
+                  <p class="text-white/90 text-sm leading-relaxed drop-shadow-md">
+                    {service.description}
+                  </p>
+                </div>
+
+                {/* Bottom Section - Features (visible on hover) */}
+                <div class="space-y-3 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500">
+                  <div class="h-px bg-white/20 mb-4" />
+                  <ul class="space-y-2">
+                    {service.features.slice(0, 3).map((feature: string) => (
+                      <li class="flex items-center gap-2 text-sm text-white/90">
+                        <div class="w-1.5 h-1.5 rounded-full bg-accent" />
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+                  <div class="pt-4">
+                    <span class="inline-flex items-center gap-2 text-accent font-semibold text-sm group-hover:gap-3 transition-all">
+                      Learn More
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path d="M5 12h14" />
+                        <path d="m12 5 7 7-7 7" />
+                      </svg>
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Shine Effect on Hover */}
+              <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 group-hover:opacity-100 transform -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out" />
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us Section -->
+  <section class="py-20 bg-muted/30">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-4xl mx-auto text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-serif font-bold mb-6">
+          Why Choose <span class="text-primary">Lules</span>?
+        </h2>
+        <p class="text-lg text-foreground/70">
+          Premium cleaning excellence backed by years of experience serving New
+          York City
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-4 gap-8 max-w-6xl mx-auto">
+        <div class="text-center space-y-3">
+          <div
+            class="w-16 h-16 rounded-full bg-accent/10 flex items-center justify-center mx-auto"
+          >
+            <span class="text-3xl font-bold text-accent">10+</span>
+          </div>
+          <h3 class="font-bold text-foreground">Years Experience</h3>
+          <p class="text-sm text-foreground/60">Trusted since 2014</p>
+        </div>
+        <div class="text-center space-y-3">
+          <div
+            class="w-16 h-16 rounded-full bg-accent/10 flex items-center justify-center mx-auto"
+          >
+            <span class="text-3xl font-bold text-accent">500+</span>
+          </div>
+          <h3 class="font-bold text-foreground">Happy Clients</h3>
+          <p class="text-sm text-foreground/60">Across all NYC</p>
+        </div>
+        <div class="text-center space-y-3">
+          <div
+            class="w-16 h-16 rounded-full bg-accent/10 flex items-center justify-center mx-auto"
+          >
+            <span class="text-3xl font-bold text-accent">24/7</span>
+          </div>
+          <h3 class="font-bold text-foreground">Support Available</h3>
+          <p class="text-sm text-foreground/60">Always here for you</p>
+        </div>
+        <div class="text-center space-y-3">
+          <div
+            class="w-16 h-16 rounded-full bg-accent/10 flex items-center justify-center mx-auto"
+          >
+            <span class="text-3xl font-bold text-accent">100%</span>
+          </div>
+          <h3 class="font-bold text-foreground">Satisfaction</h3>
+          <p class="text-sm text-foreground/60">Guaranteed results</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="relative py-24 overflow-hidden">
+    <div class="absolute inset-0 z-0">
+      <img
+        src="/images/image.webp"
+        alt="Contact Lules"
+        class="w-full h-full object-cover"
+      />
+      <div class="absolute inset-0 bg-black/70"></div>
+    </div>
+
+    <div
+      class="container mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10"
+    >
+      <h2
+        class="text-4xl md:text-5xl font-serif font-bold mb-6 text-white drop-shadow-lg"
+      >
+        Ready for a <span class="text-accent">Cleaner Space</span>?
+      </h2>
+      <p class="text-xl text-white/90 mb-8 max-w-2xl mx-auto drop-shadow-md">
+        Contact {businessInfo.name} today for a free quote on any of our professional
+        cleaning services.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href={`tel:${businessInfo.phoneRaw}`}>
+          <button
+            class="px-8 py-4 bg-accent text-white hover:bg-accent/90 rounded-full font-bold text-lg shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
+          >
+            Call {businessInfo.phone}
+          </button>
+        </a>
+        <a href="/#contact">
+          <button
+            class="px-8 py-4 border-2 border-white bg-white/10 backdrop-blur-sm text-white hover:bg-white hover:text-foreground rounded-full font-bold text-lg shadow-xl transition-all duration-300 hover:scale-105"
+          >
+            Get Free Quote
+          </button>
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  @keyframes fade-in-up {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .service-card {
+    animation: fade-in-up 0.6s ease-out forwards;
+    opacity: 0;
+  }
+
+  .service-card:target {
+    scroll-margin-top: 100px;
+    animation: highlight 2s ease-out;
+  }
+
+  @keyframes highlight {
+    0%,
+    100% {
+      box-shadow:
+        0 1px 3px 0 rgb(0 0 0 / 0.1),
+        0 1px 2px -1px rgb(0 0 0 / 0.1);
+    }
+    50% {
+      box-shadow: 0 0 0 3px hsl(var(--primary) / 0.3);
+    }
+  }
+</style>

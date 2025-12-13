@@ -1,0 +1,253 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import content from "../../data/content.json";
+
+const { businessInfo, about, coverage } = content;
+---
+
+<Layout
+  title={`About ${businessInfo.fullName} | NYC Cleaning Services`}
+  description={`Learn about ${businessInfo.name}, New York's leading professional cleaning company serving residential and commercial clients.`}
+>
+  <!-- Hero Section -->
+  <section
+    class="py-16 md:py-24 bg-gradient-to-b from-primary/10 to-background"
+  >
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mx-auto text-center">
+        <h1
+          class="text-4xl md:text-5xl font-serif font-bold text-foreground mb-6"
+        >
+          About {businessInfo.name}
+        </h1>
+        <p class="text-lg text-foreground/70 leading-relaxed">
+          {businessInfo.description}
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mission & Vision -->
+  <section class="py-20 sm:py-28 lg:py-32">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid md:grid-cols-2 gap-8">
+        <div
+          class="p-8 bg-background rounded-xl border border-border hover:shadow-lg transition-shadow duration-300 space-y-4"
+        >
+          <h3 class="text-2xl font-serif font-bold text-primary">
+            {about.vision.title}
+          </h3>
+          <p class="text-foreground/70 leading-relaxed">
+            {about.vision.description}
+          </p>
+        </div>
+        <div
+          class="p-8 bg-background rounded-xl border border-border hover:shadow-lg transition-shadow duration-300 space-y-4"
+        >
+          <h3 class="text-2xl font-serif font-bold text-primary">
+            {about.goal.title}
+          </h3>
+          <p class="text-foreground/70 leading-relaxed">
+            {about.goal.description}
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- What Sets Us Apart -->
+  <section class="py-20 sm:py-28 lg:py-32 bg-muted/40">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center space-y-4 mb-12">
+        <h2
+          class="text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-pretty"
+        >
+          {about.title}
+        </h2>
+        <p class="text-lg text-foreground/70 max-w-2xl mx-auto">
+          {about.subtitle}
+        </p>
+      </div>
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {
+          about.benefits.map((benefit, index) => (
+            <div
+              class="benefit-card p-8 bg-background rounded-xl border border-border hover:shadow-lg transition-shadow duration-300 space-y-4"
+              style={`animation-delay: ${index * 0.1}s`}
+            >
+              <div class="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="text-accent"
+                >
+                  {benefit.icon === "zap" && (
+                    <path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z" />
+                  )}
+                  {benefit.icon === "leaf" && (
+                    <>
+                      <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z" />
+                      <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12" />
+                    </>
+                  )}
+                  {benefit.icon === "check-circle" && (
+                    <>
+                      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                      <path d="m9 11 3 3L22 4" />
+                    </>
+                  )}
+                  {benefit.icon === "users" && (
+                    <>
+                      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                      <circle cx="9" cy="7" r="4" />
+                      <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                      <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                    </>
+                  )}
+                </svg>
+              </div>
+              <h3 class="text-lg font-semibold text-foreground">
+                {benefit.title}
+              </h3>
+              <p class="text-foreground/60 leading-relaxed">
+                {benefit.description}
+              </p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Coverage Area -->
+  <section class="py-20 sm:py-28 lg:py-32 bg-muted/40">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center space-y-4 mb-16">
+        <h2
+          class="text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-pretty"
+        >
+          Service <span class="text-primary">Coverage Area</span>
+        </h2>
+        <p class="text-lg text-foreground/70 max-w-2xl mx-auto">
+          {coverage.subtitle}
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-6">
+        {
+          coverage.areas.map((area, index) => (
+            <div
+              class="area-card p-8 bg-background rounded-xl border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-lg space-y-3 text-center"
+              style={`animation-delay: ${index * 0.1}s`}
+            >
+              <div class="flex justify-center">
+                <div class="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="text-accent"
+                  >
+                    <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" />
+                    <circle cx="12" cy="10" r="3" />
+                  </svg>
+                </div>
+              </div>
+              <h3 class="text-lg font-semibold text-foreground">{area.name}</h3>
+              <p class="text-sm text-foreground/60">{area.description}</p>
+            </div>
+          ))
+        }
+      </div>
+
+      <div
+        class="mt-16 p-8 bg-primary/5 rounded-2xl border border-primary/20 text-center space-y-4"
+      >
+        <p class="text-lg text-foreground/70">
+          {coverage.footer.main}
+        </p>
+        <p class="text-sm text-foreground/60">
+          {coverage.footer.question}{" "}
+          <span class="font-semibold text-primary">{coverage.footer.cta}</span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-16 md:py-20 bg-primary/10">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl font-serif font-bold mb-6">
+        Ready to Experience Premium Cleaning?
+      </h2>
+      <p class="text-lg text-foreground/70 mb-8 max-w-2xl mx-auto">
+        Contact {businessInfo.name} today for a free quote on any of our professional
+        cleaning services.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href={`tel:${businessInfo.phoneRaw}`}>
+          <button
+            class="px-6 py-3 bg-primary text-primary-foreground hover:bg-primary/90 rounded-md font-medium"
+          >
+            Call {businessInfo.phone}
+          </button>
+        </a>
+        <a href="/">
+          <button
+            class="px-6 py-3 border border-border bg-background hover:bg-accent rounded-md font-medium"
+          >
+            View Services
+          </button>
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  @keyframes fade-in-up {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes scale-in {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .benefit-card {
+    animation: fade-in-up 0.6s ease-out forwards;
+    opacity: 0;
+  }
+
+  .area-card {
+    animation: scale-in 0.6s ease-out forwards;
+    opacity: 0;
+    transform-origin: center;
+  }
+</style>

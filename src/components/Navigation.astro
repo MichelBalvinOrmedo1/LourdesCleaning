@@ -1,11 +1,16 @@
 ---
 import content from "../data/content.json";
-const { navigation, businessInfo } = content;
+const { navigation, businessInfo, services } = content;
 const navItems = navigation.items;
+
+const serviceLinks = services.list.map((service: any) => ({
+  label: service.title,
+  href: `/service/${service.slug}`,
+}));
 ---
 
 <nav
-  class="sticky top-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border shadow-sm"
+  class="sticky top-0 z-50 bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60 border-b border-border shadow-sm"
 >
   <div class="container mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex justify-between items-center py-4">
@@ -32,6 +37,45 @@ const navItems = navigation.items;
             </a>
           ))
         }
+
+        <!-- Services Dropdown -->
+        <div class="relative services-dropdown">
+          <a
+            href="/services"
+            class="flex items-center gap-1 text-sm font-medium text-foreground/70 hover:text-foreground transition-colors"
+          >
+            Services
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="chevron-icon transition-transform"
+            >
+              <path d="m6 9 6 6 6-6"></path>
+            </svg>
+          </a>
+
+          <div
+            class="services-menu absolute top-full left-0 mt-2 w-56 bg-background border border-border rounded-lg shadow-xl opacity-0 invisible transition-all duration-200 z-50"
+          >
+            {
+              serviceLinks.map((service) => (
+                <a
+                  href={service.href}
+                  class="block px-4 py-3 text-sm text-foreground/70 hover:text-primary hover:bg-accent/10 transition-colors first:rounded-t-lg last:rounded-b-lg"
+                >
+                  {service.label}
+                </a>
+              ))
+            }
+          </div>
+        </div>
       </div>
 
       <!-- CTA Buttons -->
@@ -109,27 +153,101 @@ const navItems = navigation.items;
     <!-- Mobile Navigation -->
     <div
       id="mobile-menu"
-      class="hidden md:hidden pb-4 space-y-3 animate-in fade-in slide-in-from-top-2"
+      class="hidden md:hidden pb-6 space-y-1 animate-in fade-in slide-in-from-top-2"
     >
       {
         navItems.map((item) => (
           <a
             href={item.href}
-            class="mobile-nav-link block text-sm font-medium text-foreground/70 hover:text-foreground transition-colors py-2"
+            class="mobile-nav-link block text-base font-medium text-foreground/80 hover:text-foreground hover:bg-accent/5 transition-all py-3 px-2 rounded-md"
           >
             {item.label}
           </a>
         ))
       }
-      <div class="pt-3 space-y-2 border-t border-border">
-        <a
-          href="tel:+13476178182"
-          class="block text-sm font-medium text-primary hover:text-primary/80"
+
+      <!-- Mobile Services -->
+      <div class="space-y-1 pt-2 mt-2 border-t border-border">
+        <button
+          id="mobile-services-toggle"
+          class="w-full flex items-center justify-between text-base font-medium text-foreground py-3 px-2 rounded-md hover:bg-accent/5 transition-all"
         >
-          📞 (347) 617-8182
+          <span>Services</span>
+          <svg
+            id="mobile-services-icon"
+            xmlns="http://www.w3.org/2000/svg"
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="transition-transform duration-200"
+          >
+            <path d="m6 9 6 6 6-6"></path>
+          </svg>
+        </button>
+
+        <div id="mobile-services-menu" class="hidden space-y-1 pl-4">
+          {
+            serviceLinks.map((service) => (
+              <a
+                href={service.href}
+                class="mobile-nav-link block text-sm text-foreground/70 hover:text-primary hover:bg-accent/5 py-2.5 px-2 rounded-md transition-all"
+              >
+                {service.label}
+              </a>
+            ))
+          }
+          <a
+            href="/services"
+            class="mobile-nav-link flex items-center gap-1 text-sm font-semibold text-primary hover:bg-accent/5 py-2.5 px-2 rounded-md transition-all"
+          >
+            View All Services
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M5 12h14"></path>
+              <path d="m12 5 7 7-7 7"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="pt-4 mt-3 space-y-3 border-t border-border">
+        <a
+          href={`tel:${businessInfo.phoneRaw}`}
+          class="flex items-center gap-2 text-base font-medium text-primary hover:text-primary/80 py-2 px-2 hover:bg-accent/5 rounded-md transition-all"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path
+              d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
+            ></path>
+          </svg>
+          {businessInfo.phone}
         </a>
         <button
-          class="w-full inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2"
+          class="w-full inline-flex items-center justify-center whitespace-nowrap rounded-md text-base font-semibold ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-12 px-6 py-3 shadow-lg"
         >
           Get Quote
         </button>
@@ -170,4 +288,42 @@ const navItems = navigation.items;
       }
     });
   });
+
+  // Toggle mobile services submenu
+  const mobileServicesToggle = document.getElementById(
+    "mobile-services-toggle"
+  );
+  const mobileServicesMenu = document.getElementById("mobile-services-menu");
+  const mobileServicesIcon = document.getElementById("mobile-services-icon");
+
+  mobileServicesToggle?.addEventListener("click", () => {
+    const isHidden = mobileServicesMenu?.classList.contains("hidden");
+
+    if (isHidden) {
+      mobileServicesMenu?.classList.remove("hidden");
+      mobileServicesIcon?.classList.add("rotate-180");
+    } else {
+      mobileServicesMenu?.classList.add("hidden");
+      mobileServicesIcon?.classList.remove("rotate-180");
+    }
+  });
+
+  // Dropdown de servicios en desktop
+  const servicesDropdown = document.querySelector(".services-dropdown");
+  const servicesMenu = document.querySelector(".services-menu");
+  const chevronIcon = document.querySelector(".chevron-icon");
+
+  if (servicesDropdown && servicesMenu) {
+    servicesDropdown.addEventListener("mouseenter", () => {
+      servicesMenu.classList.remove("opacity-0", "invisible");
+      servicesMenu.classList.add("opacity-100", "visible");
+      chevronIcon?.classList.add("rotate-180");
+    });
+
+    servicesDropdown.addEventListener("mouseleave", () => {
+      servicesMenu.classList.add("opacity-0", "invisible");
+      servicesMenu.classList.remove("opacity-100", "visible");
+      chevronIcon?.classList.remove("rotate-180");
+    });
+  }
 </script>

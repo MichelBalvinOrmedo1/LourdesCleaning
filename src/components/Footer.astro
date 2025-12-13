@@ -1,23 +1,13 @@
 ---
 import content from "../data/content.json";
-const { footer, businessInfo } = content;
+const { businessInfo } = content;
 const currentYear = new Date().getFullYear();
 
-type IconKey =
-  | "instagram"
-  | "facebook"
-  | "linkedin"
-  | "phone"
-  | "mail"
-  | "map-pin";
+type IconKey = "instagram" | "phone" | "mail" | "map-pin";
 
 const icons: Record<IconKey, string> = {
   instagram:
     '<rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>',
-  facebook:
-    '<path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>',
-  linkedin:
-    '<path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/>',
   phone:
     '<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>',
   mail: '<rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>',
@@ -26,28 +16,87 @@ const icons: Record<IconKey, string> = {
 };
 ---
 
-<footer class="bg-primary text-primary-foreground">
+<footer class="bg-background border-t border-border">
   <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
-    <div class="grid md:grid-cols-4 gap-8 mb-12">
-      <!-- Brand -->
-      <div class="space-y-4">
-        <div class="text-2xl font-serif font-bold text-accent">
-          {footer.brand.name}
-        </div>
-        <p class="text-sm text-primary-foreground/80">
-          {footer.brand.description}
-        </p>
-        <div class="flex gap-4">
-          <a
-            href={businessInfo.social.instagram.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="text-accent hover:text-accent/80 transition-colors hover:scale-110"
-          >
+    <div class="grid md:grid-cols-2 gap-12 mb-16">
+      <!-- Contact Info Section -->
+      <div class="space-y-6">
+        <h3 class="text-2xl font-serif font-bold text-foreground">
+          GET IN TOUCH
+        </h3>
+
+        <!-- Contact Details -->
+        <div class="space-y-4">
+          <div class="flex items-center gap-3">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="20"
               height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="text-accent shrink-0"
+              set:html={icons.phone}
+            />
+            <a
+              href={`tel:${businessInfo.phoneRaw}`}
+              class="text-foreground/80 hover:text-primary transition-colors"
+            >
+              {businessInfo.phone}
+            </a>
+          </div>
+          <div class="flex items-center gap-3">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="text-accent shrink-0"
+              set:html={icons.mail}
+            />
+            <span class="text-foreground/80">{businessInfo.email}</span>
+          </div>
+          <div class="flex gap-3">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="text-accent shrink-0"
+              set:html={icons["map-pin"]}
+            />
+            <div class="text-foreground/80">
+              <p>All NYC Boroughs</p>
+              <p>Manhattan, Brooklyn & Queens</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Instagram -->
+        <div class="pt-4">
+          <a
+            href={businessInfo.social.instagram.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full hover:from-purple-700 hover:to-pink-700 transition-all duration-300 hover:scale-105 shadow-lg"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -56,178 +105,51 @@ const icons: Record<IconKey, string> = {
               stroke-linejoin="round"
               set:html={icons.instagram}
             />
-          </a>
-          <a
-            href="#"
-            class="text-accent hover:text-accent/80 transition-colors hover:scale-110"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              set:html={icons.facebook}
-            />
-          </a>
-          <a
-            href="#"
-            class="text-accent hover:text-accent/80 transition-colors hover:scale-110"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              set:html={icons.linkedin}
-            />
+            <span class="font-semibold">Follow us on Instagram</span>
           </a>
         </div>
       </div>
 
-      <!-- Quick Links -->
+      <!-- About Section -->
       <div class="space-y-4">
-        <h4 class="font-semibold text-accent">Services</h4>
-        <ul class="space-y-2 text-sm text-primary-foreground/80">
-          <li>
-            <a href="#services" class="hover:text-accent transition-colors">
-              Residential Cleaning
-            </a>
-          </li>
-          <li>
-            <a href="#services" class="hover:text-accent transition-colors">
-              Office Cleaning
-            </a>
-          </li>
-          <li>
-            <a href="#services" class="hover:text-accent transition-colors">
-              Deep Cleaning
-            </a>
-          </li>
-          <li>
-            <a href="#services" class="hover:text-accent transition-colors">
-              Move Services
-            </a>
-          </li>
-        </ul>
-      </div>
-
-      <!-- Company -->
-      <div class="space-y-4">
-        <h4 class="font-semibold text-accent">Company</h4>
-        <ul class="space-y-2 text-sm text-primary-foreground/80">
-          <li>
-            <a href="#about" class="hover:text-accent transition-colors">
-              About Us
-            </a>
-          </li>
-          <li>
-            <a href="#gallery" class="hover:text-accent transition-colors">
-              Portfolio
-            </a>
-          </li>
-          <li>
-            <a href="#contact" class="hover:text-accent transition-colors">
-              Contact
-            </a>
-          </li>
-          <li>
-            <a href="#" class="hover:text-accent transition-colors">
-              Careers
-            </a>
-          </li>
-        </ul>
-      </div>
-
-      <!-- Contact Info -->
-      <div class="space-y-4">
-        <h4 class="font-semibold text-accent">Get In Touch</h4>
-        <div class="space-y-3 text-sm text-primary-foreground/80">
-          <div
-            class="flex items-center gap-3 hover:text-accent transition-colors group"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="flex-shrink-0 group-hover:text-accent"
-              set:html={icons.phone}
-            />
-            <a
-              href="tel:+13476178182"
-              class="hover:text-accent transition-colors"
-            >
-              (347) 617-8182
-            </a>
-          </div>
-          <div
-            class="flex items-center gap-3 hover:text-accent transition-colors group"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="flex-shrink-0 group-hover:text-accent"
-              set:html={icons.mail}
-            />
-            <span>info@lulescleaning.com</span>
-          </div>
-          <div
-            class="flex items-center gap-3 hover:text-accent transition-colors group"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="flex-shrink-0 group-hover:text-accent"
-              set:html={icons["map-pin"]}
-            />
-            <span>All NYC Boroughs</span>
-          </div>
-        </div>
+        <h3 class="text-xl font-serif font-bold text-foreground">
+          ABOUT LULES
+        </h3>
+        <p class="text-foreground/80 leading-relaxed">
+          Lules is New York City's professional cleaning team providing expert
+          residential, commercial, and specialized cleaning services. For more
+          than a decade, our dedicated cleaners have served clients across all
+          NYC boroughs including Manhattan, Brooklyn, Queens and more.
+        </p>
+        <p class="text-foreground/80 leading-relaxed">
+          We offer affordable, professional cleaning services tailored to your
+          needs. Learn more about our commitment to excellence and how we can
+          help transform your space.
+        </p>
+        <a
+          href="/about"
+          class="inline-block text-primary hover:text-primary/80 font-medium transition-colors"
+        >
+          Learn More →
+        </a>
       </div>
     </div>
 
-    <div class="border-t border-accent/30 pt-8">
+    <div class="border-t border-border pt-8">
       <div
-        class="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-primary-foreground/70"
+        class="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-foreground/60"
       >
         <p>&copy; {currentYear} Lules Premium Cleaning. All rights reserved.</p>
         <div class="flex gap-6">
-          <a href="#" class="hover:text-accent transition-colors">
+          <a href="/about" class="hover:text-foreground transition-colors">
             Privacy Policy
           </a>
-          <a href="#" class="hover:text-accent transition-colors">
+          <a href="#" class="hover:text-foreground transition-colors">
             Terms of Service
           </a>
-          <a href="#" class="hover:text-accent transition-colors"> Sitemap </a>
+          <a href="#" class="hover:text-foreground transition-colors">
+            Sitemap
+          </a>
         </div>
       </div>
     </div>

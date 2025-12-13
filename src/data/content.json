@@ -25,11 +25,12 @@
   },
   "navigation": {
     "items": [
-      { "label": "Home", "href": "#home" },
-      { "label": "About", "href": "#about" },
-      { "label": "Services", "href": "#services" },
-      { "label": "Gallery", "href": "#gallery" },
-      { "label": "Contact", "href": "#contact" }
+      { "label": "Home", "href": "/" },
+      { "label": "About", "href": "/about" },
+      { "label": "Prices", "href": "/prices" },
+      { "label": "FAQ", "href": "/faq" },
+      { "label": "Gallery", "href": "/#gallery" },
+      { "label": "Contact", "href": "/#contact" }
     ]
   },
   "hero": {
@@ -101,40 +102,132 @@
     "subtitle": "Comprehensive cleaning solutions tailored to your unique needs",
     "list": [
       {
+        "slug": "residential-cleaning",
         "icon": "home",
         "title": "Residential Cleaning",
-        "description": "Thorough home cleaning that keeps your space pristine and welcoming for your family.",
-        "features": ["Weekly/Monthly Plans", "Deep Cleaning", "Move-in/Out"]
+        "image": "/images/foto-principal.webp",
+        "description": "New York City's Home & Apartment Cleaning Experts",
+        "longDescription": "Liven up your home with the simple comfort of a clean home. Our dedicated customer service representatives make sure our cleaners will arrive at your home with instructions specifically tailored for the job from laundry and ironing to careful stainless-steel cleaning.",
+        "fullText": "We also offer deep, heavy duty house cleaning services. Available on a regular basis or short notice, six days a week, everyday, weekends, and holidays.",
+        "whyChoose": "Experience the Lules Difference!",
+        "features": ["Bedroom & Living Areas", "Kitchen Deep Clean", "Bathroom Sanitization", "Floor Cleaning & Waxing", "Window Cleaning", "Carpet & Upholstery Care"],
+        "benefits": ["Professional team of trained cleaners", "Flexible scheduling (weekly to one-time)", "Deep cleaning services available", "Pet-friendly products", "Fully insured and bonded", "Personalized cleaning plans"],
+        "faqs": [
+          {"question": "Are you licensed and insured?", "answer": "Yes, we are fully bonded and insured."},
+          {"question": "How do I pay for your service?", "answer": "Payments can be made either by check or major credit cards."},
+          {"question": "What is the cancellation policy?", "answer": "If it is necessary to cancel a cleaning appointment, please notify us at least 24 hours in advance."},
+          {"question": "Should I tip the cleaner?", "answer": "Gratuities, while not required, are greatly appreciated by our cleaning staff."},
+          {"question": "What areas does Lules serve?", "answer": "Lules is proud to serve clients all across New York City, including Manhattan, Brooklyn Heights, Long Island City, Williamsburg and Astoria."}
+        ],
+        "coverage": ["Manhattan", "Brooklyn", "Long Island City", "Williamsburg", "Astoria"],
+        "gallery": [
+          {"type": "before-after", "before": "/images/image.webp", "after": "/images/foto-principal.webp", "alt": "Kitchen cleaning transformation"},
+          {"type": "single", "image": "/images/foto-principal.webp", "alt": "Living room spotless"},
+          {"type": "before-after", "before": "/images/foto-principal.webp", "after": "/images/image.webp", "alt": "Bathroom deep cleaning"}
+        ]
       },
       {
-        "icon": "building",
-        "title": "Office Cleaning",
-        "description": "Professional cleaning for corporate spaces that creates a productive work environment.",
-        "features": ["Customizable Schedules", "After-Hours Service", "Eco-Friendly"]
-      },
-      {
-        "icon": "sparkles",
-        "title": "Deep Cleaning",
-        "description": "Our team delivers intensive cleaning reaching every corner and crevice of your space.",
-        "features": ["Steam Cleaning", "Carpet Care", "Detailed Surfaces"]
-      },
-      {
-        "icon": "package",
-        "title": "Move-In/Out Cleaning",
-        "description": "Complete cleaning when moving, ensuring pristine conditions for new occupants.",
-        "features": ["Floor Stripping", "Window Cleaning", "Final Walkthrough"]
-      },
-      {
+        "slug": "commercial-cleaning",
         "icon": "store",
         "title": "Commercial Cleaning",
-        "description": "Specialized cleaning for retail and hospitality businesses that impress clients.",
-        "features": ["Daily Service", "Professional Standards", "Business Hours"]
+        "image": "/images/image.webp",
+        "description": "Professional Cleaning for Retail & Hospitality Businesses",
+        "longDescription": "A clean business reflects your commitment to excellence. Our commercial cleaning services are customized to maintain your business standards and impress your clients.",
+        "fullText": "Whether you need daily, weekly, or customized schedules, we deliver professional-grade cleaning tailored to your business needs.",
+        "whyChoose": "Why Choose Lules for Commercial Cleaning?",
+        "features": ["Floor Care & Maintenance", "Common Area Cleaning", "Restroom Sanitization", "Window & Glass Cleaning", "Trash & Recycling Management", "Special Event Cleaning"],
+        "benefits": ["Customizable cleaning schedules", "After-hours service available", "Professional standards compliance", "Minimal disruption to operations", "Detailed reporting and QA", "Dedicated account manager"],
+        "faqs": [
+          {"question": "Can you work around my business hours?", "answer": "Yes, we offer flexible scheduling including after-hours service."},
+          {"question": "Do you provide cleaning supplies?", "answer": "Yes, we supply all necessary eco-friendly cleaning materials."}
+        ],
+        "coverage": ["Manhattan", "Brooklyn", "Queens", "Bronx"],
+        "gallery": [
+          {"type": "single", "image": "/images/image.webp", "alt": "Clean commercial space"},
+          {"type": "before-after", "before": "/images/image.webp", "after": "/images/foto-principal.webp", "alt": "Office transformation"}
+        ]
       },
       {
+        "slug": "move-in-out-cleaning",
+        "icon": "package",
+        "title": "Move-In/Out Cleaning",
+        "image": "/images/foto-principal.webp",
+        "description": "Complete Cleaning for Your Moving Day",
+        "longDescription": "Moving is stressful enough. Let our team handle the cleaning so you can focus on settling in smoothly.",
+        "fullText": "Our move-in/out cleaning services ensure pristine conditions whether you're the one leaving or arriving at your new space.",
+        "whyChoose": "Make Your Move Easier",
+        "features": ["Complete Deep Clean", "Carpet Cleaning & Shampooing", "Kitchen Appliances Detailed", "Bathroom Sanitization", "Floor Restoration", "Final Inspection"],
+        "benefits": ["Floor stripping and waxing", "Window and blind cleaning", "Appliance cleaning (inside and out)", "Final walkthrough inspection", "Move-out ready guarantee", "Flexible scheduling around moving dates"],
+        "faqs": [
+          {"question": "How long does move-out cleaning take?", "answer": "It depends on the size of the space, typically 4-8 hours for a standard apartment."}
+        ],
+        "coverage": ["All NYC Areas"],
+        "gallery": [
+          {"type": "before-after", "before": "/images/foto-principal.webp", "after": "/images/image.webp", "alt": "Empty apartment transformation"},
+          {"type": "single", "image": "/images/image.webp", "alt": "Move-out ready"}
+        ]
+      },
+      {
+        "slug": "office-cleaning",
+        "icon": "building",
+        "title": "Office Cleaning",
+        "image": "/images/image.webp",
+        "description": "Professional Office Cleaning Services",
+        "longDescription": "A clean office boosts productivity and creates a professional impression.",
+        "fullText": "We customize our services to your office needs and schedule.",
+        "whyChoose": "Create a Productive Workspace",
+        "features": ["Desk & Workstation Cleaning", "Conference Room Preparation", "Break Room Sanitization", "Floor Maintenance", "Restroom Care", "Waste Management"],
+        "benefits": ["Customizable cleaning schedules", "After-hours service", "Eco-friendly products", "Detail-oriented approach", "Trained and reliable staff", "Minimal workplace disruption"],
+        "faqs": [
+          {"question": "Can you clean during business hours?", "answer": "We offer flexible scheduling. Most clients prefer after-hours cleaning to minimize disruption."}
+        ],
+        "coverage": ["Manhattan", "Brooklyn"],
+        "gallery": [
+          {"type": "before-after", "before": "/images/image.webp", "after": "/images/foto-principal.webp", "alt": "Office desk area before/after"},
+          {"type": "before-after", "before": "/images/foto-principal.webp", "after": "/images/image.webp", "alt": "Conference room transformation"},
+          {"type": "single", "image": "/images/image.webp", "alt": "Clean professional workspace"}
+        ]
+      },
+      {
+        "slug": "deep-cleaning",
+        "icon": "sparkles",
+        "title": "Deep Cleaning",
+        "description": "Intensive Cleaning for Every Corner",
+        "longDescription": "Our team delivers intensive cleaning reaching every corner and crevice of your space.",
+        "fullText": "Sometimes your home or business needs more than regular cleaning. Our deep cleaning service is the solution.",
+        "whyChoose": "Transform Your Space",
+        "features": ["Steam Cleaning Technology", "Grout & Tile Deep Clean", "Appliance Interior Cleaning", "Carpet Shampooing", "Wall & Ceiling Cleaning", "Complete Floor Restoration"],
+        "benefits": ["Steam cleaning for sanitization", "Carpet and upholstery care", "Behind appliances and furniture", "Baseboards and trim cleaning", "Detailed surface restoration", "Post-construction cleanup available"],
+        "faqs": [
+          {"question": "How often should I get deep cleaning?", "answer": "We recommend deep cleaning 1-2 times per year for most homes."}
+        ],
+        "coverage": ["All NYC Areas"],
+        "gallery": [
+          {"type": "before-after", "before": "/images/foto-principal.webp", "after": "/images/image.webp", "alt": "Deep cleaning transformation"},
+          {"type": "before-after", "before": "/images/image.webp", "after": "/images/foto-principal.webp", "alt": "Grout and tile restoration"},
+          {"type": "single", "image": "/images/foto-principal.webp", "alt": "Steam cleaning results"},
+          {"type": "single", "image": "/images/image.webp", "alt": "Complete deep clean finish"}
+        ]
+      },
+      {
+        "slug": "specialized-services",
         "icon": "wind",
         "title": "Specialized Services",
-        "description": "Post-construction, carpet care, and other specialized cleaning needs.",
-        "features": ["Post-Construction", "Carpet/Upholstery", "Maintenance Plans"]
+        "description": "Unique Cleaning Solutions",
+        "longDescription": "Beyond standard cleaning, we offer specialized services for unique situations.",
+        "fullText": "From post-construction to carpet care, we handle any cleaning challenge.",
+        "whyChoose": "Expert Solutions",
+        "features": ["Post-Construction Cleanup", "Carpet Extraction & Shampooing", "Pressure Washing", "Blind & Curtain Cleaning", "Upholstery Care", "Maintenance Programs"],
+        "benefits": ["Post-construction debris removal", "Carpet and upholstery care", "Window and pressure washing", "Maintenance plan options", "Project-based or ongoing service", "Expert team for any challenge"],
+        "faqs": [
+          {"question": "What makes a service specialized?", "answer": "Specialized services address unique cleaning needs beyond standard residential or commercial cleaning."}
+        ],
+        "coverage": ["All NYC Areas"],
+        "gallery": [
+          {"type": "before-after", "before": "/images/image.webp", "after": "/images/foto-principal.webp", "alt": "Post-construction cleanup"},
+          {"type": "single", "image": "/images/image.webp", "alt": "Carpet shampooing result"},
+          {"type": "single", "image": "/images/foto-principal.webp", "alt": "Specialized cleaning service"}
+        ]
       }
     ]
   },
@@ -167,6 +260,38 @@
       "main": "📍 Serving all of New York City with premium cleaning excellence since 2014",
       "question": "Not sure if we cover your area?",
       "cta": "Call us at (347) 617-8182 for details"
+    }
+  },
+  "difference": {
+    "title": "What Makes Us Different",
+    "subtitle": "With years of experience, we have the tools and expertise to make a real difference.",
+    "features": [
+      {
+        "image": "/images/flexible-schedule.jpg",
+        "title": "Flexible Scheduling",
+        "description": "We work around your schedule with same-day service available. Book cleaning at times that fit your busy lifestyle, including evenings and weekends."
+      },
+      {
+        "image": "/images/women-owned.jpg",
+        "title": "Women-Owned & Operated",
+        "description": "Founded and led by women who understand the importance of a clean, welcoming home. We bring attention to detail and care to every space we clean."
+      },
+      {
+        "image": "/images/plant-care.jpg",
+        "title": "Plant Care Included",
+        "description": "We don't just clean around your plants—we care for them! Gentle dusting of leaves, proper watering, and repositioning for optimal light."
+      },
+      {
+        "image": "/images/pet-friendly.jpg",
+        "title": "Pet-Friendly Service",
+        "description": "We love your furry family members! Our team is trained to work safely around pets, and we use pet-safe cleaning products throughout your home."
+      }
+    ],
+    "cta": {
+      "title": "Experience the difference",
+      "subtitle": "Book your first cleaning today",
+      "buttonText": "Get Started",
+      "buttonLink": "/#contact"
     }
   },
   "testimonials": {
@@ -271,6 +396,84 @@
         "buttonText": "Follow",
         "buttonHref": "https://www.instagram.com/lules_housekeeping?igsh=ZG50cmFod3Y0ZDJ1&utm_source=qr",
         "isExternal": true
+      }
+    ]
+  },
+  "pricing": {
+    "title": "GREAT SERVICE. SIMPLE CHARGES.",
+    "subtitle": "Lules is the leading home and office cleaning company in NYC. It is our goal to understand our clients' needs, in order to provide the best possible services. If you have any questions or require any information about our prices and services, please call us at (347) 617-8182. Our customer service will be happy to answer any questions you may have.",
+    "services": [
+      {
+        "id": "residential",
+        "title": "Residential, Office, and Commercial Cleaning",
+        "image": "/images/hero-living-room.webp",
+        "items": [
+          {
+            "price": "$140",
+            "label": "minimum charge, covering 3 hours of work"
+          },
+          {
+            "price": "$45",
+            "label": "per additional hour"
+          },
+          {
+            "price": "$70",
+            "label": "charge if Lules provides cleaning supplies"
+          },
+          {
+            "price": "",
+            "label": "Supplies include vacuum cleaner, mop, bucket, and anything else required for the job"
+          }
+        ],
+        "reverse": false
+      },
+      {
+        "id": "move-in-out",
+        "title": "Post Construction / Move-In & Move-Out Cleaning",
+        "image": "/images/post-construction.webp",
+        "items": [
+          {
+            "price": "$465",
+            "label": "flat-rate covers one cleaning person and all cleaning supplies & equipment for 1 day (6-8 hours) to complete whatever the cleaner is able to do within the 8 hours"
+          }
+        ],
+        "testimonial": {
+          "text": "If you are looking for house cleaning services in NYC within an affordable price range, go for Lules. Highly recommended...!!",
+          "author": "Jack T."
+        },
+        "reverse": true
+      }
+    ],
+    "customQuote": {
+      "title": "Need Something Custom?",
+      "description": "Every space is unique. Get a personalized quote tailored to your specific needs.",
+      "features": [
+        "Commercial spaces",
+        "Event cleaning",
+        "Specialty services",
+        "Recurring discounts available"
+      ]
+    },
+    "faq": [
+      {
+        "question": "How is the final price determined?",
+        "answer": "Our base prices depend on your home size and chosen package. We provide a free in-home estimate to give you an exact quote."
+      },
+      {
+        "question": "Do you offer discounts for recurring service?",
+        "answer": "Yes! Weekly clients save 15%, bi-weekly save 10%, and monthly save 5% off our standard rates."
+      },
+      {
+        "question": "What's included in the price?",
+        "answer": "All cleaning supplies, eco-friendly products, and professional equipment are included. No hidden fees."
+      },
+      {
+        "question": "Can I customize my package?",
+        "answer": "Absolutely! We can add or remove services to create the perfect cleaning plan for your needs."
+      },
+      {
+        "question": "Is there a cancellation fee?",
+        "answer": "We require 24-hour notice for cancellations. Late cancellations may incur a fee."
       }
     ]
   },
