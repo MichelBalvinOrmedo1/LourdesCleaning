@@ -33,7 +33,8 @@ const { hero } = content;
 
         <!-- CTA Buttons -->
         <div class="flex flex-col sm:flex-row gap-4 pt-4">
-          <button
+          <a
+            href="#contact"
             class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-11 px-8 bg-primary text-primary-foreground hover:bg-primary/90 group"
           >
             {hero.primaryCTA}
@@ -51,8 +52,9 @@ const { hero } = content;
               class="ml-2 group-hover:translate-x-1 transition-transform"
               ><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg
             >
-          </button>
-          <button
+          </a>
+          <a
+            href={`tel:${content.businessInfo.phoneRaw}`}
             class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-11 px-8 border border-primary text-primary hover:bg-primary/5 bg-transparent"
           >
             <!-- Phone Icon -->
@@ -71,7 +73,7 @@ const { hero } = content;
               ></path></svg
             >
             <span class="ml-2">{content.businessInfo.phone}</span>
-          </button>
+          </a>
         </div>
 
         <!-- Trust Indicators -->

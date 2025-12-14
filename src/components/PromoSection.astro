@@ -1,6 +1,6 @@
 ---
 import content from "../data/content.json";
-const { promo } = content;
+const { promo, businessInfo } = content;
 ---
 
 <section
@@ -44,7 +44,7 @@ const { promo } = content;
 
         <div class="flex flex-col sm:flex-row gap-4">
           <a
-            href="https://www.instagram.com/lules_housekeeping?igsh=ZG50cmFod3Y0ZDJ1&utm_source=qr"
+            href={businessInfo.social.instagram.url}
             target="_blank"
             rel="noopener noreferrer"
             class="inline-flex items-center justify-center px-6 py-3 bg-accent text-foreground font-semibold rounded-lg hover:bg-white transition-colors"
@@ -65,12 +65,12 @@ const { promo } = content;
       <div class="flex justify-center md:justify-end">
         <div class="bg-white p-8 rounded-2xl shadow-2xl max-w-sm">
           <img
-            src="/images/imagen-20de-20whatsapp-202025-12-08-20a-20las-2018.webp"
-            alt="Lules Housekeeping Instagram QR Code"
+            src="/images/qr.webp"
+            alt="Lules cleaning service Instagram QR Code"
             class="w-full rounded-lg"
           />
           <p class="text-center text-foreground text-sm font-medium mt-4">
-            Scan to follow @lules_housekeeping
+            Scan to follow {businessInfo.social.instagram.handle}
           </p>
         </div>
       </div>

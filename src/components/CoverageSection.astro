@@ -1,6 +1,6 @@
 ---
 import content from '../data/content.json';
-const { coverage } = content;
+const { coverage, businessInfo } = content;
 
 interface Area {
   name: string;
@@ -21,10 +21,10 @@ const areas: Area[] = coverage.areas as Area[];
       </p>
     </div>
 
-    <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 max-w-6xl mx-auto place-items-center">
       {areas.map((area, index) => (
         <div
-          class="area-card p-8 bg-background rounded-xl border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-lg space-y-3 text-center"
+          class="area-card p-8 bg-background rounded-xl border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-lg space-y-3 text-center w-full max-w-xs"
           style={`animation-delay: ${index * 0.1}s`}
         >
           <div class="flex justify-center">
@@ -59,7 +59,7 @@ const areas: Area[] = coverage.areas as Area[];
       </p>
       <p class="text-sm text-foreground/60">
         Not sure if we cover your area?{" "}
-        <span class="font-semibold text-primary">Call us at (347) 617-8182</span> for details
+        <span class="font-semibold text-primary">Call us at {businessInfo.phone}</span> for details
       </p>
     </div>
   </div>

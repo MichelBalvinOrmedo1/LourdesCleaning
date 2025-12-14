@@ -1,11 +1,11 @@
 {
   "businessInfo": {
     "name": "Lules",
-    "fullName": "Lules Premium Cleaning",
-    "tagline": "PREMIUM CLEANING",
+    "fullName": "Lules Cleaning Service",
+    "tagline": "CLEANING SERVICE",
     "description": "Premium cleaning services serving all of New York City with excellence and care.",
     "foundedYear": 2014,
-    "phone": "(347) 617-8182",
+    "phone": "+1 (347) 617-8182",
     "phoneRaw": "+13476178182",
     "email": "info@lulescleaning.com",
     "location": "New York City, NY",
@@ -16,8 +16,8 @@
     },
     "social": {
       "instagram": {
-        "handle": "@lules_housekeeping",
-        "url": "https://www.instagram.com/lules_housekeeping?igsh=ZG50cmFod3Y0ZDJ1&utm_source=qr"
+        "handle": "@lules_cleaning_service",
+        "url": "https://www.instagram.com/lules_cleaning_service"
       },
       "facebook": "#",
       "linkedin": "#"
@@ -58,14 +58,16 @@
     "primaryCTA": "Follow on Instagram",
     "secondaryCTA": "Get Free Quote",
     "qrCode": {
-      "src": "/images/imagen-20de-20whatsapp-202025-12-08-20a-20las-2018.webp",
+      "src": "/images/qr.webp",
       "alt": "Lules Housekeeping Instagram QR Code",
-      "caption": "Scan to follow @lules_housekeeping"
+      "caption": "Scan to follow @lules_cleaning_service"
     }
   },
   "about": {
     "title": "Why Choose Lules",
     "subtitle": "We set the standard for premium cleaning services in New York City",
+    "description": "Lules is New York City's professional cleaning team providing expert residential, commercial, and specialized cleaning services. For more than a decade, our dedicated cleaners have served clients across all NYC boroughs including Manhattan, Brooklyn, Queens and more.",
+    "footerDescription": "Lules is New York City's professional cleaning team providing expert residential, commercial, and specialized cleaning services. For more than a decade, our dedicated cleaners have served clients across all NYC boroughs including Manhattan, Brooklyn, Queens and more.",
     "vision": {
       "title": "Our Vision",
       "description": "To achieve recognition and establish our team as leaders in cleaning services, while always maintaining friendly relationships with our clients."
@@ -250,16 +252,13 @@
       {
         "name": "Bronx",
         "description": "All major neighborhoods and residential areas"
-      },
-      {
-        "name": "Staten Island",
-        "description": "Complete coverage throughout the borough"
       }
+      
     ],
     "footer": {
       "main": "📍 Serving all of New York City with premium cleaning excellence since 2014",
       "question": "Not sure if we cover your area?",
-      "cta": "Call us at (347) 617-8182 for details"
+      "cta": "Call us at +1 (347) 617-8182 for details"
     }
   },
   "difference": {
@@ -267,22 +266,22 @@
     "subtitle": "With years of experience, we have the tools and expertise to make a real difference.",
     "features": [
       {
-        "image": "/images/flexible-schedule.jpg",
+        "image": "/different/flexible.png",
         "title": "Flexible Scheduling",
         "description": "We work around your schedule with same-day service available. Book cleaning at times that fit your busy lifestyle, including evenings and weekends."
       },
       {
-        "image": "/images/women-owned.jpg",
+        "image": "/different/Women-Owned.png",
         "title": "Women-Owned & Operated",
         "description": "Founded and led by women who understand the importance of a clean, welcoming home. We bring attention to detail and care to every space we clean."
       },
       {
-        "image": "/images/plant-care.jpg",
+        "image": "/different/plant-care.png",
         "title": "Plant Care Included",
         "description": "We don't just clean around your plants—we care for them! Gentle dusting of leaves, proper watering, and repositioning for optimal light."
       },
       {
-        "image": "/images/pet-friendly.jpg",
+        "image": "/different/pet-friendly.png",
         "title": "Pet-Friendly Service",
         "description": "We love your furry family members! Our team is trained to work safely around pets, and we use pet-safe cleaning products throughout your home."
       }
@@ -367,10 +366,8 @@
       {
         "icon": "phone",
         "title": "Call Us",
-        "subtitle": "(347) 617-8182",
         "description": "Available 24/7",
-        "buttonText": "Call Now",
-        "buttonHref": "tel:+13476178182"
+        "buttonText": "Call Now"
       },
       {
         "icon": "map-pin",
@@ -391,10 +388,8 @@
       {
         "icon": "instagram",
         "title": "Follow Us",
-        "subtitle": "@lules_housekeeping",
         "description": "See our work",
         "buttonText": "Follow",
-        "buttonHref": "https://www.instagram.com/lules_housekeeping?igsh=ZG50cmFod3Y0ZDJ1&utm_source=qr",
         "isExternal": true
       }
     ]
@@ -501,7 +496,7 @@
       ]
     },
     "legal": {
-      "copyright": "Lules Premium Cleaning. All rights reserved.",
+      "copyright": "Lules Cleaning Service. All rights reserved.",
       "links": [
         { "label": "Privacy Policy", "href": "#" },
         { "label": "Terms of Service", "href": "#" },

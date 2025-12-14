@@ -1,6 +1,6 @@
 ---
 import content from "../data/content.json";
-const { contact } = content;
+const { contact, businessInfo } = content;
 
 type IconKey = "phone" | "map-pin" | "clock" | "instagram";
 
@@ -66,17 +66,27 @@ const icons: Record<IconKey, string> = {
             </h3>
             {card.icon === "phone" ? (
               <a
-                href={card.buttonHref}
+                href={`tel:${businessInfo.phoneRaw}`}
                 class="text-primary hover:text-primary/80 font-bold text-lg mb-4 block"
               >
-                {card.subtitle}
+                {businessInfo.phone}
               </a>
+            ) : card.icon === "instagram" ? (
+              <p class="text-primary font-bold text-lg mb-2">
+                {businessInfo.social.instagram.handle}
+              </p>
             ) : (
               <p class="text-primary font-bold text-lg mb-2">{card.subtitle}</p>
             )}
             <p class="text-sm text-foreground/60 mb-4">{card.description}</p>
             <a
-              href={card.buttonHref}
+              href={
+                card.icon === "phone"
+                  ? `tel:${businessInfo.phoneRaw}`
+                  : card.icon === "instagram"
+                    ? businessInfo.social.instagram.url
+                    : card.buttonHref
+              }
               target={card.isExternal ? "_blank" : undefined}
               rel={card.isExternal ? "noopener noreferrer" : undefined}
               class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 py-2 w-full border border-primary text-primary hover:bg-primary/5 bg-transparent"
