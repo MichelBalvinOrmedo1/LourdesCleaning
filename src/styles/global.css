@@ -1,6 +1,4 @@
 @import "tailwindcss";
-/* En Tailwind v4, los plugins se cargan con @plugin */
-@plugin "tailwindcss-animate";
 
 @custom-variant dark (&:is(.dark *));
 

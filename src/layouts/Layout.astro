@@ -15,11 +15,11 @@ const {
 } = Astro.props;
 
 const keywords =
-  "cleaning services NYC, premium cleaning, residential cleaning, office cleaning, deep cleaning";
+  "cleaning service NYC, house cleaning New York, apartment cleaning Manhattan, maid service Brooklyn, professional cleaners Queens, residential cleaning Bronx, commercial cleaning NYC, deep cleaning service New York, move out cleaning Manhattan, office cleaning Brooklyn, eco-friendly cleaning NYC, same day cleaning service, recurring cleaning New York, post construction cleaning, luxury apartment cleaning, affordable cleaning service, bonded insured cleaners NYC, top rated cleaning company, cleaning service near me";
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class="overflow-x-hidden">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -29,16 +29,16 @@ const keywords =
     <link
       rel="icon"
       type="image/webp"
-      href="/perfil.webp"
+      href="/img/perfil.webp"
       media="(prefers-color-scheme: light)"
     />
     <link
       rel="icon"
       type="image/webp"
-      href="/perfil.webp"
+      href="/img/perfil.webp"
       media="(prefers-color-scheme: dark)"
     />
-    <link rel="apple-touch-icon" href="/apple-icon.png" />
+    <link rel="apple-touch-icon" href="img/apple-icon.png" />
 
     <meta name="generator" content={Astro.generator} />
 
@@ -48,17 +48,80 @@ const keywords =
     <meta name="keywords" content={keywords} />
 
     <!-- Open Graph -->
-    <meta property="og:title" content="Lules Cleaning Service | NYC" />
-    <meta
-      property="og:description"
-      content="Professional premium cleaning services for luxury homes and offices in New York City."
-    />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:site_name" content="Lules Cleaning Service" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
+    <!-- Schema.org JSON-LD -->
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        name: "Lules Cleaning Service",
+        image: "https://lulescleaning.com/img/logo.png",
+        "@id": "https://lulescleaning.com",
+        url: "https://lulescleaning.com",
+        telephone: "+13476178182",
+        priceRange: "$$",
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: "",
+          addressLocality: "New York",
+          addressRegion: "NY",
+          postalCode: "",
+          addressCountry: "US",
+        },
+        geo: {
+          "@type": "GeoCoordinates",
+          latitude: 40.7128,
+          longitude: -74.006,
+        },
+        openingHoursSpecification: {
+          "@type": "OpeningHoursSpecification",
+          dayOfWeek: [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
+            "Sunday",
+          ],
+          opens: "07:00",
+          closes: "23:00",
+        },
+        sameAs: ["https://www.instagram.com/lules_cleaning_service"],
+        areaServed: [
+          { "@type": "City", name: "Manhattan" },
+          { "@type": "City", name: "Brooklyn" },
+          { "@type": "City", name: "Queens" },
+          { "@type": "City", name: "Bronx" },
+        ],
+        serviceType: [
+          "House Cleaning",
+          "Apartment Cleaning",
+          "Office Cleaning",
+          "Deep Cleaning",
+          "Move In/Out Cleaning",
+          "Commercial Cleaning",
+          "Post Construction Cleaning",
+        ],
+        description: description,
+      })}
+    />
 
     <!-- Additional head content -->
     <slot name="head" />
   </head>
-  <body class="font-sans antialiased overflow-x-hidden">
+  <body class="font-sans antialiased overflow-x-hidden w-full">
     <Navigation />
     <div class="min-h-screen flex flex-col">
       <main class="flex-1">

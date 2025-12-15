@@ -37,29 +37,35 @@ const icons: Record<IconKey, string> = {
   title={`${service.title} - ${businessInfo.fullName} | NYC`}
   description={service.description}
 >
-  <!-- Preload gallery images -->
   <Fragment slot="head">
-    {service.gallery?.map((item: any) => (
-      <>
-        {item.type === 'before-after' ? (
-          <>
-            <link rel="preload" as="image" href={item.before} />
-            <link rel="preload" as="image" href={item.after} />
-          </>
-        ) : (
-          <link rel="preload" as="image" href={item.image} />
-        )}
-      </>
-    ))}
+    {
+      service.gallery?.map((item: any) => (
+        <>
+          {item.type === "before-after" ? (
+            <>
+              <link rel="preload" as="image" href={item.before} />
+              <link rel="preload" as="image" href={item.after} />
+            </>
+          ) : (
+            <link rel="preload" as="image" href={item.image} />
+          )}
+        </>
+      ))
+    }
   </Fragment>
-    <!-- Service Navigation Tabs -->
-    <div class="service-tabs w-full bg-background border-b border-border/30 sticky top-[65px] z-40">
-      <div class="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div class="flex overflow-x-auto pb-0 no-scrollbar gap-1 sm:gap-2">
-          {serviceLinks.map((item: any) => (
+
+  <div
+    class="service-tabs bg-white border-b border-border/30 sticky mt-20 z-40 mb-3 overflow-x-auto"
+  >
+    <div class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
+      <div
+        class="flex gap-2 justify-start lg:justify-center min-w-max lg:min-w-0"
+      >
+        {
+          serviceLinks.map((item: any) => (
             <a
               href={`/service/${item.slug}`}
-              class={`px-3 sm:px-6 py-3 sm:py-4 text-xs sm:text-sm font-medium whitespace-nowrap border-b-2 transition-colors flex-shrink-0 ${
+              class={`px-4 md:px-5 py-3 md:py-4 text-sm md:text-base font-semibold whitespace-nowrap border-b-2 transition-colors flex-shrink-0 ${
                 service.slug === item.slug
                   ? "border-accent text-primary"
                   : "border-transparent text-foreground/60 hover:text-foreground"
@@ -67,141 +73,221 @@ const icons: Record<IconKey, string> = {
             >
               {item.label}
             </a>
-          ))}
-        </div>
+          ))
+        }
       </div>
     </div>
+  </div>
 
-    <!-- Main Content -->
-    <div class="container mx-auto px-4 py-16">
-      <div class="grid lg:grid-cols-3 gap-12">
-        <!-- Left Column - Content -->
-        <div class="lg:col-span-2 space-y-12">
-          <!-- Service Title & Description -->
-          <div>
-            <h1 class="text-5xl font-serif font-bold text-primary mb-4 uppercase">{service.title}</h1>
-            <p class="text-xl text-foreground/70 mb-6">{service.description}</p>
-            <p class="text-foreground/60 leading-relaxed">{service.longDescription}</p>
-            <p class="text-foreground/60 leading-relaxed mt-4">{service.fullText}</p>
-          </div>
+  <div class="container mx-auto px-4 pb-16">
+    <div class="grid lg:grid-cols-3 gap-12">
+      <div class="lg:col-span-2 space-y-12 min-w-0">
+        <div>
+          <h1 class="text-5xl font-serif font-bold text-primary mb-4 uppercase">
+            {service.title}
+          </h1>
+          <p class="text-xl text-foreground/70 mb-6">{service.description}</p>
+          <p class="text-foreground/60 leading-relaxed">
+            {service.longDescription}
+          </p>
+          <p class="text-foreground/60 leading-relaxed mt-4">
+            {service.fullText}
+          </p>
+        </div>
 
-          <!-- Before & After Gallery -->
-          {service.gallery && service.gallery.length > 0 && (
+        {
+          service.gallery && service.gallery.length > 0 && (
             <div>
-              <h2 class="text-3xl font-serif font-bold text-primary mb-8">Experience the Lules Difference!</h2>
-              
-              <!-- Main Gallery Display -->
+              <h2 class="text-3xl font-serif font-bold text-primary mb-8">
+                Experience the Lules Difference!
+              </h2>
+
               <div class="relative">
-                <!-- Previous Arrow -->
                 <button
                   id="gallery-prev"
                   class="absolute left-4 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full bg-white/90 backdrop-blur-sm shadow-xl hover:bg-accent hover:text-white transition-all disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center"
                   aria-label="Previous image"
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="m15 18-6-6 6-6"/>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path d="m15 18-6-6 6-6" />
                   </svg>
                 </button>
 
-                <!-- Gallery Items Container -->
-                <div class="relative overflow-hidden rounded-xl h-96 md:h-[500px]">
+                <div class="relative overflow-hidden rounded-xl aspect-[4/3] md:aspect-[16/10] bg-gray-50">
                   {service.gallery.map((item: any, index: number) => (
-                    <div class={`gallery-item absolute inset-0 transition-opacity duration-300 ${index === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'}`} data-index={index}>
-                      {item.type === 'before-after' ? (
-                        <div class="relative overflow-hidden rounded-xl shadow-2xl bg-background" data-slider={index}>
-                          <div class="relative w-full h-96 md:h-[500px]">
+                    <div
+                      class={`gallery-item absolute inset-0 transition-opacity duration-300 ${index === 0 ? "opacity-100 z-10" : "opacity-0 z-0"}`}
+                      data-index={index}
+                    >
+                      {item.type === "before-after" ? (
+                        <div
+                          class="relative overflow-hidden rounded-xl shadow-2xl h-full bg-gray-100"
+                          data-slider={index}
+                        >
+                          <div class="relative w-full h-full">
                             <img
                               src={item.after}
                               alt={`${item.alt} - After`}
-                              class="absolute inset-0 w-full h-full object-cover"
+                              class="absolute inset-0 w-full h-full object-contain z-0"
                             />
-                            <div class="absolute inset-0 overflow-hidyden" style="clip-path: inset(0 50% 0 0);" data-before-container={index}>
+                            <div
+                              class="absolute inset-0 overflow-hidden bg-gray-100 z-10"
+                              style="clip-path: inset(0 50% 0 0);"
+                              data-before-container={index}
+                            >
                               <img
                                 src={item.before}
                                 alt={`${item.alt} - Before`}
-                                class="absolute inset-0 w-full h-full object-cover"
+                                class="absolute inset-0 w-full h-full object-contain"
                               />
                             </div>
-                            <div class="absolute inset-y-0 left-1/2 -translate-x-1/2 w-1 bg-accent cursor-ew-resize z-10" data-slider-line={index}>
+                            <div
+                              class="absolute inset-y-0 left-1/2 -translate-x-1/2 w-1 bg-accent cursor-ew-resize z-10"
+                              data-slider-line={index}
+                            >
                               <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 bg-white rounded-full shadow-2xl flex items-center justify-center pointer-events-none">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-accent">
-                                  <path d="m15 18-6-6 6-6"/>
-                                  <path d="m9 18 6-6-6-6"/>
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="24"
+                                  height="24"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  stroke-width="2"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  class="text-accent"
+                                >
+                                  <path d="m15 18-6-6 6-6" />
+                                  <path d="m9 18 6-6-6-6" />
                                 </svg>
                               </div>
                             </div>
                             <div class="absolute top-4 left-4 z-20">
-                              <span class="px-4 py-2 bg-black/70 text-white font-bold text-sm rounded-full backdrop-blur-sm">BEFORE</span>
+                              <span class="px-4 py-2 bg-black/70 text-white font-bold text-sm rounded-full backdrop-blur-sm">
+                                BEFORE
+                              </span>
                             </div>
                             <div class="absolute top-4 right-4 z-20">
-                              <span class="px-4 py-2 bg-accent text-white font-bold text-sm rounded-full shadow-lg">AFTER</span>
+                              <span class="px-4 py-2 bg-accent text-white font-bold text-sm rounded-full shadow-lg">
+                                AFTER
+                              </span>
                             </div>
                           </div>
                         </div>
                       ) : (
-                        <div class="relative overflow-hidden rounded-xl shadow-xl group">
+                        <div class="relative overflow-hidden rounded-xl shadow-xl group h-full">
                           <img
                             src={item.image}
                             alt={item.alt}
-                            class="w-full h-96 md:h-[500px] object-cover transition-transform duration-500 group-hover:scale-105"
+                            class="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105"
                           />
-                          <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                          <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
                         </div>
                       )}
                     </div>
                   ))}
                 </div>
 
-                <!-- Next Arrow -->
                 <button
                   id="gallery-next"
                   class="absolute right-4 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full bg-white/90 backdrop-blur-sm shadow-xl hover:bg-accent hover:text-white transition-all disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center"
                   aria-label="Next image"
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="m9 18 6-6-6-6"/>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path d="m9 18 6-6-6-6" />
                   </svg>
                 </button>
 
-                <!-- Counter -->
                 <div class="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 px-4 py-2 bg-black/70 text-white text-sm font-medium rounded-full backdrop-blur-sm">
-                  <span id="current-slide">1</span> / <span id="total-slides">{service.gallery.length}</span>
+                  <span id="current-slide">1</span> /{" "}
+                  <span id="total-slides">{service.gallery.length}</span>
                 </div>
               </div>
 
-              <!-- Thumbnail Gallery -->
               {service.gallery.length > 1 && (
-                <div class="mt-8 pt-8 border-t border-border">
-                  <h3 class="text-xl font-semibold text-foreground mb-4">View All Results</h3>
-                  <div class="relative">
-                    <!-- Previous Button -->
-                    <button
-                      id="thumb-prev"
-                      class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 w-10 h-10 rounded-full bg-white shadow-lg hover:bg-accent hover:text-white transition-all disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center"
-                      aria-label="Previous"
-                    >
-                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="m15 18-6-6 6-6"/>
-                      </svg>
-                    </button>
+                <div class="mt-8 pt-8 border-t border-primary/10">
+                  <div class="flex items-center gap-3 mb-6">
+                    <div class="w-1 h-8 bg-accent rounded-full" />
+                    <h3 class="text-2xl font-serif font-bold text-primary uppercase tracking-wide">
+                      View All Results
+                    </h3>
+                  </div>
 
-                    <!-- Thumbnails Container -->
-                    <div class="overflow-hidden">
-                      <div id="thumbnails-track" class="flex gap-3 transition-transform duration-300">
+                  <div
+                    class={`relative ${service.gallery.length > 5 ? "sm:px-12" : ""}`}
+                  >
+                    {service.gallery.length > 5 && (
+                      <button
+                        id="thumb-prev"
+                        class="hidden sm:flex absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white shadow-lg hover:bg-accent hover:text-white transition-all disabled:opacity-30 disabled:cursor-not-allowed items-center justify-center"
+                        aria-label="Previous"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="20"
+                          height="20"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        >
+                          <path d="m15 18-6-6 6-6" />
+                        </svg>
+                      </button>
+                    )}
+
+                    {/* CAMBIO AQUÍ: 
+          1. Agregada clase 'custom-scrollbar' 
+          2. Eliminado 'scrollbar-width: none' del style para que se vea la barra
+      */}
+                    <div
+                      class="custom-scrollbar overflow-x-scroll pb-4 w-[calc(100vw-2rem)] sm:w-full mx-auto snap-x snap-mandatory"
+                      style="-webkit-overflow-scrolling: touch;"
+                    >
+                      <div
+                        id="thumbnails-track"
+                        class={`flex gap-3 ${service.gallery.length <= 5 ? "sm:justify-center" : ""}`}
+                        style="display: flex; flex-wrap: nowrap; gap: 0.75rem; transition: transform 0.3s ease;"
+                      >
                         {service.gallery.map((item: any, index: number) => (
                           <button
-                            class="thumbnail-item relative shrink-0 w-32 overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-accent"
+                            class="thumbnail-item relative overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-accent snap-start flex-shrink-0"
                             data-thumbnail={index}
+                            style="width: 7rem; min-width: 7rem;"
                           >
                             <img
-                              src={item.type === 'before-after' ? item.after : item.image}
+                              src={
+                                item.type === "before-after"
+                                  ? item.after
+                                  : item.image
+                              }
                               alt={item.alt}
-                              class="w-full h-24 object-cover"
+                              class="w-full object-cover"
+                              style="height: 5rem;"
                               loading="lazy"
                             />
-                            {item.type === 'before-after' && (
+                            {item.type === "before-after" && (
                               <div class="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-accent/50 flex items-center justify-center">
-                                <span class="text-white text-xs font-bold bg-black/70 px-2 py-1 rounded-full">Before/After</span>
+                                <span class="text-white text-xs font-bold bg-black/70 px-2 py-1 rounded-full">
+                                  Before/After
+                                </span>
                               </div>
                             )}
                           </button>
@@ -209,195 +295,301 @@ const icons: Record<IconKey, string> = {
                       </div>
                     </div>
 
-                    <!-- Next Button -->
-                    <button
-                      id="thumb-next"
-                      class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 w-10 h-10 rounded-full bg-white shadow-lg hover:bg-accent hover:text-white transition-all disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center"
-                      aria-label="Next"
-                    >
-                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="m9 18 6-6-6-6"/>
-                      </svg>
-                    </button>
+                    {service.gallery.length > 5 && (
+                      <button
+                        id="thumb-next"
+                        class="hidden sm:flex absolute right-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white shadow-lg hover:bg-accent hover:text-white transition-all disabled:opacity-30 disabled:cursor-not-allowed items-center justify-center"
+                        aria-label="Next"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="20"
+                          height="20"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        >
+                          <path d="m9 18 6-6-6-6" />
+                        </svg>
+                      </button>
+                    )}
                   </div>
                 </div>
               )}
             </div>
-          )}
+          )
+        }
 
-          <!-- Benefits -->
-          <div>
-            <h2 class="text-3xl font-serif font-bold text-primary mb-8">{service.whyChoose}</h2>
-            <div class="grid md:grid-cols-2 gap-4">
-              {service.benefits.map((benefit: string) => (
+        <div>
+          <h2 class="text-3xl font-serif font-bold text-primary mb-8">
+            {service.whyChoose}
+          </h2>
+          <div class="grid md:grid-cols-2 gap-4">
+            {
+              service.benefits.map((benefit: string) => (
                 <div class="flex items-start gap-3">
                   <div class="w-5 h-5 rounded-full bg-accent/30 flex items-center justify-center shrink-0 mt-1">
-                    <div class="w-2 h-2 rounded-full bg-accent"></div>
+                    <div class="w-2 h-2 rounded-full bg-accent" />
                   </div>
                   <p class="text-foreground/70">{benefit}</p>
                 </div>
-              ))}
-            </div>
+              ))
+            }
           </div>
+        </div>
 
-          <!-- Coverage Info -->
-          <div class="p-6 bg-primary/5 rounded-lg border border-primary/10">
-            <p class="text-foreground/70">
-              Our {service.title.toLowerCase()} services are available throughout{" "}
-              <strong class="text-primary">{service.coverage.join(", ")}</strong>. Contact us today to get started
-              with a free estimate.
-            </p>
-          </div>
+        <div class="p-6 bg-primary/5 rounded-lg border border-primary/10">
+          <p class="text-foreground/70">
+            Our {service.title.toLowerCase()} services are available throughout{
+              " "
+            }
+            <strong class="text-primary">{service.coverage.join(", ")}</strong>.
+            Contact us today to get started with a free estimate.
+          </p>
+        </div>
 
-          <!-- FAQs -->
-          {service.faqs && service.faqs.length > 0 && (
+        {
+          service.faqs && service.faqs.length > 0 && (
             <div>
               <h2 class="text-3xl font-serif font-bold text-primary mb-8 uppercase">
                 {service.title.split(" ")[0]} FAQ
               </h2>
               <p class="text-foreground/70 mb-8">
-                Check out our commonly asked questions about {service.title.toLowerCase()}
+                Check out our commonly asked questions about{" "}
+                {service.title.toLowerCase()}
               </p>
               <div class="space-y-6">
                 {service.faqs.map((faq: any) => (
                   <div>
                     <h3 class="font-bold text-primary mb-3">{faq.question}</h3>
-                    <p class="text-foreground/70 leading-relaxed">{faq.answer}</p>
+                    <p class="text-foreground/70 leading-relaxed">
+                      {faq.answer}
+                    </p>
                   </div>
                 ))}
               </div>
             </div>
-          )}
-        </div>
+          )
+        }
+      </div>
 
-        <!-- Right Column - Contact Form -->
-        <div class="lg:col-span-1">
-          <div class="sticky top-[140px] rounded-lg border bg-card text-card-foreground shadow-sm border-border/30">
-            <div class="p-8">
-              <h3 class="text-2xl font-bold text-primary mb-6">GET IN TOUCH</h3>
-              <p class="text-sm text-foreground/70 mb-6">
-                To ask questions or schedule an appointment, please fill out the form below
-              </p>
+      <div class="lg:col-span-1">
+        <div
+          class="sticky top-[140px] rounded-lg border bg-card text-card-foreground shadow-sm border-border/30"
+        >
+          <div class="p-8">
+            <h3 class="text-2xl font-bold text-primary mb-6">GET IN TOUCH</h3>
+            <p class="text-sm text-foreground/70 mb-6">
+              To ask questions or schedule an appointment, please fill out the
+              form below
+            </p>
 
-              <form class="space-y-4" id="contact-form">
-                <div class="grid grid-cols-2 gap-4">
-                  <div>
-                    <label class="text-xs font-medium text-primary block mb-2">FIRST NAME *</label>
-                    <input
-                      type="text"
-                      name="firstName"
-                      class="w-full px-3 py-2 border border-border rounded text-sm focus:outline-none focus:border-accent"
-                      required
-                    />
-                  </div>
-                  <div>
-                    <label class="text-xs font-medium text-primary block mb-2">LAST NAME *</label>
-                    <input
-                      type="text"
-                      name="lastName"
-                      class="w-full px-3 py-2 border border-border rounded text-sm focus:outline-none focus:border-accent"
-                      required
-                    />
-                  </div>
-                </div>
-
-                <div class="grid grid-cols-2 gap-4">
-                  <div>
-                    <label class="text-xs font-medium text-primary block mb-2">EMAIL *</label>
-                    <input
-                      type="email"
-                      name="email"
-                      class="w-full px-3 py-2 border border-border rounded text-sm focus:outline-none focus:border-accent"
-                      required
-                    />
-                  </div>
-                  <div>
-                    <label class="text-xs font-medium text-primary block mb-2">PHONE</label>
-                    <input
-                      type="tel"
-                      name="phone"
-                      class="w-full px-3 py-2 border border-border rounded text-sm focus:outline-none focus:border-accent"
-                    />
-                  </div>
-                </div>
-
+            <form class="space-y-4" id="contact-form">
+              <div class="grid grid-cols-2 gap-4">
                 <div>
-                  <label class="text-xs font-medium text-primary block mb-2">MESSAGE</label>
-                  <textarea
-                    name="message"
-                    rows="4"
-                    class="w-full px-3 py-2 border border-border rounded text-sm focus:outline-none focus:border-accent resize-none"
-                    placeholder="Tell us about your cleaning needs (min 20 characters)"
-                  ></textarea>
+                  <label class="text-xs font-medium text-primary block mb-2"
+                    >FIRST NAME *</label
+                  >
+                  <input
+                    type="text"
+                    name="firstName"
+                    class="w-full px-3 py-2 border border-border rounded text-sm focus:outline-none focus:border-accent"
+                    required
+                  />
                 </div>
-
-                <div class="flex items-start gap-2 pt-2">
-                  <input type="checkbox" id="privacy" class="mt-1" required />
-                  <label for="privacy" class="text-xs text-foreground/60">
-                    By providing a telephone number and submitting this form, you are consenting to be contacted by
-                    SMS text message. Message & data rates may apply.
-                  </label>
+                <div>
+                  <label class="text-xs font-medium text-primary block mb-2"
+                    >LAST NAME *</label
+                  >
+                  <input
+                    type="text"
+                    name="lastName"
+                    class="w-full px-3 py-2 border border-border rounded text-sm focus:outline-none focus:border-accent"
+                    required
+                  />
                 </div>
+              </div>
 
-                <button
-                  type="submit"
-                  class="w-full bg-accent hover:bg-accent/90 text-white font-bold py-3 rounded-full transition-colors"
+              <div class="grid grid-cols-2 gap-4">
+                <div>
+                  <label class="text-xs font-medium text-primary block mb-2"
+                    >EMAIL *</label
+                  >
+                  <input
+                    type="email"
+                    name="email"
+                    class="w-full px-3 py-2 border border-border rounded text-sm focus:outline-none focus:border-accent"
+                    required
+                  />
+                </div>
+                <div>
+                  <label class="text-xs font-medium text-primary block mb-2"
+                    >PHONE</label
+                  >
+                  <input
+                    type="tel"
+                    name="phone"
+                    class="w-full px-3 py-2 border border-border rounded text-sm focus:outline-none focus:border-accent"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label class="text-xs font-medium text-primary block mb-2"
+                  >MESSAGE</label
                 >
-                  SUBMIT
-                </button>
-              </form>
+                <textarea
+                  name="message"
+                  rows="4"
+                  class="w-full px-3 py-2 border border-border rounded text-sm focus:outline-none focus:border-accent resize-none"
+                  placeholder="Tell us about your cleaning needs (min 20 characters)"
+                ></textarea>
+              </div>
 
-              <!-- Contact Info Below Form -->
-              <div class="mt-8 pt-8 border-t border-border/30 space-y-4">
-                <div>
-                  <p class="text-xs font-medium text-primary mb-2">PHONE</p>
-                  <a href={`tel:${businessInfo.phoneRaw}`} class="text-foreground/70 hover:text-primary transition-colors">
-                    {businessInfo.phone}
-                  </a>
-                </div>
-                <div>
-                  <p class="text-xs font-medium text-primary mb-2">HOURS</p>
-                  <p class="text-foreground/70">{businessInfo.hours.schedule}</p>
-                </div>
+              <div class="flex items-start gap-2 pt-2">
+                <input type="checkbox" id="privacy" class="mt-1" required />
+                <label for="privacy" class="text-xs text-foreground/60">
+                  By providing a telephone number and submitting this form, you
+                  are consenting to be contacted by SMS text message. Message &
+                  data rates may apply.
+                </label>
+              </div>
+
+              <button
+                type="submit"
+                class="w-full bg-accent hover:bg-accent/90 text-white font-bold py-3 rounded-full transition-colors"
+              >
+                SUBMIT
+              </button>
+            </form>
+
+            <div class="mt-8 pt-8 border-t border-border/30 space-y-4">
+              <div>
+                <p class="text-xs font-medium text-primary mb-2">PHONE</p>
+                <a
+                  href={`tel:${businessInfo.phoneRaw}`}
+                  class="text-foreground/70 hover:text-primary transition-colors"
+                >
+                  {businessInfo.phone}
+                </a>
+              </div>
+              <div>
+                <p class="text-xs font-medium text-primary mb-2">HOURS</p>
+                <p class="text-foreground/70">{businessInfo.hours.schedule}</p>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- Social Share -->
-    <div class="container mx-auto px-4 py-12 border-t border-border/30">
-      <p class="font-medium text-primary mb-4">Share:</p>
-      <div class="flex gap-4">
-        <a href="#" class="text-foreground/60 hover:text-accent transition-colors text-xl">f</a>
-        <a href="#" class="text-foreground/60 hover:text-accent transition-colors text-xl">𝕏</a>
-        <a href="#" class="text-foreground/60 hover:text-accent transition-colors text-xl">📌</a>
-        <a href="#" class="text-foreground/60 hover:text-accent transition-colors text-xl">in</a>
-        <a href="#" class="text-foreground/60 hover:text-accent transition-colors text-xl">✉</a>
-      </div>
+  <div class="container mx-auto px-4 py-12 border-t border-border/30">
+    <p class="font-medium text-primary mb-4">Share:</p>
+    <div class="flex gap-4">
+      <a
+        href="#"
+        class="text-foreground/60 hover:text-accent transition-colors text-xl"
+        >f</a
+      >
+      <a
+        href="#"
+        class="text-foreground/60 hover:text-accent transition-colors text-xl"
+        >𝕏</a
+      >
+      <a
+        href="#"
+        class="text-foreground/60 hover:text-accent transition-colors text-xl"
+        >📌</a
+      >
+      <a
+        href="#"
+        class="text-foreground/60 hover:text-accent transition-colors text-xl"
+        >in</a
+      >
+      <a
+        href="#"
+        class="text-foreground/60 hover:text-accent transition-colors text-xl"
+        >✉</a
+      >
     </div>
+  </div>
 </Layout>
 
 <style>
-  .no-scrollbar::-webkit-scrollbar {
-    display: none;
+  /* Ocultar scrollbar en desktop pero mantenerla funcional */
+  .hide-scrollbar-desktop::-webkit-scrollbar {
+    height: 8px;
   }
-  .no-scrollbar {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+
+  .hide-scrollbar-desktop::-webkit-scrollbar-track {
+    background: #f3f4f6;
+    border-radius: 4px;
+  }
+
+  .hide-scrollbar-desktop::-webkit-scrollbar-thumb {
+    background: oklch(0.88 0.12 65);
+    border-radius: 4px;
+  }
+
+  .hide-scrollbar-desktop::-webkit-scrollbar-thumb:hover {
+    background: oklch(0.8 0.15 65);
+  }
+
+  /* Para Firefox */
+  .hide-scrollbar-desktop {
+    scrollbar-width: thin;
+    scrollbar-color: oklch(0.88 0.12 65) #f3f4f6;
+  }
+
+  /* En desktop ocultar scrollbar */
+  @media (min-width: 640px) {
+    .hide-scrollbar-desktop {
+      overflow-x: hidden !important;
+    }
+  }
+
+  /* En móvil forzar scroll visible y asegurar ancho */
+  @media (max-width: 639px) {
+    .hide-scrollbar-desktop {
+      overflow-x: auto !important;
+      width: 100%;
+      display: block;
+    }
   }
 
   .gallery-item {
     scroll-margin-top: 120px;
   }
+  /* Estilo de la barra de scroll */
+  .custom-scrollbar::-webkit-scrollbar {
+    height: 6px; /* Altura de la barra */
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: #f3f4f6; /* Fondo gris claro */
+    border-radius: 4px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: oklch(0.88 0.12 65); /* COLOR ACCENT (Rosa) */
+    border-radius: 4px;
+  }
+
+  /* Asegurar compatibilidad Firefox/Móvil */
+  @media (max-width: 639px) {
+    .custom-scrollbar {
+      scrollbar-width: thin;
+      scrollbar-color: oklch(0.88 0.12 65) #f3f4f6;
+    }
+  }
 </style>
 
 <script>
-  // Before/After Slider Functionality
-  document.addEventListener('DOMContentLoaded', () => {
-    // Precargar TODAS las imágenes de la galería inmediatamente
-    const allImages = document.querySelectorAll<HTMLImageElement>('.gallery-item img');
+  document.addEventListener("DOMContentLoaded", () => {
+    const allImages =
+      document.querySelectorAll<HTMLImageElement>(".gallery-item img");
     const imageCache: HTMLImageElement[] = [];
     allImages.forEach((img) => {
       const preloadImg = new Image();
@@ -405,7 +597,7 @@ const icons: Record<IconKey, string> = {
       imageCache.push(preloadImg);
     });
 
-    const sliders = document.querySelectorAll('[data-slider]');
+    const sliders = document.querySelectorAll("[data-slider]");
     let activeSlider: {
       element: Element;
       beforeContainer: Element | null;
@@ -429,33 +621,36 @@ const icons: Record<IconKey, string> = {
     };
 
     const stopDragging = (e: MouseEvent | TouchEvent) => {
-      // Si no hubo movimiento, es un click - actualizar posición
       if (activeSlider && !hasMoved) {
-        const x = 'touches' in e && e.changedTouches.length > 0 
-          ? e.changedTouches[0].clientX 
-          : (e as MouseEvent).clientX;
+        const x =
+          "touches" in e && e.changedTouches.length > 0
+            ? e.changedTouches[0].clientX
+            : (e as MouseEvent).clientX;
         activeSlider.updateSlider(x);
       }
-      
+
       if (activeSlider) {
-        activeSlider.element.classList.remove('select-none');
+        activeSlider.element.classList.remove("select-none");
         activeSlider = null;
       }
       hasMoved = false;
     };
-    
+
     sliders.forEach((slider) => {
-      const index = slider.getAttribute('data-slider');
-      const beforeContainer = slider.querySelector(`[data-before-container="${index}"]`);
+      const index = slider.getAttribute("data-slider");
+      const beforeContainer = slider.querySelector(
+        `[data-before-container="${index}"]`
+      );
       const sliderLine = slider.querySelector(`[data-slider-line="${index}"]`);
 
       const updateSlider = (x: number) => {
         const rect = slider.getBoundingClientRect();
         const position = Math.max(0, Math.min(x - rect.left, rect.width));
         const percentage = (position / rect.width) * 100;
-        
+
         if (beforeContainer && sliderLine) {
-          (beforeContainer as HTMLElement).style.clipPath = `inset(0 ${100 - percentage}% 0 0)`;
+          (beforeContainer as HTMLElement).style.clipPath =
+            `inset(0 ${100 - percentage}% 0 0)`;
           (sliderLine as HTMLElement).style.left = `${percentage}%`;
         }
       };
@@ -463,38 +658,38 @@ const icons: Record<IconKey, string> = {
       const startDragging = (e: Event) => {
         e.preventDefault();
         hasMoved = false;
-        activeSlider = { element: slider, beforeContainer, sliderLine, updateSlider };
-        slider.classList.add('select-none');
+        activeSlider = {
+          element: slider,
+          beforeContainer,
+          sliderLine,
+          updateSlider,
+        };
+        slider.classList.add("select-none");
       };
 
-      // Mouse events
-      slider.addEventListener('mousedown', startDragging);
-
-      // Touch events
-      slider.addEventListener('touchstart', startDragging);
+      slider.addEventListener("mousedown", startDragging);
+      slider.addEventListener("touchstart", startDragging);
     });
 
-    // Global event listeners (only once)
-    document.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseup', (e) => stopDragging(e));
-    document.addEventListener('touchmove', handleTouchMove, { passive: false });
-    document.addEventListener('touchend', (e) => stopDragging(e));
+    document.addEventListener("mousemove", handleMouseMove);
+    document.addEventListener("mouseup", (e) => stopDragging(e));
+    document.addEventListener("touchmove", handleTouchMove, { passive: false });
+    document.addEventListener("touchend", (e) => stopDragging(e));
 
-    // Gallery navigation
-    const galleryItems = document.querySelectorAll('.gallery-item');
-    const galleryPrevBtn = document.getElementById('gallery-prev');
-    const galleryNextBtn = document.getElementById('gallery-next');
-    const currentSlideSpan = document.getElementById('current-slide');
+    const galleryItems = document.querySelectorAll(".gallery-item");
+    const galleryPrevBtn = document.getElementById("gallery-prev");
+    const galleryNextBtn = document.getElementById("gallery-next");
+    const currentSlideSpan = document.getElementById("current-slide");
     let currentGalleryIndex = 0;
 
     const showGalleryItem = (index: number) => {
       galleryItems.forEach((item, i) => {
         if (i === index) {
-          item.classList.remove('opacity-0', 'z-0');
-          item.classList.add('opacity-100', 'z-10');
+          item.classList.remove("opacity-0", "z-0");
+          item.classList.add("opacity-100", "z-10");
         } else {
-          item.classList.remove('opacity-100', 'z-10');
-          item.classList.add('opacity-0', 'z-0');
+          item.classList.remove("opacity-100", "z-10");
+          item.classList.add("opacity-0", "z-0");
         }
       });
 
@@ -506,12 +701,13 @@ const icons: Record<IconKey, string> = {
         (galleryPrevBtn as HTMLButtonElement).disabled = index === 0;
       }
       if (galleryNextBtn) {
-        (galleryNextBtn as HTMLButtonElement).disabled = index === galleryItems.length - 1;
+        (galleryNextBtn as HTMLButtonElement).disabled =
+          index === galleryItems.length - 1;
       }
     };
 
     if (galleryPrevBtn) {
-      galleryPrevBtn.addEventListener('click', () => {
+      galleryPrevBtn.addEventListener("click", () => {
         if (currentGalleryIndex > 0) {
           currentGalleryIndex--;
           showGalleryItem(currentGalleryIndex);
@@ -520,7 +716,7 @@ const icons: Record<IconKey, string> = {
     }
 
     if (galleryNextBtn) {
-      galleryNextBtn.addEventListener('click', () => {
+      galleryNextBtn.addEventListener("click", () => {
         if (currentGalleryIndex < galleryItems.length - 1) {
           currentGalleryIndex++;
           showGalleryItem(currentGalleryIndex);
@@ -528,58 +724,59 @@ const icons: Record<IconKey, string> = {
       });
     }
 
-    // Initial gallery state
     if (galleryItems.length > 0) {
       showGalleryItem(0);
     }
 
-    // Thumbnail navigation
-    const thumbnails = document.querySelectorAll('[data-thumbnail]');
+    const thumbnails = document.querySelectorAll("[data-thumbnail]");
 
     thumbnails.forEach((thumbnail) => {
-      thumbnail.addEventListener('click', () => {
-        const index = parseInt(thumbnail.getAttribute('data-thumbnail') || '0');
+      thumbnail.addEventListener("click", () => {
+        const index = parseInt(thumbnail.getAttribute("data-thumbnail") || "0");
         currentGalleryIndex = index;
         showGalleryItem(currentGalleryIndex);
       });
     });
 
-    // Thumbnail carousel navigation
-    const track = document.getElementById('thumbnails-track');
-    const prevBtn = document.getElementById('thumb-prev');
-    const nextBtn = document.getElementById('thumb-next');
-    
-    if (track && prevBtn && nextBtn && thumbnails.length > 0) {
+    const track = document.getElementById("thumbnails-track");
+    const prevBtn = document.getElementById("thumb-prev");
+    const nextBtn = document.getElementById("thumb-next");
+
+    if (track && prevBtn && nextBtn && thumbnails.length > 5) {
       const itemsPerPage = 5;
-      const itemWidth = 128 + 12; // width + gap (w-32 = 128px + gap-3 = 12px)
+      const itemWidth = 128 + 12;
       let currentPage = 0;
       const totalPages = Math.ceil(thumbnails.length / itemsPerPage);
 
       const updateCarousel = () => {
-        const offset = -(currentPage * itemWidth * itemsPerPage);
-        (track as HTMLElement).style.transform = `translateX(${offset}px)`;
-        
-        // Update button states
-        (prevBtn as HTMLButtonElement).disabled = currentPage === 0;
-        (nextBtn as HTMLButtonElement).disabled = currentPage >= totalPages - 1;
+        if (window.innerWidth >= 640) {
+          const offset = -(currentPage * itemWidth * itemsPerPage);
+          (track as HTMLElement).style.transform = `translateX(${offset}px)`;
+
+          (prevBtn as HTMLButtonElement).disabled = currentPage === 0;
+          (nextBtn as HTMLButtonElement).disabled =
+            currentPage >= totalPages - 1;
+        } else {
+          (track as HTMLElement).style.transform = "translateX(0)";
+        }
       };
 
-      prevBtn.addEventListener('click', () => {
+      prevBtn.addEventListener("click", () => {
         if (currentPage > 0) {
           currentPage--;
           updateCarousel();
         }
       });
 
-      nextBtn.addEventListener('click', () => {
+      nextBtn.addEventListener("click", () => {
         if (currentPage < totalPages - 1) {
           currentPage++;
           updateCarousel();
         }
       });
 
-      // Initial state
       updateCarousel();
+      window.addEventListener("resize", updateCarousel);
     }
   });
 </script>
