@@ -45,7 +45,6 @@
         "post construction cleaning",
         "luxury apartment cleaning",
         "affordable cleaning service",
-        "bonded insured cleaners NYC",
         "top rated cleaning company"
       ],
       "localKeywords": [
@@ -73,7 +72,7 @@
   "hero": {
     "badge": "✨ #1 Rated Cleaning Service in NYC",
     "title": "Professional House & Apartment Cleaning Service NYC",
-    "description": "Expert cleaning services for homes and offices across Manhattan, Brooklyn, Queens, and the Bronx. Licensed, bonded, insured cleaners using eco-friendly products. Same-day service available.",
+    "description": "Expert cleaning services for homes and offices across Manhattan, Brooklyn, Queens, and the Bronx. Licensed, insured cleaners using eco-friendly products. Same-day service available.",
     "primaryCTA": "Get a Free Quote",
     "secondaryCTA": "Call Now",
     "stats": [
@@ -150,9 +149,8 @@
         "fullText": "We also offer deep, heavy duty house cleaning services. Available on a regular basis or short notice, six days a week, everyday, weekends, and holidays.",
         "whyChoose": "Experience the Lules Difference!",
         "features": ["Bedroom & Living Areas", "Kitchen Deep Clean", "Bathroom Sanitization", "Floor Cleaning & Waxing", "Window Cleaning", "Carpet & Upholstery Care"],
-        "benefits": ["Professional team of trained cleaners", "Flexible scheduling (weekly to one-time)", "Deep cleaning services available", "Pet-friendly products", "Fully insured and bonded", "Personalized cleaning plans"],
+        "benefits": ["Professional team of trained cleaners", "Flexible scheduling (weekly to one-time)", "Deep cleaning services available", "Pet-friendly products", "Personalized cleaning plans"],
         "faqs": [
-          {"question": "Are you licensed and insured?", "answer": "Yes, we are fully bonded and insured."},
           {"question": "How do I pay for your service?", "answer": "Payments can be made either by check or major credit cards."},
           {"question": "What is the cancellation policy?", "answer": "If it is necessary to cancel a cleaning appointment, please notify us at least 24 hours in advance."},
           {"question": "Should I tip the cleaner?", "answer": "Gratuities, while not required, are greatly appreciated by our cleaning staff."},
