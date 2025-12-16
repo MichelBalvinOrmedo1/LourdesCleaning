@@ -72,7 +72,7 @@
   "hero": {
     "badge": "✨ #1 Rated Cleaning Service in NYC",
     "title": "Professional House & Apartment Cleaning Service NYC",
-    "description": "Expert cleaning services for homes and offices across Manhattan, Brooklyn, Queens, and the Bronx. Licensed, insured cleaners using eco-friendly products. Same-day service available.",
+    "description": "Expert cleaning services for homes and offices across Manhattan, Brooklyn, Queens, and the Bronx. Licensed cleaners using eco-friendly products. Same-day service available.",
     "primaryCTA": "Get a Free Quote",
     "secondaryCTA": "Call Now",
     "stats": [
@@ -131,7 +131,7 @@
       {
         "icon": "users",
         "title": "100% Trustworthy",
-        "description": "All staff thoroughly vetted, insured, and committed to your complete satisfaction."
+        "description": "All staff thoroughly vetted, and committed to your complete satisfaction."
       }
     ]
   },
