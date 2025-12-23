@@ -132,3 +132,31 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer components {
+  .about-watermark,
+  .section-watermark {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .about-watermark::before,
+  .section-watermark::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("/img/logo-br.png");
+    background-repeat: no-repeat;
+    background-position: center 70%;
+    background-size: min(80vw, 80vh);
+    opacity: 0.14;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .about-watermark > *,
+  .section-watermark > * {
+    position: relative;
+    z-index: 1;
+  }
+}

@@ -6,7 +6,7 @@ const { title, subtitle, features, cta } = difference;
 
 ---
 
-<section class="py-20 md:py-28 relative overflow-hidden">
+<section class="section-watermark py-20 md:py-28 relative overflow-hidden">
   <!-- Background Pattern -->
   <div class="absolute inset-0 opacity-5">
     <div class="absolute inset-0" style="background-image: radial-gradient(circle at 2px 2px, #8b5cf6 1px, transparent 0); background-size: 40px 40px;"></div>
@@ -37,6 +37,7 @@ const { title, subtitle, features, cta } = difference;
               alt={feature.title}
               class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
               loading="lazy"
+              decoding="async"
             />
           </div>
 

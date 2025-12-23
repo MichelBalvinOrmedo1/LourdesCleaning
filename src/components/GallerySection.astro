@@ -11,7 +11,10 @@ interface GalleryImage {
 const images: GalleryImage[] = gallery.images as GalleryImage[];
 ---
 
-<section id="gallery" class="py-20 sm:py-28 lg:py-32 bg-muted/40">
+<section
+  id="gallery"
+  class="section-watermark py-20 sm:py-28 lg:py-32 bg-muted/40"
+>
   <div class="container mx-auto px-4 sm:px-6 lg:px-8">
     <div class="text-center space-y-4 mb-16">
       <h2
@@ -35,6 +38,8 @@ const images: GalleryImage[] = gallery.images as GalleryImage[];
               src={image.src}
               alt={image.alt}
               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              loading="lazy"
+              decoding="async"
             />
             <div class="absolute inset-0 bg-gradient-to-t from-foreground/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
               <p class="text-background font-semibold text-lg">{image.title}</p>
