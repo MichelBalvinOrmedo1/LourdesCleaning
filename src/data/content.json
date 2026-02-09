@@ -7,7 +7,7 @@
     "foundedYear": 2014,
     "phone": "+1 (347) 617-8182",
     "phoneRaw": "+13476178182",
-    "email": "info@lulescleaning.com",
+    "email": "info@lulescleaningservice.com",
     "location": "New York City, NY",
     "serviceArea": "All 5 Boroughs Served",
     "hours": {
@@ -190,8 +190,13 @@
         ],
         "coverage": ["Manhattan", "Brooklyn", "Queens", "Bronx"],
         "gallery": [
-          {"type": "single", "image": "/img/images/image.webp", "alt": "Clean commercial space"},
-          {"type": "before-after", "before": "/img/images/image.webp", "after": "/img/images/foto-principal.webp", "alt": "Office transformation"}
+          {"type": "before-after", "before": "/img/image-service/commercial-cleaning/c1.webp", "after": "/img/image-service/commercial-cleaning/c2.webp", "alt": "Retail space transformation"},
+          {"type": "before-after", "before": "/img/image-service/commercial-cleaning/c3.webp", "after": "/img/image-service/commercial-cleaning/c4.webp", "alt": "Retail space transformation"},
+          {"type": "before-after", "before": "/img/image-service/commercial-cleaning/c5.webp", "after": "/img/image-service/commercial-cleaning/c6.webp", "alt": "Retail space transformation"},
+          {"type": "before-after", "before": "/img/image-service/commercial-cleaning/c7.webp", "after": "/img/image-service/commercial-cleaning/c8.webp", "alt": "Retail space transformation"},
+          {"type": "before-after", "before": "/img/image-service/commercial-cleaning/c10.webp", "after": "/img/image-service/commercial-cleaning/c11.webp", "alt": "Retail space transformation"},
+          {"type": "before-after", "before": "/img/image-service/commercial-cleaning/c12.webp", "after": "/img/image-service/commercial-cleaning/c13.webp", "alt": "Retail space transformation"}
+
         ]
       },
       {
