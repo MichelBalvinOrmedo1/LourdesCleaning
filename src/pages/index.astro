@@ -31,6 +31,55 @@ import { business, services, reviews, faqs } from "../data/site";
     </div>
   </section>
 
+  <section class="service-highlights" aria-label="Cleaning service highlights">
+    <div class="container service-highlights__grid">
+      <article data-reveal data-reveal-style="rise" style="--reveal-delay: 0ms">
+        <svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M7 22.5 24 8l17 14.5M11 20v20h26V20M19 40V27h10v13" /></svg>
+        <h2>Residential Cleaning</h2>
+        <p>Homes · Apartments</p>
+      </article>
+      <article data-reveal data-reveal-style="rise" style="--reveal-delay: 90ms">
+        <svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M10 41V18h12v23M22 10h16v31M6 41h36M15 24h2M15 30h2M15 36h2M28 16h4M28 23h4M28 30h4M28 37h4" /></svg>
+        <h2>Commercial Cleaning</h2>
+        <p>Offices · Businesses</p>
+      </article>
+      <article data-reveal data-reveal-style="rise" style="--reveal-delay: 180ms">
+        <svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="m24 5 2.3 7.7L34 15l-7.7 2.3L24 25l-2.3-7.7L14 15l7.7-2.3L24 5ZM38 25l1.4 4.6L44 31l-4.6 1.4L38 37l-1.4-4.6L32 31l4.6-1.4L38 25ZM12 28l1.7 5.3L19 35l-5.3 1.7L12 42l-1.7-5.3L5 35l5.3-1.7L12 28Z" /></svg>
+        <h2>Deep Cleaning</h2>
+        <p>Move-In/Move-Out</p>
+      </article>
+      <article data-reveal data-reveal-style="rise" style="--reveal-delay: 270ms">
+        <svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M24 41V24M24 31c-8.5 0-14-5.2-14-14 8.5 0 14 5.2 14 14ZM24 25c0-9.5 5.4-15 15-15 0 9.5-5.4 15-15 15Z" /></svg>
+        <h2>Eco-Friendly Products</h2>
+        <p>Safe for Your Family</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="why-us section--compact">
+    <div class="container why-us__grid">
+      <div class="why-us__image" data-reveal data-reveal-style="from-left">
+        <img src="/img/why-choose-flowers.png" width="1456" height="1092" alt="Fresh white flowers in a spotless kitchen with a gold faucet" loading="lazy" />
+        <p aria-hidden="true">Clean spaces<br />Happy lives ♡</p>
+      </div>
+      <div class="why-us__copy" data-reveal data-reveal-style="from-right">
+        <p class="eyebrow">Why choose us?</p>
+        <h2 class="section-title">Trusted. Professional. Local.</h2>
+        <p class="why-us__lede">We are a dedicated team committed to delivering exceptional cleaning services with attention to detail, reliability, and care. Your satisfaction is our priority.</p>
+        <div class="why-us__details">
+          <ul aria-label="Reasons to choose Lules Cleaning Service">
+            <li data-reveal data-reveal-style="check" style="--reveal-delay: 80ms">Reliable &amp; Trustworthy</li>
+            <li data-reveal data-reveal-style="check" style="--reveal-delay: 140ms">Attention to Detail</li>
+            <li data-reveal data-reveal-style="check" style="--reveal-delay: 200ms">Eco-Friendly Products</li>
+            <li data-reveal data-reveal-style="check" style="--reveal-delay: 260ms">Flexible Scheduling</li>
+            <li data-reveal data-reveal-style="check" style="--reveal-delay: 320ms">Same-Day Service Available</li>
+          </ul>
+          <p class="why-us__note" aria-hidden="true">Your cleaning<br />experts in NYC ♡</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="services section warm-field" id="services">
     <div class="container">
       <div class="section-head" data-reveal>
@@ -161,6 +210,28 @@ import { business, services, reviews, faqs } from "../data/site";
   .hero__phone { gap: .65rem; min-width: 14.2rem; justify-content: flex-start; padding: .34rem 1.05rem .34rem .38rem; border-color: rgba(73,34,83,.22); background: rgba(255,255,255,.76); }
   .hero__phone-icon { display: grid; width: 2.45rem; height: 2.45rem; flex: none; place-items: center; border-radius: 50%; color: white; background: #d0a14f; }
   .hero__phone-icon svg { width: 1.2rem; height: 1.2rem; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .service-highlights { position: relative; z-index: 3; border-bottom: 1px solid var(--line); background: rgba(255,254,253,.96); }
+  .service-highlights__grid { display: grid; grid-template-columns: repeat(4, 1fr); }
+  .service-highlights article { position: relative; display: grid; min-height: 11rem; place-content: center; padding: 1.55rem 1rem; text-align: center; }
+  .service-highlights article + article::before { position: absolute; top: 24%; bottom: 24%; left: 0; width: 1px; content: ""; background: var(--line); }
+  .service-highlights svg { width: 3rem; height: 3rem; margin: 0 auto .65rem; color: #c79a52; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; transition: transform 300ms cubic-bezier(.2,.8,.2,1), color 300ms ease; }
+  .service-highlights article:hover svg { transform: translateY(-.3rem) scale(1.06); color: var(--plum); }
+  .service-highlights h2 { margin: 0; color: #39293d; font-size: clamp(1.1rem, 1.5vw, 1.35rem); letter-spacing: -.02em; }
+  .service-highlights p { margin: .1rem 0 0; color: var(--ink-soft); font-size: .78rem; }
+  .why-us { overflow: hidden; border-bottom: 1px solid var(--line); background: linear-gradient(135deg, #fffdfb, #fbf4fb); }
+  .why-us__grid { display: grid; grid-template-columns: .95fr 1.05fr; gap: clamp(2.5rem, 6vw, 5.5rem); align-items: center; }
+  .why-us__image { position: relative; overflow: hidden; border: 1px solid rgba(199,151,67,.45); border-radius: 1.65rem .35rem 1.65rem .35rem; box-shadow: 0 24px 54px rgba(72,33,83,.12); }
+  .why-us__image::after { position: absolute; inset: auto 0 0; height: 44%; content: ""; background: linear-gradient(transparent, rgba(255,250,247,.93)); }
+  .why-us__image img { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; transition: transform 900ms cubic-bezier(.2,.75,.25,1); }
+  .why-us__image:hover img { transform: scale(1.035); }
+  .why-us__image > p { position: absolute; z-index: 2; right: 1.5rem; bottom: 1rem; margin: 0; transform: rotate(-7deg); color: #b68ac5; font-family: var(--font-script); font-size: clamp(2rem, 4vw, 3.35rem); line-height: .78; text-align: right; }
+  .why-us__copy .section-title { max-width: 14ch; }
+  .why-us__lede { max-width: 39rem; margin: 1rem 0 0; color: var(--ink-soft); }
+  .why-us__details { display: grid; grid-template-columns: minmax(0, 1fr) 10rem; gap: 1.5rem; align-items: end; margin-top: 1.35rem; }
+  .why-us__details ul { display: grid; gap: .6rem; margin: 0; padding: 0; list-style: none; }
+  .why-us__details li { display: flex; align-items: center; gap: .65rem; color: #4d3e50; font-family: var(--font-display); font-size: 1.05rem; font-weight: 560; }
+  .why-us__details li::before { display: block; width: 1.35rem; height: 1.35rem; flex: none; border-radius: 50%; content: ""; background-color: #b68ac5; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='m4 8.4 2.5 2.5L12.2 5' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-position: center; background-repeat: no-repeat; background-size: .9rem; box-shadow: 0 5px 12px rgba(111,60,130,.18); }
+  .why-us__note { margin: 0; transform: rotate(-7deg); color: #b68ac5; font-family: var(--font-script); font-size: 2rem; line-height: .9; text-align: center; }
   .section-head, .voices__head { display: grid; grid-template-columns: 1.2fr .8fr; gap: 3rem; align-items: end; margin-bottom: 3rem; }
   .section-head > p, .voices__intro { max-width: 31rem; margin: 0 0 .25rem auto; color: var(--ink-soft); }
   .voices__intro p { margin: 0 0 1rem; }
@@ -233,6 +304,11 @@ import { business, services, reviews, faqs } from "../data/site";
     .services__list a + a { border-left: 0; }
     .results__copy { max-width: 44rem; }
     .care__image { width: min(82%, 30rem); }
+    .service-highlights__grid { grid-template-columns: repeat(2, 1fr); }
+    .service-highlights article:nth-child(3)::before { display: none; }
+    .service-highlights article:nth-child(n+3) { border-top: 1px solid var(--line); }
+    .why-us__grid { grid-template-columns: 1fr; }
+    .why-us__image { width: min(100%, 40rem); }
   }
   @media (max-width: 38rem) {
     .hero { min-height: 43rem; }
@@ -253,5 +329,12 @@ import { business, services, reviews, faqs } from "../data/site";
     .care__image { width: 100%; }
     .care__stamp { right: 0; }
     .voices__lead { min-height: 24rem; }
+    .service-highlights article { min-height: 9rem; padding: 1.15rem .55rem; }
+    .service-highlights svg { width: 2.45rem; height: 2.45rem; }
+    .service-highlights h2 { font-size: 1rem; }
+    .service-highlights p { font-size: .7rem; }
+    .why-us__image > p { right: 1rem; font-size: 2.2rem; }
+    .why-us__details { grid-template-columns: 1fr; }
+    .why-us__note { display: none; }
   }
 </style>
