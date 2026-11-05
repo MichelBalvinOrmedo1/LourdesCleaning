@@ -1,14 +1,7 @@
-// @ts-check
-import { defineConfig } from 'astro/config';
-import tailwindcss from '@tailwindcss/vite';
+import { defineConfig } from "astro/config";
 
 export default defineConfig({
-  vite: {
-    plugins: [tailwindcss()],
-    server: {
-      headers: {
-        'Cache-Control': 'public, max-age=31536000, immutable',
-      },
-    },
-  },
+  site: "https://lulescleaningservice.com",
+  output: "static",
+  compressHTML: true,
 });

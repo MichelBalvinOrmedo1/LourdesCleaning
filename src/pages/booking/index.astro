@@ -1,0 +1,424 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ServiceIcon from "../../components/ServiceIcon.astro";
+import { business, services } from "../../data/site";
+
+const serviceCopy: Record<string, { detail: string; group: string }> = {
+  "residential-cleaning": { detail: "Recurring or one-time care for homes and apartments.", group: "Home care" },
+  "deep-cleaning": { detail: "A detailed reset for buildup and overlooked areas.", group: "Extra attention" },
+  "move-in-out-cleaning": { detail: "Detailed cleaning for an empty or nearly empty home.", group: "Fresh starts" },
+  "commercial-cleaning": { detail: "Flexible cleaning for retail, hospitality and shared spaces.", group: "Business spaces" },
+  "office-cleaning": { detail: "Ongoing or one-time care built around your workplace.", group: "Workplaces" },
+};
+---
+
+<BaseLayout
+  title="Plan Your Cleaning Service | Lules Multiservices NYC"
+  description="Build a cleaning service request for your NYC home, office or business. Preview your selections before contacting Lules Multiservices."
+>
+  <section class="booking-hero warm-field">
+    <div class="container booking-hero__inner" data-reveal>
+      <p class="eyebrow">Plan your service</p>
+      <h1>Tell us about your space.</h1>
+      <p>Choose what you need and review the details in three simple steps. No payment is requested here.</p>
+      <div class="privacy-note" role="note">
+        <span aria-hidden="true">○</span>
+        <span><strong>Preview mode:</strong> this form does not send or save your information.</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="booking-section">
+    <div class="container booking-layout">
+      <div class="booking-main">
+        <ol class="progress" aria-label="Quote progress">
+          <li class="is-current" data-progress-step="1"><span>1</span><div><strong>Your space</strong><small>Service details</small></div></li>
+          <li data-progress-step="2"><span>2</span><div><strong>Contact</strong><small>How to reach you</small></div></li>
+          <li data-progress-step="3"><span>3</span><div><strong>Review</strong><small>Check your request</small></div></li>
+        </ol>
+
+        <form id="quote-builder" class="quote-builder" novalidate>
+          <section class="form-step" data-step="1" aria-labelledby="step-one-title">
+            <div class="step-heading">
+              <span>Step 1 of 3</span>
+              <h2 id="step-one-title">What would you like cleaned?</h2>
+              <p>Start with the service. We’ll only show the questions that matter for that job.</p>
+            </div>
+
+            <div class="field field--area">
+              <label for="service-area">Service area <span>*</span></label>
+              <select id="service-area" name="serviceArea" required>
+                <option value="">Select an area</option>
+                <option>Manhattan</option>
+                <option>Brooklyn</option>
+                <option>Queens</option>
+                <option>The Bronx</option>
+                <option>Other / nearby area</option>
+                <option>Not sure about coverage</option>
+              </select>
+              <small>Outside these areas? Choose “Other” and we’ll review availability with you.</small>
+            </div>
+
+            <fieldset class="service-fieldset">
+              <legend>Choose one service <span>*</span></legend>
+              <div class="service-options">
+                {services.map((service) => {
+                  const copy = serviceCopy[service.slug] ?? { detail: service.short, group: service.eyebrow };
+                  return (
+                    <label class="service-choice">
+                      <input type="radio" name="service" value={service.slug} data-title={service.title} required />
+                      <span class="service-choice__body">
+                        <ServiceIcon name={service.slug} />
+                        <span class="service-choice__copy">
+                          <small>{copy.group}</small>
+                          <strong>{service.title}</strong>
+                          <span>{copy.detail}</span>
+                        </span>
+                        <span class="service-choice__check" aria-hidden="true">✓</span>
+                      </span>
+                    </label>
+                  );
+                })}
+              </div>
+            </fieldset>
+
+            <div class="conditional-shell" id="service-details" hidden>
+              <div class="conditional-intro">
+                <span class="conditional-intro__number">2</span>
+                <div><h3>Tell us a little more</h3><p>These questions change based on the service you selected.</p></div>
+              </div>
+
+              <div class="service-panel" data-service-panel="residential-cleaning" hidden>
+                <div class="field-grid field-grid--3">
+                  <div class="field"><label for="res-frequency">Frequency <span>*</span></label><select id="res-frequency" name="residentialFrequency" data-required><option value="">Select frequency</option><option>One-time</option><option>Weekly</option><option>Every two weeks</option><option>Monthly</option></select></div>
+                  <div class="field"><label for="res-bedrooms">Bedrooms <span>*</span></label><select id="res-bedrooms" name="residentialBedrooms" data-required><option value="">Select</option><option>Studio</option><option>1 bedroom</option><option>2 bedrooms</option><option>3 bedrooms</option><option>4 bedrooms</option><option>5+ bedrooms</option></select></div>
+                  <div class="field"><label for="res-bathrooms">Bathrooms <span>*</span></label><select id="res-bathrooms" name="residentialBathrooms" data-required><option value="">Select</option><option>1 bathroom</option><option>1.5 bathrooms</option><option>2 bathrooms</option><option>2.5 bathrooms</option><option>3 bathrooms</option><option>4+ bathrooms</option></select></div>
+                </div>
+                <div class="field-grid">
+                  <div class="field"><label for="res-size">Approximate size</label><select id="res-size" name="residentialSize"><option value="">Select or skip</option><option>Under 500 sq ft</option><option>500–999 sq ft</option><option>1,000–1,499 sq ft</option><option>1,500–1,999 sq ft</option><option>2,000+ sq ft</option><option>Not sure</option></select></div>
+                  <div class="field"><label for="res-condition">Current condition</label><select id="res-condition" name="residentialCondition"><option value="">Select or skip</option><option>Light upkeep</option><option>Average lived-in condition</option><option>Needs extra attention</option><option>Not sure</option></select></div>
+                </div>
+              </div>
+
+              <div class="service-panel" data-service-panel="deep-cleaning" hidden>
+                <div class="field-grid field-grid--3">
+                  <div class="field"><label for="deep-bedrooms">Bedrooms <span>*</span></label><select id="deep-bedrooms" name="deepBedrooms" data-required><option value="">Select</option><option>Studio</option><option>1 bedroom</option><option>2 bedrooms</option><option>3 bedrooms</option><option>4+ bedrooms</option></select></div>
+                  <div class="field"><label for="deep-bathrooms">Bathrooms <span>*</span></label><select id="deep-bathrooms" name="deepBathrooms" data-required><option value="">Select</option><option>1 bathroom</option><option>1.5 bathrooms</option><option>2 bathrooms</option><option>2.5 bathrooms</option><option>3+ bathrooms</option></select></div>
+                  <div class="field"><label for="deep-size">Approximate size</label><select id="deep-size" name="deepSize"><option value="">Select or skip</option><option>Under 750 sq ft</option><option>750–1,499 sq ft</option><option>1,500–2,499 sq ft</option><option>2,500+ sq ft</option><option>Not sure</option></select></div>
+                </div>
+                <fieldset class="choice-group"><legend>Areas needing extra attention</legend><div class="check-grid"><label><input type="checkbox" name="deepFocus" value="Kitchen buildup" /> Kitchen buildup</label><label><input type="checkbox" name="deepFocus" value="Bathrooms" /> Bathrooms</label><label><input type="checkbox" name="deepFocus" value="Baseboards and trim" /> Baseboards & trim</label><label><input type="checkbox" name="deepFocus" value="Interior appliances" /> Interior appliances</label><label><input type="checkbox" name="deepFocus" value="Pet hair" /> Pet hair</label><label><input type="checkbox" name="deepFocus" value="Not sure" /> Not sure</label></div></fieldset>
+              </div>
+
+              <div class="service-panel" data-service-panel="move-in-out-cleaning" hidden>
+                <fieldset class="choice-group"><legend>Type of move <span>*</span></legend><div class="segmented"><label><input type="radio" name="moveType" value="Move-in" data-required /><span>Move-in</span></label><label><input type="radio" name="moveType" value="Move-out" data-required /><span>Move-out</span></label><label><input type="radio" name="moveType" value="Both / not sure" data-required /><span>Both / not sure</span></label></div></fieldset>
+                <div class="field-grid field-grid--3">
+                  <div class="field"><label for="move-bedrooms">Bedrooms <span>*</span></label><select id="move-bedrooms" name="moveBedrooms" data-required><option value="">Select</option><option>Studio</option><option>1 bedroom</option><option>2 bedrooms</option><option>3 bedrooms</option><option>4+ bedrooms</option></select></div>
+                  <div class="field"><label for="move-bathrooms">Bathrooms <span>*</span></label><select id="move-bathrooms" name="moveBathrooms" data-required><option value="">Select</option><option>1 bathroom</option><option>1.5 bathrooms</option><option>2 bathrooms</option><option>2.5 bathrooms</option><option>3+ bathrooms</option></select></div>
+                  <div class="field"><label for="move-occupancy">Space status <span>*</span></label><select id="move-occupancy" name="moveOccupancy" data-required><option value="">Select</option><option>Empty</option><option>Mostly empty</option><option>Still furnished</option><option>Not sure yet</option></select></div>
+                </div>
+              </div>
+
+              <div class="service-panel" data-service-panel="commercial-cleaning" hidden>
+                <div class="field-grid">
+                  <div class="field"><label for="commercial-type">Business type <span>*</span></label><select id="commercial-type" name="commercialType" data-required><option value="">Select</option><option>Retail store</option><option>Restaurant / hospitality</option><option>Studio / showroom</option><option>Building common area</option><option>Other business</option></select></div>
+                  <div class="field"><label for="commercial-size">Approximate size <span>*</span></label><select id="commercial-size" name="commercialSize" data-required><option value="">Select</option><option>Under 1,000 sq ft</option><option>1,000–2,499 sq ft</option><option>2,500–4,999 sq ft</option><option>5,000+ sq ft</option><option>Not sure</option></select></div>
+                  <div class="field"><label for="commercial-frequency">Frequency <span>*</span></label><select id="commercial-frequency" name="commercialFrequency" data-required><option value="">Select</option><option>One-time</option><option>Daily</option><option>2–3 times per week</option><option>Weekly</option><option>Every two weeks</option><option>Not sure yet</option></select></div>
+                  <div class="field"><label for="commercial-window">Preferred window</label><select id="commercial-window" name="commercialWindow"><option value="">Select or skip</option><option>During business hours</option><option>Before business hours</option><option>After business hours</option><option>Flexible</option></select></div>
+                </div>
+                <fieldset class="choice-group"><legend>Areas to include</legend><div class="check-grid"><label><input type="checkbox" name="commercialAreas" value="Customer areas" /> Customer areas</label><label><input type="checkbox" name="commercialAreas" value="Bathrooms" /> Bathrooms</label><label><input type="checkbox" name="commercialAreas" value="Kitchen / prep area" /> Kitchen / prep area</label><label><input type="checkbox" name="commercialAreas" value="Floors" /> Floors</label><label><input type="checkbox" name="commercialAreas" value="Trash removal" /> Trash removal</label><label><input type="checkbox" name="commercialAreas" value="Interior glass" /> Interior glass</label></div></fieldset>
+              </div>
+
+              <div class="service-panel" data-service-panel="office-cleaning" hidden>
+                <div class="field-grid">
+                  <div class="field"><label for="office-type">Workplace type <span>*</span></label><select id="office-type" name="officeType" data-required><option value="">Select</option><option>Professional office</option><option>Medical / dental office</option><option>Coworking space</option><option>Small studio</option><option>Other workplace</option></select></div>
+                  <div class="field"><label for="office-size">Approximate size <span>*</span></label><select id="office-size" name="officeSize" data-required><option value="">Select</option><option>Under 1,000 sq ft</option><option>1,000–2,499 sq ft</option><option>2,500–4,999 sq ft</option><option>5,000–9,999 sq ft</option><option>10,000+ sq ft</option><option>Not sure</option></select></div>
+                  <div class="field"><label for="office-frequency">Frequency <span>*</span></label><select id="office-frequency" name="officeFrequency" data-required><option value="">Select</option><option>One-time</option><option>Daily</option><option>2–3 times per week</option><option>Weekly</option><option>Every two weeks</option><option>Monthly</option></select></div>
+                  <div class="field"><label for="office-occupancy">Team size</label><select id="office-occupancy" name="officeOccupancy"><option value="">Select or skip</option><option>Under 10 people</option><option>10–25 people</option><option>26–50 people</option><option>51–100 people</option><option>100+ people</option></select></div>
+                </div>
+                <fieldset class="choice-group"><legend>Areas to include</legend><div class="check-grid"><label><input type="checkbox" name="officeAreas" value="Desks and work areas" /> Desks & work areas</label><label><input type="checkbox" name="officeAreas" value="Bathrooms" /> Bathrooms</label><label><input type="checkbox" name="officeAreas" value="Breakroom" /> Breakroom</label><label><input type="checkbox" name="officeAreas" value="Conference rooms" /> Conference rooms</label><label><input type="checkbox" name="officeAreas" value="Reception" /> Reception</label><label><input type="checkbox" name="officeAreas" value="Floors and trash" /> Floors & trash</label></div></fieldset>
+              </div>
+
+              <fieldset class="choice-group shared-addons">
+                <legend>Optional extras</legend>
+                <div class="check-grid"><label><input type="checkbox" name="extras" value="Inside oven" /> Inside oven</label><label><input type="checkbox" name="extras" value="Inside fridge" /> Inside fridge</label><label><input type="checkbox" name="extras" value="Interior windows" /> Interior windows</label><label><input type="checkbox" name="extras" value="Cabinet interiors" /> Cabinet interiors</label><label><input type="checkbox" name="extras" value="Laundry" /> Laundry</label><label><input type="checkbox" name="extras" value="Pet hair treatment" /> Pet hair treatment</label></div>
+              </fieldset>
+            </div>
+
+            <div class="field field--notes"><label for="project-notes">Anything else we should know? <small>Optional</small></label><textarea id="project-notes" name="notes" rows="4" placeholder="Access details, areas of concern, pets, supplies or schedule notes..."></textarea></div>
+            <div class="step-actions step-actions--end"><button class="button button--primary" type="button" data-next>Continue to contact <span aria-hidden="true">→</span></button></div>
+          </section>
+
+          <section class="form-step" data-step="2" aria-labelledby="step-two-title" hidden>
+            <div class="step-heading"><span>Step 2 of 3</span><h2 id="step-two-title">How can we reach you?</h2><p>Use placeholder details if you’re only testing the planner. Nothing leaves this page.</p></div>
+            <div class="field-grid">
+              <div class="field"><label for="first-name">First name <span>*</span></label><input id="first-name" name="firstName" type="text" autocomplete="given-name" required /></div>
+              <div class="field"><label for="last-name">Last name <span>*</span></label><input id="last-name" name="lastName" type="text" autocomplete="family-name" required /></div>
+              <div class="field"><label for="email">Email <span>*</span></label><input id="email" name="email" type="email" autocomplete="email" required /></div>
+              <div class="field"><label for="phone">Phone <span>*</span></label><input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required /></div>
+            </div>
+            <fieldset class="choice-group"><legend>Preferred contact method <span>*</span></legend><div class="segmented"><label><input type="radio" name="contactMethod" value="Phone call" required /><span>Phone call</span></label><label><input type="radio" name="contactMethod" value="Text message" required /><span>Text message</span></label><label><input type="radio" name="contactMethod" value="Email" required /><span>Email</span></label></div></fieldset>
+            <div class="subsection"><div><span class="subsection__number">2</span><h3>Location & timing</h3></div><p>You can leave the date flexible.</p></div>
+            <div class="field-grid">
+              <div class="field field--wide"><label for="address">Cleaning address <span>*</span></label><input id="address" name="address" type="text" autocomplete="street-address" required placeholder="Street address, apartment or suite" /></div>
+              <div class="field"><label for="city">City <span>*</span></label><input id="city" name="city" type="text" autocomplete="address-level2" required value="New York" /></div>
+              <div class="field"><label for="zip">ZIP code <span>*</span></label><input id="zip" name="zip" type="text" inputmode="numeric" autocomplete="postal-code" pattern="[0-9]{5}" maxlength="5" required /></div>
+              <div class="field"><label for="preferred-date">Preferred date</label><input id="preferred-date" name="preferredDate" type="date" /></div>
+              <div class="field"><label for="preferred-time">Preferred time</label><select id="preferred-time" name="preferredTime"><option value="">Flexible / not sure yet</option><option>Morning · 8 AM–12 PM</option><option>Afternoon · 12–4 PM</option><option>Evening · after 4 PM</option></select></div>
+            </div>
+            <div class="step-actions"><button class="button button--outline" type="button" data-back>← Back</button><button class="button button--primary" type="button" data-next>Review request <span aria-hidden="true">→</span></button></div>
+          </section>
+
+          <section class="form-step" data-step="3" aria-labelledby="step-three-title" hidden>
+            <div class="step-heading"><span>Step 3 of 3</span><h2 id="step-three-title">Review your request.</h2><p>Check the details below. This is a local preview and will not be submitted.</p></div>
+            <div id="quote-summary" class="quote-summary" aria-live="polite"></div>
+            <div class="simulation-callout"><span aria-hidden="true">✓</span><div><strong>No information will be sent.</strong><p>This planner has no email endpoint, database or submission action.</p></div></div>
+            <div class="step-actions"><button class="button button--outline" type="button" data-back>← Change details</button><button class="button button--primary" id="complete-preview" type="button">Complete preview</button></div>
+            <div id="preview-complete" class="preview-complete" role="status" tabindex="-1" hidden>
+              <span aria-hidden="true">✓</span><div><strong>Your preview is complete.</strong><p>Nothing was sent or saved. To request service, call <a href={business.phoneHref}>{business.phone}</a>.</p><button type="button" data-reset>Start over</button></div>
+            </div>
+          </section>
+        </form>
+      </div>
+
+      <aside class="booking-aside" aria-label="Quote information">
+        <div class="aside-card">
+          <p class="aside-card__label">What to expect</p>
+          <h2>A clearer first conversation.</h2>
+          <ul><li><span>01</span>Choose the right service.</li><li><span>02</span>Add only the relevant details.</li><li><span>03</span>Review everything together.</li></ul>
+        </div>
+        <div class="aside-contact"><p>Prefer to speak with Lourdes?</p><a href={business.phoneHref}>{business.phone}</a><small>{business.hours}</small></div>
+      </aside>
+    </div>
+  </section>
+
+  <script>
+    const form = document.querySelector<HTMLFormElement>("#quote-builder");
+    if (form) {
+      const steps = [...form.querySelectorAll<HTMLElement>("[data-step]")];
+      const progressItems = [...document.querySelectorAll<HTMLElement>("[data-progress-step]")];
+      const serviceDetails = form.querySelector<HTMLElement>("#service-details");
+      const servicePanels = [...form.querySelectorAll<HTMLElement>("[data-service-panel]")];
+      const summary = form.querySelector<HTMLElement>("#quote-summary");
+      const completion = form.querySelector<HTMLElement>("#preview-complete");
+      const dateInput = form.querySelector<HTMLInputElement>("#preferred-date");
+      let currentStep = 1;
+
+      if (dateInput) dateInput.min = new Date().toISOString().split("T")[0];
+
+      const showStep = (step: number) => {
+        currentStep = step;
+        steps.forEach((section) => section.hidden = Number(section.dataset.step) !== step);
+        progressItems.forEach((item) => {
+          const number = Number(item.dataset.progressStep);
+          item.classList.toggle("is-current", number === step);
+          item.classList.toggle("is-complete", number < step);
+          const marker = item.querySelector(":scope > span");
+          if (marker) marker.textContent = number < step ? "✓" : String(number);
+        });
+        completion?.setAttribute("hidden", "");
+        document.querySelector(".booking-section")?.scrollIntoView({ behavior: "smooth", block: "start" });
+        steps.find((section) => Number(section.dataset.step) === step)?.querySelector<HTMLElement>("h2")?.focus({ preventScroll: true });
+      };
+
+      const updateServicePanel = (value: string) => {
+        if (serviceDetails) serviceDetails.hidden = !value;
+        servicePanels.forEach((panel) => {
+          const active = panel.dataset.servicePanel === value;
+          panel.hidden = !active;
+          panel.querySelectorAll<HTMLInputElement | HTMLSelectElement>("[data-required]").forEach((input) => input.required = active);
+        });
+      };
+
+      const validateStep = (step: number) => {
+        const section = steps.find((item) => Number(item.dataset.step) === step);
+        if (!section) return false;
+        const required = [...section.querySelectorAll<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>(":required")]
+          .filter((input) => !input.closest<HTMLElement>("[hidden]"));
+        const invalid = required.find((input) => !input.checkValidity());
+        if (invalid) { invalid.reportValidity(); invalid.focus(); return false; }
+        return true;
+      };
+
+      const valueOf = (name: string) => {
+        const entries = new FormData(form).getAll(name).map(String).filter(Boolean);
+        return entries.length ? entries.join(", ") : "Not specified";
+      };
+
+      const addSummaryRow = (label: string, value: string) => {
+        const row = document.createElement("div");
+        const term = document.createElement("dt");
+        const detail = document.createElement("dd");
+        term.textContent = label;
+        detail.textContent = value;
+        row.append(term, detail);
+        return row;
+      };
+
+      const buildSummary = () => {
+        if (!summary) return;
+        const selectedService = form.querySelector<HTMLInputElement>('input[name="service"]:checked');
+        const slug = selectedService?.value ?? "";
+        const specific: Record<string, Array<[string, string]>> = {
+          "residential-cleaning": [["Frequency", "residentialFrequency"], ["Home", "residentialBedrooms"], ["Bathrooms", "residentialBathrooms"], ["Approx. size", "residentialSize"]],
+          "deep-cleaning": [["Home", "deepBedrooms"], ["Bathrooms", "deepBathrooms"], ["Approx. size", "deepSize"], ["Focus areas", "deepFocus"]],
+          "move-in-out-cleaning": [["Move", "moveType"], ["Home", "moveBedrooms"], ["Bathrooms", "moveBathrooms"], ["Space status", "moveOccupancy"]],
+          "commercial-cleaning": [["Business", "commercialType"], ["Approx. size", "commercialSize"], ["Frequency", "commercialFrequency"], ["Areas", "commercialAreas"]],
+          "office-cleaning": [["Workplace", "officeType"], ["Approx. size", "officeSize"], ["Frequency", "officeFrequency"], ["Areas", "officeAreas"]],
+        };
+        const rows: Array<[string, string]> = [
+          ["Service", selectedService?.dataset.title ?? "Not selected"],
+          ["Service area", valueOf("serviceArea")],
+          ...(specific[slug] ?? []).map(([label, name]) => [label, valueOf(name)] as [string, string]),
+          ["Optional extras", valueOf("extras")],
+          ["Preferred date", valueOf("preferredDate")],
+          ["Preferred time", valueOf("preferredTime")],
+          ["Name", `${valueOf("firstName")} ${valueOf("lastName")}`],
+          ["Contact", `${valueOf("email")} · ${valueOf("phone")} · ${valueOf("contactMethod")}`],
+          ["Cleaning address", `${valueOf("address")}, ${valueOf("city")}, NY ${valueOf("zip")}`],
+          ["Notes", valueOf("notes")],
+        ];
+        const list = document.createElement("dl");
+        rows.forEach(([label, value]) => list.append(addSummaryRow(label, value)));
+        summary.replaceChildren(list);
+      };
+
+      form.addEventListener("change", (event) => {
+        const target = event.target as HTMLInputElement;
+        if (target.name === "service") updateServicePanel(target.value);
+      });
+      form.addEventListener("submit", (event) => event.preventDefault());
+      form.querySelectorAll<HTMLButtonElement>("[data-next]").forEach((button) => button.addEventListener("click", () => {
+        if (!validateStep(currentStep)) return;
+        if (currentStep === 2) buildSummary();
+        showStep(Math.min(3, currentStep + 1));
+      }));
+      form.querySelectorAll<HTMLButtonElement>("[data-back]").forEach((button) => button.addEventListener("click", () => showStep(Math.max(1, currentStep - 1))));
+      form.querySelector<HTMLButtonElement>("#complete-preview")?.addEventListener("click", () => {
+        if (!completion) return;
+        completion.hidden = false;
+        completion.focus();
+      });
+      form.querySelector<HTMLButtonElement>("[data-reset]")?.addEventListener("click", () => {
+        form.reset();
+        updateServicePanel("");
+        showStep(1);
+      });
+    }
+  </script>
+</BaseLayout>
+
+<style>
+  .booking-hero { padding: clamp(2.5rem, 4.5vw, 4rem) 0 clamp(2.25rem, 4vw, 3.5rem); border-bottom: 1px solid var(--line); }
+  .booking-hero__inner { max-width: 54rem; text-align: center; }
+  .booking-hero .eyebrow { margin-inline: auto; }
+  .booking-hero h1 { margin: 0; font-size: clamp(2.65rem, 5vw, 4rem); line-height: .98; }
+  .booking-hero p:not(.eyebrow) { max-width: 42rem; margin: 1rem auto 0; color: var(--ink-soft); font-size: 1.08rem; }
+  .privacy-note { display: inline-flex; align-items: center; gap: .65rem; margin-top: 1.4rem; padding: .65rem 1rem; border: 1px solid rgba(111,60,130,.14); border-radius: 999px; color: var(--plum-deep); background: rgba(255,255,255,.72); font-size: .8rem; }
+  .privacy-note > span:first-child { display: grid; width: 1.2rem; height: 1.2rem; place-items: center; border: 2px solid var(--rose); border-radius: 50%; }
+  .booking-section { scroll-margin-top: 7rem; padding: clamp(2rem, 5vw, 4.5rem) 0 clamp(5rem, 8vw, 8rem); }
+  .booking-layout { display: grid; grid-template-columns: minmax(0, 1fr) 19rem; gap: clamp(2rem, 5vw, 4.5rem); align-items: start; }
+  .progress { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; padding: 0; margin: 0 0 1.5rem; list-style: none; }
+  .progress li { position: relative; display: flex; align-items: center; gap: .75rem; color: #8d7c91; }
+  .progress li:not(:last-child)::after { position: absolute; z-index: -1; top: 1.1rem; right: .75rem; left: 3rem; height: 1px; content: ""; background: var(--line); }
+  .progress > li > span { display: grid; width: 2.25rem; height: 2.25rem; flex: none; place-items: center; border: 1px solid var(--line); border-radius: 50%; background: var(--paper); font-size: .76rem; font-weight: 850; }
+  .progress strong, .progress small { display: block; line-height: 1.25; }
+  .progress strong { color: var(--ink); font-size: .79rem; }
+  .progress small { margin-top: .14rem; font-size: .68rem; }
+  .progress .is-current > span { border-color: var(--plum); color: white; background: var(--plum); box-shadow: 0 7px 18px rgba(111,60,130,.22); }
+  .progress .is-complete > span { border-color: var(--rose); color: white; background: var(--rose); }
+  .quote-builder { padding: clamp(1.4rem, 4vw, 3.25rem); border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--paper); box-shadow: var(--shadow-sm); }
+  .form-step[hidden], .service-panel[hidden], .conditional-shell[hidden], .preview-complete[hidden] { display: none; }
+  .step-heading { padding-bottom: 1.6rem; border-bottom: 1px solid var(--line); }
+  .step-heading > span { color: var(--rose); font-size: .71rem; font-weight: 850; letter-spacing: .12em; text-transform: uppercase; }
+  .step-heading h2 { margin: .35rem 0 0; font-size: clamp(2rem, 4vw, 3.05rem); line-height: 1; }
+  .step-heading p { max-width: 42rem; margin: .65rem 0 0; color: var(--ink-soft); }
+  .field { display: grid; gap: .42rem; }
+  .field--area { max-width: 30rem; margin-top: 1.6rem; }
+  .field--notes { margin-top: 1.4rem; }
+  .field--wide { grid-column: 1 / -1; }
+  .field label, .service-fieldset > legend, .choice-group > legend { color: var(--ink); font-size: .78rem; font-weight: 820; }
+  label span, legend span { color: var(--rose); }
+  .field label small { color: var(--ink-soft); font-weight: 550; }
+  .field > small { color: var(--ink-soft); font-size: .74rem; }
+  input, select, textarea { width: 100%; min-height: 3.15rem; padding: .7rem .9rem; border: 1px solid rgba(73,34,83,.2); border-radius: .7rem; color: var(--ink); background: #fff; }
+  textarea { min-height: 7rem; resize: vertical; }
+  input:hover, select:hover, textarea:hover { border-color: rgba(111,60,130,.42); }
+  input:focus, select:focus, textarea:focus { border-color: var(--plum); outline: 3px solid rgba(173,121,197,.2); }
+  .service-fieldset, .choice-group { min-width: 0; padding: 0; margin: 1.8rem 0 0; border: 0; }
+  .service-fieldset > legend { margin-bottom: .75rem; }
+  .service-options { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; }
+  .service-choice { position: relative; cursor: pointer; }
+  .service-choice > input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+  .service-choice__body { display: grid; min-height: 9.25rem; grid-template-columns: auto 1fr auto; gap: 1rem; align-items: start; padding: 1.2rem; border: 1px solid var(--line); border-radius: 1rem; background: #fffafc; transition: border-color 180ms ease, transform 180ms ease, box-shadow 180ms ease, background 180ms ease; }
+  .service-choice:hover .service-choice__body { transform: translateY(-2px); border-color: rgba(111,60,130,.35); box-shadow: var(--shadow-sm); }
+  .service-choice > input:focus-visible + .service-choice__body { outline: 3px solid var(--gold); outline-offset: 3px; }
+  .service-choice > input:checked + .service-choice__body { border-color: var(--plum); background: #fbf4fc; box-shadow: inset 0 0 0 1px var(--plum); }
+  .service-choice__copy { display: grid; gap: .24rem; }
+  .service-choice__copy small { color: var(--rose); font-size: .65rem; font-weight: 850; letter-spacing: .11em; text-transform: uppercase; }
+  .service-choice__copy strong { color: var(--ink); font-family: var(--font-display); font-size: 1.42rem; font-weight: 600; line-height: 1.05; }
+  .service-choice__copy > span { color: var(--ink-soft); font-size: .82rem; line-height: 1.45; }
+  .service-choice__check { display: grid; width: 1.4rem; height: 1.4rem; place-items: center; border: 1px solid var(--line); border-radius: 50%; color: transparent; background: white; font-size: .7rem; }
+  .service-choice > input:checked + .service-choice__body .service-choice__check { border-color: var(--plum); color: white; background: var(--plum); }
+  .conditional-shell { margin-top: 1.5rem; padding: clamp(1rem, 3vw, 1.7rem); border: 1px solid rgba(111,60,130,.16); border-radius: 1.2rem; background: var(--blush-soft); }
+  .conditional-intro { display: flex; gap: .85rem; align-items: center; margin-bottom: 1.2rem; }
+  .conditional-intro__number, .subsection__number { display: grid; width: 2rem; height: 2rem; flex: none; place-items: center; border-radius: 50%; color: white; background: var(--plum); font-size: .75rem; font-weight: 850; }
+  .conditional-intro h3, .subsection h3 { margin: 0; font-family: var(--font-body); font-size: .96rem; letter-spacing: 0; }
+  .conditional-intro p, .subsection p { margin: .12rem 0 0; color: var(--ink-soft); font-size: .76rem; }
+  .field-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 1rem; margin-top: 1rem; }
+  .field-grid--3 { grid-template-columns: repeat(3, minmax(0,1fr)); }
+  .choice-group { padding-top: 1rem; border-top: 1px solid var(--line); }
+  .check-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: .55rem; margin-top: .65rem; }
+  .check-grid label { display: flex; min-height: 2.8rem; align-items: center; gap: .55rem; padding: .55rem .7rem; border: 1px solid var(--line); border-radius: .65rem; color: var(--ink-soft); background: white; font-size: .76rem; font-weight: 650; cursor: pointer; }
+  .check-grid input { width: 1rem; min-height: 1rem; accent-color: var(--plum); }
+  .segmented { display: grid; grid-template-columns: repeat(3, 1fr); gap: .55rem; margin-top: .65rem; }
+  .segmented label { position: relative; cursor: pointer; }
+  .segmented input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+  .segmented label > span { display: grid; min-height: 3rem; place-items: center; padding: .65rem; border: 1px solid var(--line); border-radius: .7rem; color: var(--ink-soft); background: white; font-size: .78rem; font-weight: 750; text-align: center; }
+  .segmented input:checked + span { border-color: var(--plum); color: var(--plum-deep); background: var(--lilac-soft); box-shadow: inset 0 0 0 1px var(--plum); }
+  .shared-addons { margin-top: 1.4rem; }
+  .step-actions { display: flex; justify-content: space-between; gap: .75rem; margin-top: 2rem; padding-top: 1.3rem; border-top: 1px solid var(--line); }
+  .step-actions--end { justify-content: flex-end; }
+  .step-actions .button { min-width: 10.5rem; cursor: pointer; }
+  .subsection { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin: 2rem 0 0; padding-top: 1.5rem; border-top: 1px solid var(--line); }
+  .subsection > div { display: flex; align-items: center; gap: .75rem; }
+  .quote-summary { margin-top: 1.5rem; border: 1px solid var(--line); border-radius: 1rem; overflow: hidden; }
+  .quote-summary :global(dl) { margin: 0; }
+  .quote-summary :global(dl > div) { display: grid; grid-template-columns: 9rem 1fr; gap: 1rem; padding: .85rem 1rem; border-bottom: 1px solid var(--line); }
+  .quote-summary :global(dl > div:last-child) { border-bottom: 0; }
+  .quote-summary :global(dt) { color: var(--rose); font-size: .69rem; font-weight: 850; letter-spacing: .08em; text-transform: uppercase; }
+  .quote-summary :global(dd) { margin: 0; color: var(--ink); font-size: .86rem; }
+  .simulation-callout, .preview-complete { display: flex; gap: .9rem; align-items: flex-start; margin-top: 1rem; padding: 1rem; border-radius: .85rem; background: var(--blush-soft); }
+  .simulation-callout > span, .preview-complete > span { display: grid; width: 1.6rem; height: 1.6rem; flex: none; place-items: center; border-radius: 50%; color: white; background: var(--rose); font-size: .75rem; }
+  .simulation-callout p, .preview-complete p { margin: .15rem 0 0; color: var(--ink-soft); font-size: .8rem; }
+  .preview-complete { border: 1px solid rgba(111,60,130,.18); background: var(--lilac-soft); }
+  .preview-complete a { color: var(--plum-deep); font-weight: 850; text-decoration: underline; }
+  .preview-complete button { padding: 0; margin-top: .55rem; border: 0; color: var(--plum-deep); background: transparent; font-size: .78rem; font-weight: 850; text-decoration: underline; cursor: pointer; }
+  .booking-aside { position: sticky; top: 9rem; display: grid; gap: 1rem; }
+  .aside-card { padding: 1.5rem; border-radius: 1.2rem; color: white; background: linear-gradient(150deg, var(--plum-deep), var(--plum)); box-shadow: var(--shadow-lg); }
+  .aside-card__label { margin: 0; color: var(--gold-soft); font-size: .67rem; font-weight: 850; letter-spacing: .12em; text-transform: uppercase; }
+  .aside-card h2 { margin: .55rem 0 1.3rem; font-size: 2rem; line-height: 1; }
+  .aside-card ul { display: grid; gap: 0; padding: 0; margin: 0; list-style: none; }
+  .aside-card li { display: flex; align-items: center; gap: .7rem; padding: .8rem 0; border-top: 1px solid rgba(255,255,255,.16); color: rgba(255,255,255,.82); font-size: .8rem; }
+  .aside-card li span { color: var(--rose); font-size: .66rem; font-weight: 850; }
+  .aside-contact { padding: 1.2rem 1.35rem; border: 1px solid var(--line); border-radius: 1rem; background: white; box-shadow: var(--shadow-sm); }
+  .aside-contact p, .aside-contact small { margin: 0; color: var(--ink-soft); font-size: .72rem; }
+  .aside-contact a { display: block; margin: .25rem 0; color: var(--plum-deep); font-family: var(--font-display); font-size: 1.35rem; font-weight: 650; }
+  @media (max-width: 62rem) { .booking-layout { grid-template-columns: 1fr; } .booking-aside { position: static; grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 45rem) {
+    .booking-hero { padding-top: 2.5rem; }
+    .booking-hero__inner { text-align: left; }
+    .booking-hero .eyebrow { margin-inline: 0; }
+    .privacy-note { border-radius: 1rem; }
+    .progress li { gap: .45rem; }
+    .progress li div small { display: none; }
+    .progress li:not(:last-child)::after { left: 2.6rem; }
+    .progress strong { font-size: .68rem; }
+    .service-options, .field-grid, .field-grid--3, .check-grid, .booking-aside { grid-template-columns: 1fr; }
+    .service-choice__body { min-height: auto; }
+    .segmented { grid-template-columns: 1fr; }
+    .step-actions { flex-direction: column-reverse; }
+    .step-actions .button { width: 100%; }
+    .quote-summary :global(dl > div) { grid-template-columns: 1fr; gap: .22rem; }
+    .subsection { align-items: flex-start; flex-direction: column; }
+  }
+</style>

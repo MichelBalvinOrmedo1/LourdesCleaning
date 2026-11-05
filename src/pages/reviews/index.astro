@@ -1,0 +1,109 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ContactBand from "../../components/ContactBand.astro";
+import { reviews, business } from "../../data/site";
+---
+
+<BaseLayout
+  title="Client Reviews | Lules Multiservices NYC"
+  description="Read feedback shared by residential and commercial cleaning clients of Lules Multiservices in New York City."
+>
+  <header class="reviews-hero warm-field">
+    <div class="container reviews-hero__grid">
+      <div data-reveal>
+        <p class="eyebrow">Client feedback</p>
+        <h1 class="display-title">The details people remember.</h1>
+        <p class="lede">Real comments shared after Lules cleaning visits across New York City homes and businesses.</p>
+        <div class="reviews-hero__actions">
+          <a class="button button--primary" href="/booking/">Plan your service</a>
+          <a class="button button--outline" href={business.phoneHref}>Call {business.phone}</a>
+        </div>
+      </div>
+      <aside class="reviews-summary" data-reveal aria-label="Review summary">
+        <span class="reviews-summary__stars" aria-hidden="true">★★★★★</span>
+        <strong>{reviews.length} client notes</strong>
+        <p>Shared directly with the Lules team.</p>
+        <ul>
+          <li>Professional service</li>
+          <li>Attention to detail</li>
+          <li>Smooth communication</li>
+        </ul>
+      </aside>
+    </div>
+  </header>
+
+  <section class="review-wall section">
+    <div class="container">
+      <div class="review-wall__head" data-reveal>
+        <div><p class="eyebrow">In their own words</p><h2 class="section-title">What working with Lules feels like.</h2></div>
+        <p>We keep these notes anonymous because no client names were supplied. The words remain the feedback provided to Lules.</p>
+      </div>
+      <div class="review-grid">
+        {reviews.map((review, index) => (
+          <blockquote class:list={["review-card", { "review-card--featured": index === 0, "review-card--wide": index === reviews.length - 1 }]} data-reveal>
+            <div class="review-card__top"><span>0{index + 1}</span><span aria-hidden="true">★★★★★</span></div>
+            <p>“{review}”</p>
+            <footer>Client note <span>·</span> Shared with Lules</footer>
+          </blockquote>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="review-themes">
+    <div class="container review-themes__grid" data-reveal>
+      <p class="eyebrow">What comes through</p>
+      <div><span>01</span><strong>Care beyond the quick clean</strong></div>
+      <div><span>02</span><strong>A professional, responsive team</strong></div>
+      <div><span>03</span><strong>Spaces left clean and organized</strong></div>
+    </div>
+  </section>
+
+  <ContactBand compact />
+</BaseLayout>
+
+<style>
+  .reviews-hero { padding-block: clamp(3rem, 5vw, 5.5rem); border-bottom: 1px solid var(--line); }
+  .reviews-hero__grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(18rem, .65fr); gap: clamp(2.5rem, 8vw, 8rem); align-items: center; }
+  .reviews-hero .display-title { max-width: 10ch; font-size: clamp(3.6rem, 7vw, 6.8rem); }
+  .reviews-hero__actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 2rem; }
+  .reviews-summary { padding: clamp(1.75rem, 4vw, 3rem); border-radius: var(--radius-lg); color: white; background: linear-gradient(145deg, var(--plum-deep), var(--plum)); box-shadow: var(--shadow-lg); }
+  .reviews-summary__stars { display: block; color: var(--gold-soft); letter-spacing: .18em; }
+  .reviews-summary strong { display: block; margin-top: 1rem; font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem); font-weight: 520; line-height: 1; }
+  .reviews-summary p { margin: .65rem 0 1.5rem; color: rgba(255,255,255,.72); }
+  .reviews-summary ul { display: grid; gap: .7rem; margin: 0; padding: 1.25rem 0 0; border-top: 1px solid rgba(255,255,255,.2); list-style: none; font-size: .84rem; }
+  .reviews-summary li::before { margin-right: .65rem; color: var(--rose); content: "✓"; font-weight: 900; }
+  .review-wall { background: var(--paper); }
+  .review-wall__head { display: grid; grid-template-columns: 1.15fr .85fr; gap: clamp(2rem, 7vw, 7rem); align-items: end; margin-bottom: clamp(2rem, 5vw, 4rem); }
+  .review-wall__head > p { max-width: 32rem; margin: 0 0 .25rem; color: var(--ink-soft); }
+  .review-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 1rem; }
+  .review-card { display: flex; min-height: 20rem; grid-column: span 4; flex-direction: column; justify-content: space-between; margin: 0; padding: clamp(1.5rem, 3vw, 2.25rem); border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--cream); box-shadow: var(--shadow-sm); }
+  .review-card--featured { min-height: 25rem; grid-column: span 7; color: white; background: var(--plum-deep); }
+  .review-card--featured + .review-card { grid-column: span 5; }
+  .review-card--wide { min-height: 0; grid-column: span 12; }
+  .review-card:nth-child(5) { grid-column: span 4; }
+  .review-card__top { display: flex; align-items: center; justify-content: space-between; color: var(--rose); font-size: .72rem; font-weight: 800; letter-spacing: .12em; }
+  .review-card__top span:last-child { color: var(--gold); letter-spacing: .15em; }
+  .review-card p { margin: 2rem 0; font-family: var(--font-display); font-size: clamp(1.35rem, 2.3vw, 2rem); line-height: 1.2; letter-spacing: -.02em; }
+  .review-card--featured p { font-size: clamp(1.9rem, 3.5vw, 3rem); line-height: 1.08; }
+  .review-card footer { color: inherit; opacity: .62; font-size: .73rem; }
+  .review-card footer span { margin-inline: .35rem; }
+  .review-themes { padding-block: clamp(2.5rem, 5vw, 4rem); color: white; background: var(--plum); }
+  .review-themes__grid { display: grid; grid-template-columns: .7fr repeat(3, 1fr); gap: 0; align-items: stretch; }
+  .review-themes .eyebrow { align-self: center; margin: 0; color: var(--gold-soft); }
+  .review-themes__grid > div { display: grid; grid-template-columns: 2rem 1fr; gap: .75rem; padding: .5rem 1.5rem; border-left: 1px solid rgba(255,255,255,.2); }
+  .review-themes span { color: var(--rose); font-family: var(--font-display); }
+  .review-themes strong { max-width: 13rem; font-family: var(--font-display); font-size: 1.2rem; font-weight: 520; line-height: 1.2; }
+  @media (max-width: 58rem) {
+    .reviews-hero__grid, .review-wall__head { grid-template-columns: 1fr; }
+    .reviews-summary { max-width: 34rem; }
+    .review-card, .review-card--featured, .review-card--featured + .review-card, .review-card--wide, .review-card:nth-child(5) { grid-column: span 6; }
+    .review-themes__grid { grid-template-columns: 1fr; }
+    .review-themes .eyebrow { margin-bottom: 1.5rem; }
+    .review-themes__grid > div { padding: 1.1rem 0; border-top: 1px solid rgba(255,255,255,.2); border-left: 0; }
+  }
+  @media (max-width: 38rem) {
+    .reviews-hero__actions { display: grid; }
+    .review-card, .review-card--featured, .review-card--featured + .review-card, .review-card--wide, .review-card:nth-child(5) { min-height: 0; grid-column: 1 / -1; }
+  }
+</style>

@@ -1,0 +1,57 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ContactBand from "../../components/ContactBand.astro";
+import { areas, services, business } from "../../data/site";
+
+export function getStaticPaths() {
+  return areas.map((area) => ({ params: { slug: area.slug }, props: { area } }));
+}
+const { area } = Astro.props;
+---
+<BaseLayout title={`${area.title} | Lules Multiservices NYC`} description={area.description} image={area.image}>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: area.title,
+    serviceType: "Professional cleaning services",
+    areaServed: { "@type": "AdministrativeArea", name: area.name },
+    provider: { "@type": "LocalBusiness", name: business.name, telephone: "+13476178182", url: "https://lulescleaningservice.com" },
+  })} />
+  <header class="area-hero warm-field">
+    <div class="container area-hero__grid">
+      <div data-reveal><a class="back" href="/">← NYC service areas</a><p class="eyebrow">Local cleaning team</p><h1 class="display-title">{area.title}</h1><p class="lede">{area.description}</p><div class="area-hero__actions"><a class="button button--primary" href="/booking/">Plan your service</a><a class="button button--outline" href={business.phoneHref}>Call {business.phone}</a></div></div>
+      <div class="area-hero__image" data-reveal><img src={area.image} width="960" height="900" alt={`Professionally cleaned space served by Lules in ${area.name}`} fetchpriority="high" /></div>
+    </div>
+  </header>
+  <section class="area-details section">
+    <div class="container area-details__grid">
+      <div data-reveal><p class="eyebrow">Where we work</p><h2 class="section-title">Care that fits the space and the neighborhood.</h2><p class="lede">From routine apartment cleaning to office upkeep and move-day resets, we help {area.name} clients choose the right scope without making the process complicated.</p></div>
+      <div class="area-details__list" data-reveal><h3>Areas and spaces we serve</h3>{area.neighborhoods.map((item) => <span>{item}</span>)}</div>
+    </div>
+  </section>
+  <section class="area-services section warm-field">
+    <div class="container"><p class="eyebrow">Available in {area.name}</p><div class="area-services__grid">{services.map((service) => <a href={`/services/${service.slug}/`}><small>{service.eyebrow}</small><h2>{service.title}</h2><p>{service.short}</p><strong>Service details →</strong></a>)}</div></div>
+  </section>
+  <ContactBand compact />
+</BaseLayout>
+<style>
+  .area-hero { padding-block: clamp(3rem, 7vw, 7rem); border-bottom: 1px solid var(--line); }
+  .area-hero__grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(2rem, 7vw, 7rem); align-items: center; }
+  .back { display: inline-block; margin-bottom: 2rem; color: var(--ink-soft); font-size: .78rem; font-weight: 750; }
+  .area-hero .display-title { max-width: 11ch; font-size: clamp(3.4rem, 7vw, 6.4rem); }
+  .area-hero__actions { display: flex; flex-wrap: wrap; gap: .7rem; margin-top: 2rem; }
+  .area-hero__image { aspect-ratio: 6 / 5; overflow: hidden; border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); }
+  .area-hero__image img { width: 100%; height: 100%; object-fit: cover; }
+  .area-details__grid { display: grid; grid-template-columns: 1.2fr .8fr; gap: clamp(3rem, 8vw, 8rem); align-items: start; }
+  .area-details__list { display: grid; border-top: 1px solid var(--line); }
+  .area-details__list h3 { margin: 0; padding: 1rem 0; color: var(--plum); font-family: var(--font-body); font-size: .7rem; letter-spacing: .12em; text-transform: uppercase; }
+  .area-details__list span { padding: 1rem 0; border-top: 1px solid var(--line); font-family: var(--font-display); font-size: 1.45rem; }
+  .area-services__grid { display: grid; grid-template-columns: repeat(2, 1fr); border-top: 1px solid var(--line); }
+  .area-services__grid a { padding: 2rem; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .area-services small { color: var(--rose); font-size: .65rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+  .area-services h2 { margin: .35rem 0; font-size: 2rem; }
+  .area-services p { color: var(--ink-soft); }
+  .area-services strong { color: var(--plum); font-size: .78rem; }
+  @media (max-width: 50rem) { .area-hero__grid, .area-details__grid { grid-template-columns: 1fr; } .area-hero__image { grid-row: 1; } }
+  @media (max-width: 38rem) { .area-hero__actions, .area-services__grid { display: grid; grid-template-columns: 1fr; } .area-services__grid a { border-right: 0; padding-inline: 0; } }
+</style>

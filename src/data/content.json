@@ -8,7 +8,13 @@
     "phone": "+1 (347) 617-8182",
     "phoneRaw": "+13476178182",
     "email": "info@lulescleaningservice.com",
-    "location": "New York City, NY",
+    "location": "Astoria, New York 11103",
+    "address": {
+      "addressLocality": "Astoria",
+      "addressRegion": "NY",
+      "postalCode": "11103",
+      "addressCountry": "US"
+    },
     "serviceArea": "All 5 Boroughs Served",
     "hours": {
       "schedule": "Mon - Sun: 7:00 AM - 11:00 PM",
@@ -61,12 +67,11 @@
   },
   "navigation": {
     "items": [
-      { "label": "Home", "href": "/" },
-      { "label": "About", "href": "/about" },
-      { "label": "Prices", "href": "/prices" },
-      { "label": "FAQ", "href": "/faq" },
-      { "label": "Gallery", "href": "/#gallery" },
-      { "label": "Contact", "href": "/#contact" }
+      { "label": "Home", "href": "/", "showInHeader": false, "showInFooter": false },
+      { "label": "About", "href": "/about", "showInHeader": false, "showInFooter": false },
+      { "label": "FAQ", "href": "/faq", "showInHeader": true, "showInFooter": true },
+      { "label": "Our work", "href": "/#work", "showInHeader": true, "showInFooter": true },
+      { "label": "Contact", "href": "/#contact", "showInHeader": false, "showInFooter": false }
     ]
   },
   "hero": {
@@ -141,6 +146,7 @@
     "list": [
       {
         "slug": "residential-cleaning",
+        "flags": { "cleaning": true, "featured": true, "showResults": true },
         "icon": "home",
         "title": "Residential Cleaning",
         "image": "/img/images/foto-principal.webp",
@@ -169,12 +175,12 @@
           {"type": "single", "image": "/img/image-service/residential-cleaning/a25.webp", "alt": "Living room spotless"},
           {"type": "single", "image": "/img/image-service/residential-cleaning/a41.webp", "alt": "Living room spotless"},
           {"type": "single", "image": "/img/image-service/residential-cleaning/a34.webp", "alt": "Living room spotless"},
-          {"type": "single", "image": "/img/image-service/residential-cleaning/a38.webp", "alt": "Living room spotless"},
-          {"type": "single", "image": "/img/image-service/residential-cleaning/a3.webp", "alt": "Living room spotless"}
+          {"type": "single", "image": "/img/image-service/residential-cleaning/a38.webp", "alt": "Living room spotless"}
         ]
       },
       {
         "slug": "commercial-cleaning",
+        "flags": { "cleaning": true, "featured": false, "showResults": true },
         "icon": "store",
         "title": "Commercial Cleaning",
         "image": "/img/images/image.webp",
@@ -201,6 +207,7 @@
       },
       {
         "slug": "move-in-out-cleaning",
+        "flags": { "cleaning": true, "featured": false, "showResults": true },
         "icon": "package",
         "title": "Move-In/Out Cleaning",
         "image": "/img/images/foto-principal.webp",
@@ -220,6 +227,7 @@
       },
       {
         "slug": "office-cleaning",
+        "flags": { "cleaning": true, "featured": false, "showResults": true },
         "icon": "building",
         "title": "Office Cleaning",
         "image": "/img/images/image.webp",
@@ -243,6 +251,7 @@
       },
       {
         "slug": "deep-cleaning",
+        "flags": { "cleaning": true, "featured": false, "showResults": true },
         "icon": "sparkles",
         "title": "Deep Cleaning",
         "description": "Intensive Cleaning for Every Corner",
@@ -324,32 +333,38 @@
     }
   },
   "testimonials": {
-    "title": "Trusted by NYC's Finest",
-    "subtitle": "Real testimonials from our satisfied clients across New York City",
+    "title": "What clients say about working with Lules",
+    "subtitle": "Feedback shared directly with the Lules team",
     "list": [
       {
-        "name": "Sarah Anderson",
-        "role": "Manhattan Penthouse Owner",
-        "content": "Lules transformed our penthouse. The attention to detail is unmatched. We've never had our home cleaner!",
-        "rating": 5
+        "name": "Client note",
+        "role": "Shared with Lules",
+        "content": "Great experience with the Lules team. The service was professional, the cleaning was done well, and the whole process was smooth. I’d definitely recommend giving them a call."
       },
       {
-        "name": "Michael Chen",
-        "role": "CEO, Tech Startup",
-        "content": "Our office has never looked better. Professional, efficient, and they work around our schedule perfectly.",
-        "rating": 5
+        "name": "Client note",
+        "role": "Shared with Lules",
+        "content": "It was easy to work with the Lules team from start to finish. They were professional, responsive, and did a really good job. I would use their service again."
       },
       {
-        "name": "Jessica Martinez",
-        "role": "Interior Designer",
-        "content": "I recommend Lules to all my clients. The eco-friendly approach and premium results are exceptional.",
-        "rating": 5
+        "name": "Client note",
+        "role": "Shared with Lules",
+        "content": "You can tell they care about the quality of their work. They didn’t just do a quick cleaning; they paid attention to the little things. I would always recommend Lules."
       },
       {
-        "name": "David Thompson",
-        "role": "Real Estate Developer",
-        "content": "For move-in/out cleaning, Lules is our go-to. Reliable, thorough, and always on time.",
-        "rating": 5
+        "name": "Client note",
+        "role": "Shared with Lules",
+        "content": "I’m very happy with the Lules team. They did a great job, paid attention to the details, and left everything clean and organized. Definitely recommend them!"
+      },
+      {
+        "name": "Client note",
+        "role": "Shared with Lules",
+        "content": "We’ve been happy with the cleaning service. It makes a difference having a team that understands what needs to be done and keeps the space looking good."
+      },
+      {
+        "name": "Client note",
+        "role": "Shared with Lules",
+        "content": "I was impressed with the results. Everything looked much better after the cleaning, especially the areas that needed extra attention. Good service and a professional team. Lourdes was very kind."
       }
     ]
   },

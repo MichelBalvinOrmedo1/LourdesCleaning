@@ -1,0 +1,79 @@
+---
+import { business } from "../data/site";
+const path = Astro.url.pathname;
+const isActive = (href: string) => href === "/" ? path === "/" : path.startsWith(href);
+---
+
+<header class="site-header">
+  <div class="notice">
+    <div class="container notice__inner">
+      <span>{business.founded}</span>
+      <span class="notice__hours">{business.hours}</span>
+    </div>
+  </div>
+  <div class="nav-shell">
+    <div class="container nav">
+      <a class="brand" href="/" aria-label="Lules Multiservices home">
+        <img src="/img/logo-multiservices.webp" width="116" height="59" alt="Lules Multiservices" />
+        <span>Multiservices</span>
+      </a>
+      <nav class="desktop-nav" aria-label="Primary navigation">
+        <a class:list={{ active: isActive("/services/") }} href="/services/">Services</a>
+        <a href="/#results">Our work</a>
+        <a class:list={{ active: isActive("/reviews/") }} href="/reviews/">Reviews</a>
+        <a class:list={{ active: isActive("/faq/") }} href="/faq/">FAQ</a>
+      </nav>
+      <div class="nav-actions">
+        <a class="phone" href={business.phoneHref}>{business.phone}</a>
+        <a class:list={["button button--primary quote", { active: isActive("/booking/") }]} href="/booking/">Plan a service</a>
+      </div>
+      <details class="mobile-menu">
+        <summary aria-label="Open navigation"><span></span><span></span><span></span></summary>
+        <nav aria-label="Mobile navigation">
+          <a href="/">Home</a>
+          <a href="/services/">Services</a>
+          <a href="/#results">Our work</a>
+          <a href="/reviews/">Reviews</a>
+          <a href="/faq/">FAQ</a>
+          <a href={business.phoneHref}>{business.phone}</a>
+          <a class="button button--primary" href="/booking/">Plan a service</a>
+        </nav>
+      </details>
+    </div>
+  </div>
+</header>
+
+<style>
+  .site-header { position: sticky; z-index: 100; top: 0; }
+  .notice { color: white; background: var(--plum-deep); font-size: .76rem; font-weight: 700; }
+  .notice__inner { display: flex; min-height: 2rem; align-items: center; justify-content: space-between; }
+  .nav-shell { border-bottom: 1px solid var(--line); background: rgba(255, 250, 246, .93); backdrop-filter: blur(18px); }
+  .nav { display: flex; min-height: 5rem; align-items: center; gap: 2rem; }
+  .brand { flex: none; }
+  .brand { display: flex; align-items: center; gap: .65rem; }
+  .brand span { padding-left: .65rem; border-left: 1px solid var(--line); color: var(--plum-deep); font-size: .67rem; font-weight: 850; letter-spacing: .13em; text-transform: uppercase; }
+  .brand img { width: 7rem; height: 4rem; object-fit: contain; }
+  .desktop-nav { display: flex; align-items: center; gap: 1.8rem; margin-left: auto; font-size: .88rem; font-weight: 750; }
+  .desktop-nav > a { position: relative; padding-block: 1.9rem; cursor: pointer; }
+  .desktop-nav > a::after { position: absolute; right: 0; bottom: 1.25rem; left: 0; height: 2px; content: ""; transform: scaleX(0); background: var(--rose); transition: transform 180ms ease; }
+  .desktop-nav > a:hover::after, .desktop-nav .active::after { transform: scaleX(1); }
+  .nav-actions { display: flex; align-items: center; gap: 1rem; }
+  .phone { font-size: .84rem; font-weight: 800; white-space: nowrap; }
+  .quote { min-height: 2.85rem; padding-inline: 1.2rem; }
+  .mobile-menu { display: none; margin-left: auto; }
+  .mobile-menu > summary { display: grid; width: 2.75rem; height: 2.75rem; place-content: center; gap: .28rem; list-style: none; border: 1px solid var(--line); border-radius: 50%; cursor: pointer; }
+  .mobile-menu > summary::-webkit-details-marker { display: none; }
+  .mobile-menu > summary span { width: 1rem; height: 2px; background: var(--plum-deep); }
+  .mobile-menu nav { position: fixed; top: 7rem; right: .65rem; left: .65rem; display: grid; gap: .2rem; padding: 1rem; border: 1px solid var(--line); border-radius: 1.25rem; background: var(--paper); box-shadow: var(--shadow-lg); }
+  .mobile-menu nav > a:not(.button) { padding: .75rem; border-bottom: 1px solid var(--line); font-weight: 750; }
+  @media (max-width: 62rem) {
+    .desktop-nav, .nav-actions { display: none; }
+    .mobile-menu { display: block; }
+  }
+  @media (max-width: 34rem) {
+    .notice__hours { display: none; }
+    .notice__inner { justify-content: center; }
+    .brand img { width: 5.5rem; }
+    .brand span { font-size: .57rem; }
+  }
+</style>

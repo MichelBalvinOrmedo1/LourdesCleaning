@@ -1,139 +1,60 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import FAQSection from "../../components/FAQSection.astro";
-import content from "../../data/content.json";
-
-const { pricing, businessInfo } = content;
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ContactBand from "../../components/ContactBand.astro";
+import { faqs, business } from "../../data/site";
 ---
-
-<Layout
-  title={`FAQ - ${businessInfo.name}`}
-  description="Frequently asked questions about our cleaning services, pricing, and booking process."
->
-  <!-- Hero Section -->
-  <section
-    class="section-watermark pt-24 md:pt-32 pb-16 md:pb-24"
-    style="background: linear-gradient(to bottom, #ffffff 0%, #f9fafb 100%);"
-  >
-    <div class="container mx-auto px-4 text-center">
-      <h1
-        class="hero-title text-4xl md:text-5xl lg:text-6xl font-bold mb-8 tracking-tight leading-tight"
-        style="color: #1a1a1a;"
-      >
-        Frequently Asked Questions
-      </h1>
-
-      <p
-        class="hero-subtitle max-w-3xl mx-auto text-base md:text-lg leading-relaxed mb-10"
-        style="color: #4a5568;"
-      >
-        Find answers to common questions about our cleaning services. Can't find
-        what you're looking for?
-        <a
-          href={`tel:${businessInfo.phoneRaw}`}
-          class="font-semibold hover:underline"
-          style="color: #8b5cf6;">Call us at {businessInfo.phone}</a
-        >
-      </p>
-    </div>
-  </section>
-
-  <!-- FAQ Section -->
-  <FAQSection
-    title="Pricing & Services"
-    subtitle="Everything you need to know about our <span class='font-semibold' style='color: #eab308;'>pricing</span>"
-    faqs={pricing.faq}
-  />
-
-  <!-- Final CTA -->
-  <section class="relative py-32 overflow-hidden">
-    <!-- Background Image -->
-    <div class="absolute inset-0 z-0">
-      <img
-        src="/images/post-construction.webp"
-        alt="Contact us"
-        class="w-full h-full object-cover opacity-40"
-      />
-      <div
-        class="absolute inset-0 bg-gradient-to-br from-purple-900/95 via-pink-900/90 to-purple-900/95"
-      >
+<BaseLayout title="Cleaning FAQ | Lules Multiservices NYC" description="Answers about booking, supplies, service areas, recurring cleaning and policies from Lules Multiservices in New York City.">
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: { "@type": "Answer", text: item.answer },
+    })),
+  })} />
+  <header class="faq-hero warm-field">
+    <div class="container faq-hero__grid">
+      <div data-reveal><p class="eyebrow">Before your visit</p><h1 class="display-title">Questions, answered clearly.</h1></div>
+      <div class="faq-hero__summary" data-reveal>
+        <p>Everything you need to plan your first cleaning—from payment and scheduling to coverage and policies.</p>
+        <a class="text-link" href={business.phoneHref}>Ask us directly</a>
       </div>
     </div>
-
-    <div class="container relative z-10 mx-auto px-4">
-      <div class="max-w-4xl mx-auto text-center text-white">
-        <h2
-          class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 drop-shadow-2xl"
-        >
-          Still Have Questions?
-        </h2>
-        <p class="text-xl md:text-2xl mb-12 text-purple-100 drop-shadow-lg">
-          We're here to help! Call us today
-        </p>
-
-        <div class="flex flex-col sm:flex-row justify-center gap-6">
-          <a
-            href={`tel:${businessInfo.phoneRaw}`}
-            class="inline-flex items-center justify-center gap-3 px-10 py-5 rounded-lg bg-white text-purple-600 font-bold text-lg shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all duration-300"
-          >
-            <svg
-              class="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-              ></path>
-            </svg>
-            {businessInfo.phone}
-          </a>
-          <a
-            href="/#contact"
-            class="inline-flex items-center justify-center gap-3 px-10 py-5 rounded-lg bg-transparent border-2 border-white text-white font-bold text-lg hover:bg-white hover:text-purple-600 shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all duration-300"
-          >
-            Get a Free Quote
-            <svg
-              class="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
-            </svg>
-          </a>
-        </div>
+  </header>
+  <section class="faq-page section">
+    <div class="container faq-page__grid">
+      <aside data-reveal><p class="eyebrow">Need a quick answer?</p><h2>Speak with the Lules team.</h2><p>We can confirm availability, scope and the best cleaning option for your space.</p><a class="button button--light" href={business.phoneHref}>Call {business.phone}</a></aside>
+      <div class="faq-list" data-reveal>
+        {faqs.map((item, index) => <details open={index === 0}><summary><span>0{index + 1}</span><strong>{item.question}</strong><i>+</i></summary><p>{item.answer}</p></details>)}
       </div>
     </div>
   </section>
-</Layout>
-
+  <ContactBand compact />
+</BaseLayout>
 <style>
-  .hero-title {
-    opacity: 0;
-    animation: fadeInUp 0.6s ease-out forwards;
-  }
-
-  .hero-subtitle {
-    opacity: 0;
-    animation: fadeInUp 0.6s ease-out 0.1s forwards;
-  }
-
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
+  .faq-hero { padding: clamp(2.5rem, 4vw, 4rem) 0 clamp(2.75rem, 4.5vw, 4.5rem); border-bottom: 1px solid var(--line); }
+  .faq-hero__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(18rem, .58fr); gap: clamp(2rem, 7vw, 7rem); align-items: end; }
+  .faq-hero .display-title { max-width: 10ch; font-size: clamp(3.3rem, 6vw, 5.8rem); line-height: .92; }
+  .faq-hero__summary { max-width: 31rem; padding: 1.25rem 0 1.25rem 1.5rem; border-left: 2px solid var(--gold); }
+  .faq-hero__summary p { margin: 0 0 1rem; color: var(--ink-soft); font-size: 1.05rem; }
+  .faq-page { padding-block: clamp(3rem, 5vw, 5rem); }
+  .faq-page__grid { display: grid; grid-template-columns: minmax(15rem, .5fr) minmax(0, 1.5fr); gap: clamp(2rem, 6vw, 6rem); align-items: start; }
+  .faq-page aside { position: sticky; top: 8.5rem; padding: 2rem; border-radius: var(--radius-lg); color: white; background: linear-gradient(145deg, var(--plum-deep), var(--plum)); box-shadow: var(--shadow-lg); }
+  .faq-page aside .eyebrow { color: var(--gold-soft); }
+  .faq-page aside h2 { max-width: 9ch; margin: 0; color: white; font-size: 2.25rem; line-height: 1; }
+  .faq-page aside > p:not(.eyebrow) { color: rgba(255,255,255,.75); }
+  .faq-page aside .button { margin-top: 1rem; }
+  .faq-list { display: grid; gap: .75rem; }
+  .faq-list details { overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius-md); background: rgba(255,255,255,.72); transition: border-color 180ms ease, box-shadow 180ms ease; }
+  .faq-list details[open] { border-color: rgba(111,60,130,.28); box-shadow: var(--shadow-sm); }
+  .faq-list summary { display: grid; grid-template-columns: 2.5rem 1fr auto; gap: 1rem; align-items: center; padding: 1.35rem 1.5rem; list-style: none; cursor: pointer; }
+  .faq-list summary::-webkit-details-marker { display: none; }
+  .faq-list summary > span { color: var(--rose); font-family: var(--font-display); }
+  .faq-list summary strong { font-size: 1rem; }
+  .faq-list summary i { color: var(--plum); font-size: 1.5rem; font-style: normal; transition: transform 180ms ease; }
+  .faq-list details[open] summary i { transform: rotate(45deg); }
+  .faq-list details > p { max-width: 43rem; margin: -.1rem 2rem 1.5rem 5rem; color: var(--ink-soft); }
+  @media (max-width: 48rem) { .faq-hero__grid, .faq-page__grid { grid-template-columns: 1fr; } .faq-hero__grid { gap: 1.75rem; } .faq-hero__summary { max-width: 40rem; } .faq-page aside { position: static; } }
+  @media (max-width: 34rem) { .faq-list summary { grid-template-columns: 2rem 1fr auto; padding: 1.15rem 1rem; } .faq-list details > p { margin: 0 1rem 1.25rem 3rem; } }
 </style>

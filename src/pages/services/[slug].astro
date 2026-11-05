@@ -1,0 +1,92 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ResultsGallery from "../../components/ResultsGallery.astro";
+import ContactBand from "../../components/ContactBand.astro";
+import { services, business } from "../../data/site";
+
+export function getStaticPaths() {
+  return services.map((service) => ({ params: { slug: service.slug }, props: { service } }));
+}
+const { service } = Astro.props;
+const related = services.filter((item) => item.slug !== service.slug).slice(0, 3);
+---
+<BaseLayout title={`${service.title} NYC | Lules Multiservices`} description={`${service.short} Serving Manhattan, Brooklyn, Queens and the Bronx.`} image={service.image}>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Service",
+        name: `${service.title} in New York City`,
+        serviceType: service.title,
+        description: service.short,
+        areaServed: ["Manhattan", "Brooklyn", "Queens", "Bronx"],
+        provider: { "@type": "LocalBusiness", name: business.name, telephone: "+13476178182", url: "https://lulescleaningservice.com" },
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: "https://lulescleaningservice.com/" },
+          { "@type": "ListItem", position: 2, name: "Cleaning services", item: "https://lulescleaningservice.com/services/" },
+          { "@type": "ListItem", position: 3, name: service.title, item: `https://lulescleaningservice.com/services/${service.slug}/` },
+        ],
+      },
+    ],
+  })} />
+  <header class="service-hero">
+    <div class="container service-hero__grid">
+      <div class="service-hero__copy" data-reveal>
+        <a class="back" href="/services/">← All cleaning services</a>
+        <p class="eyebrow">{service.eyebrow}</p>
+        <h1 class="display-title">{service.title}</h1>
+        <p class="lede">{service.intro}</p>
+        <div class="service-hero__actions"><a class="button button--primary" href="/booking/">Plan your service</a><a class="button button--outline" href={business.phoneHref}>Call {business.phone}</a></div>
+      </div>
+      <div class="service-hero__image" data-reveal><img src={service.image} width="1000" height="900" alt={`${service.title} result in New York City`} fetchpriority="high" /></div>
+    </div>
+  </header>
+  <section class="included section warm-field">
+    <div class="container included__grid">
+      <div data-reveal><p class="eyebrow">What we can focus on</p><h2 class="section-title">A visit built around the details that matter.</h2><p class="lede">{service.short}</p></div>
+      <ol data-reveal>{service.items.map((item, index) => <li><span>0{index + 1}</span>{item}</li>)}</ol>
+    </div>
+  </section>
+  {service.showResults && service.gallery.length > 0 && (
+    <section class="proof section">
+      <div class="container">
+        <div class="proof__head" data-reveal>
+          <div><p class="eyebrow">Real Lules work</p><h2 class="section-title">{service.resultTitle}</h2></div>
+          <p class="lede">Explore {service.gallery.length} real {service.gallery.length === 1 ? "result" : "results"}. Drag the comparison line where available, or select another project below.</p>
+        </div>
+        <div data-reveal><ResultsGallery items={service.gallery} label={`${service.title} project gallery`} id={`results-${service.slug}`} /></div>
+      </div>
+    </section>
+  )}
+  <section class="related section--compact"><div class="container"><p class="eyebrow">You may also need</p><div class="related__grid">{related.map((item) => <a href={`/services/${item.slug}/`}><small>{item.eyebrow}</small><h2>{item.title}</h2><span>Explore →</span></a>)}</div></div></section>
+  <ContactBand compact />
+</BaseLayout>
+<style>
+  .service-hero { padding: clamp(2rem, 3.5vw, 3.25rem) 0 clamp(3.75rem, 6vw, 6rem); background: linear-gradient(135deg, var(--cream), var(--blush-soft)); }
+  .service-hero__grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: clamp(2rem, 7vw, 7rem); align-items: center; }
+  .back { display: inline-block; margin-bottom: 2.4rem; color: var(--ink-soft); font-size: .78rem; font-weight: 750; }
+  .service-hero .display-title { font-size: clamp(3.5rem, 7vw, 6.5rem); }
+  .service-hero__actions { display: flex; flex-wrap: wrap; gap: .7rem; margin-top: 2rem; }
+  .service-hero__image { aspect-ratio: 5 / 4; overflow: hidden; border-radius: 12rem 12rem var(--radius-lg) var(--radius-lg); box-shadow: var(--shadow-lg); }
+  .service-hero__image img { width: 100%; height: 100%; object-fit: cover; }
+  .included__grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(3rem, 8vw, 8rem); align-items: start; }
+  .included ol { margin: 0; padding: 0; border-top: 1px solid var(--line); list-style: none; }
+  .included li { display: grid; grid-template-columns: 3rem 1fr; gap: 1rem; padding: 1.5rem 0; border-bottom: 1px solid var(--line); font-family: var(--font-display); font-size: 1.5rem; }
+  .included li span { color: var(--rose); font-size: 1rem; }
+  .proof { background: var(--paper); }
+  .proof__head { display: grid; grid-template-columns: 1fr .8fr; gap: clamp(2rem, 6vw, 6rem); align-items: end; margin-bottom: clamp(2rem, 4vw, 3.5rem); }
+  .proof__head .section-title { max-width: 12ch; }
+  .proof__head > p { max-width: 34rem; margin: 0 0 .3rem; }
+  .related { border-top: 1px solid var(--line); background: var(--paper); }
+  .related__grid { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); }
+  .related__grid a { padding: 1.8rem; border-right: 1px solid var(--line); }
+  .related__grid a:last-child { border-right: 0; }
+  .related small { color: var(--rose); font-size: .66rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+  .related h2 { margin: .35rem 0 1.5rem; font-size: 1.8rem; }
+  .related span { color: var(--plum); font-size: .78rem; font-weight: 800; }
+  @media (max-width: 52rem) { .service-hero__grid, .included__grid, .proof__head { grid-template-columns: 1fr; } .service-hero__image { grid-row: 1; } }
+  @media (max-width: 38rem) { .service-hero__actions { display: grid; } .related__grid { grid-template-columns: 1fr; } .related__grid a { border-right: 0; border-bottom: 1px solid var(--line); } }
+</style>

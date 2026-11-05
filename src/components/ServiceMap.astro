@@ -1,0 +1,193 @@
+---
+import { areas, business } from "../data/site";
+
+const areaColors: Record<string, string> = {
+  Manhattan: "#5f2e71",
+  Brooklyn: "#c55f7e",
+  Queens: "#b57b19",
+  Bronx: "#7c5aa7",
+};
+---
+
+<section class="service-map section" aria-labelledby="service-map-title">
+  <div class="container">
+    <div class="service-map__head" data-reveal>
+      <div>
+        <p class="eyebrow">NYC service area</p>
+        <h2 class="section-title" id="service-map-title">Where we clean.</h2>
+      </div>
+      <div>
+        <p>Only the New York City boroughs served by Lules are highlighted. Select one to see its boundary clearly.</p>
+        <a class="text-link" href={business.phoneHref}>Confirm your neighborhood</a>
+      </div>
+    </div>
+
+    <div class="service-map__shell" data-reveal>
+      <aside class="service-map__panel" aria-label="Choose a service area">
+        <h3>Serving New York City</h3>
+        <p>Choose a borough to focus the map.</p>
+        <div class="service-map__areas">
+          {areas.map((area) => (
+            <div class="service-map__area" style={`--area-color: ${areaColors[area.name] ?? "#6f3c82"}`}>
+              <button type="button" data-map-area={area.name} aria-pressed="false">
+                <span><i aria-hidden="true"></i>{area.name}</span>
+                <small>View area</small>
+              </button>
+              <a href={`/areas/${area.slug}/`} aria-label={`View cleaning services in ${area.name}`}>↗</a>
+            </div>
+          ))}
+        </div>
+        <button class="service-map__reset" type="button" data-map-reset>Show all service areas</button>
+        <small>The highlighted boundaries indicate general coverage. Call to confirm a specific address.</small>
+      </aside>
+      <div class="service-map__canvas" data-map-canvas aria-label="Interactive map showing Lules service areas in New York City"></div>
+      <noscript><p class="service-map__noscript">Enable JavaScript to view the map. Lules serves Manhattan, Brooklyn, Queens and the Bronx.</p></noscript>
+    </div>
+  </div>
+</section>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="anonymous" />
+<script is:inline src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin="anonymous"></script>
+<script is:inline>
+  (() => {
+    const roots = document.querySelectorAll('.service-map__shell');
+    const start = () => roots.forEach(async (root) => {
+      if (root.dataset.ready === 'true' || !window.L) return;
+      root.dataset.ready = 'true';
+      const canvas = root.querySelector('[data-map-canvas]');
+      if (!canvas) return;
+
+      const map = window.L.map(canvas, {
+        scrollWheelZoom: false,
+        zoomControl: true,
+        attributionControl: true,
+        maxBoundsViscosity: .8
+      });
+      const fullBounds = window.L.latLngBounds([40.4774, -74.05], [40.9176, -73.7002]);
+      map.setMaxBounds(fullBounds.pad(.18));
+      map.fitBounds(fullBounds, { padding: [20, 20] });
+      window.L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        minZoom: 9,
+        maxZoom: 18,
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>'
+      }).addTo(map);
+
+      const buttons = Array.from(root.querySelectorAll('[data-map-area]'));
+      const layers = {};
+      const colors = {
+        Manhattan: { line: '#5f2e71', fill: '#ad79c5' },
+        Brooklyn: { line: '#c55f7e', fill: '#e6a0b4' },
+        Queens: { line: '#b57b19', fill: '#f0ca73' },
+        Bronx: { line: '#7c5aa7', fill: '#c5addd' }
+      };
+      let activeName = '';
+      const paint = () => Object.entries(layers).forEach(([name, layer]) => {
+        const color = colors[name] || colors.Manhattan;
+        const selected = name === activeName;
+        const dimmed = activeName && !selected;
+        layer.setStyle({
+          color: color.line,
+          weight: selected ? 6 : 4,
+          opacity: dimmed ? .38 : 1,
+          fillColor: color.fill,
+          fillOpacity: selected ? .5 : dimmed ? .08 : .32
+        });
+      });
+      const activate = (name) => {
+        activeName = name;
+        buttons.forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.mapArea === name)));
+        paint();
+      };
+
+      try {
+        const response = await fetch('/nyc-boroughs.geojson');
+        if (!response.ok) throw new Error('Boundary data unavailable');
+        const data = await response.json();
+        window.L.geoJSON(data, {
+          style: (feature) => {
+            const color = colors[feature.properties.boroname] || colors.Manhattan;
+            return { color: color.line, weight: 4, opacity: 1, fillColor: color.fill, fillOpacity: .32 };
+          },
+          onEachFeature: (feature, layer) => {
+            const name = feature.properties.boroname;
+            layers[name] = layer;
+            layer.bindTooltip(name, { permanent: true, direction: 'center', className: `borough-label borough-label--${name.toLowerCase()}` });
+            layer.on({
+              mouseover: () => layer.setStyle({ weight: 6, fillOpacity: .5 }),
+              mouseout: paint,
+              click: () => {
+                activate(name);
+                map.fitBounds(layer.getBounds(), { padding: [32, 32], maxZoom: 11 });
+              }
+            });
+          }
+        }).addTo(map);
+
+        buttons.forEach((button) => button.addEventListener('click', () => {
+          const name = button.dataset.mapArea;
+          const layer = layers[name];
+          if (!layer) return;
+          activate(name);
+          map.fitBounds(layer.getBounds(), { padding: [32, 32], maxZoom: 11 });
+        }));
+        root.querySelector('[data-map-reset]')?.addEventListener('click', () => {
+          activate('');
+          map.fitBounds(fullBounds, { padding: [20, 20] });
+        });
+      } catch (error) {
+        canvas.classList.add('is-unavailable');
+        canvas.setAttribute('aria-label', 'Map unavailable. Lules serves Manhattan, Brooklyn, Queens and the Bronx.');
+      }
+    });
+
+    if (window.L) start();
+    else window.addEventListener('load', start, { once: true });
+  })();
+</script>
+
+<style>
+  .service-map { background: var(--paper); }
+  .service-map__head { display: grid; grid-template-columns: 1.1fr .9fr; gap: clamp(2rem, 7vw, 7rem); align-items: end; margin-bottom: 2.25rem; }
+  .service-map__head .section-title { max-width: 9ch; }
+  .service-map__head > div:last-child { max-width: 33rem; justify-self: end; }
+  .service-map__head > div:last-child p { margin: 0; color: var(--ink-soft); }
+  .service-map__head .text-link { margin-top: 1rem; }
+  .service-map__shell { display: grid; min-height: 34rem; grid-template-columns: minmax(17rem, .7fr) minmax(0, 1.75fr); overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--paper); box-shadow: var(--shadow-lg); }
+  .service-map__panel { position: relative; z-index: 2; padding: clamp(1.5rem, 3vw, 2.5rem); background: linear-gradient(160deg, var(--cream), var(--blush-soft)); }
+  .service-map__panel h3 { margin: 0; font-size: 1.75rem; }
+  .service-map__panel > p { margin: .35rem 0 1.5rem; color: var(--ink-soft); font-size: .87rem; }
+  .service-map__areas { display: grid; gap: .65rem; }
+  .service-map__area { display: grid; grid-template-columns: 1fr 2.9rem; overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius-sm); background: rgba(255,255,255,.82); transition: border-color 180ms ease, transform 180ms ease; }
+  .service-map__area:has(button[aria-pressed="true"]) { border-color: var(--gold); box-shadow: var(--shadow-sm); }
+  .service-map__area:hover { transform: translateY(-1px); border-color: rgba(111,60,130,.3); }
+  .service-map__area button { display: flex; min-height: 3.45rem; align-items: center; justify-content: space-between; gap: .75rem; padding: .7rem 1rem; border: 0; color: var(--ink); background: transparent; text-align: left; cursor: pointer; }
+  .service-map__area button span { display: inline-flex; align-items: center; gap: .65rem; font-weight: 760; }
+  .service-map__area button i { width: .72rem; height: .72rem; flex: none; border: 2px solid white; border-radius: 50%; background: var(--area-color); box-shadow: 0 0 0 1px var(--area-color); }
+  .service-map__area button small { color: var(--ink-soft); font-size: .62rem; }
+  .service-map__area > a { display: grid; place-items: center; border-left: 1px solid var(--line); color: var(--plum); font-weight: 900; }
+  .service-map__area > a:hover { color: white; background: var(--plum); }
+  .service-map__reset { margin-top: 1rem; padding: 0; border: 0; color: var(--plum-deep); background: transparent; font-size: .78rem; font-weight: 800; cursor: pointer; text-decoration: underline; text-underline-offset: .3em; }
+  .service-map__panel > small { display: block; margin-top: 1.25rem; color: var(--ink-soft); font-size: .68rem; line-height: 1.45; }
+  .service-map__canvas { z-index: 1; min-height: 34rem; background: var(--lilac-soft); }
+  .service-map__canvas.is-unavailable::after { display: grid; height: 100%; place-items: center; padding: 2rem; content: "The interactive map is temporarily unavailable. Call us to confirm your neighborhood."; color: var(--ink-soft); text-align: center; }
+  .service-map__noscript { grid-column: 1 / -1; margin: 0; padding: 1rem; color: var(--ink-soft); }
+  :global(.service-map .leaflet-tile-pane) { filter: grayscale(.8) saturate(.35) brightness(1.12) contrast(.8); opacity: .7; }
+  :global(.service-map .leaflet-control-zoom a) { color: var(--plum-deep); }
+  :global(.service-map .leaflet-control-attribution) { font-size: .62rem; }
+  :global(.service-map .borough-label) { padding: .38rem .7rem; border: 2px solid var(--plum); border-radius: 999px; color: var(--plum-deep); background: rgba(255,255,255,.96); box-shadow: 0 8px 24px rgba(41,25,46,.18); font-size: .76rem; font-weight: 900; }
+  :global(.service-map .borough-label--manhattan) { border-color: #5f2e71; }
+  :global(.service-map .borough-label--brooklyn) { border-color: #c55f7e; }
+  :global(.service-map .borough-label--queens) { border-color: #b57b19; }
+  :global(.service-map .borough-label--bronx) { border-color: #7c5aa7; }
+  :global(.service-map .leaflet-tooltip-top::before), :global(.service-map .leaflet-tooltip-bottom::before), :global(.service-map .leaflet-tooltip-left::before), :global(.service-map .leaflet-tooltip-right::before) { display: none; }
+  @media (max-width: 52rem) {
+    .service-map__head { grid-template-columns: 1fr; }
+    .service-map__head > div:last-child { max-width: 40rem; justify-self: start; }
+    .service-map__shell { grid-template-columns: 1fr; }
+    .service-map__canvas { min-height: 28rem; grid-row: 1; }
+  }
+  @media (max-width: 36rem) {
+    .service-map__canvas { min-height: 24rem; }
+    .service-map__area button small { display: none; }
+  }
+</style>

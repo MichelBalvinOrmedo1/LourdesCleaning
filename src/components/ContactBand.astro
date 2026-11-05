@@ -1,0 +1,31 @@
+---
+import { business } from "../data/site";
+interface Props { compact?: boolean; }
+const { compact = false } = Astro.props;
+---
+<section id="contact" class:list={["contact", { "contact--compact": compact }]}>
+  <div class="container contact__inner" data-reveal>
+    <div>
+      <p class="eyebrow">A cleaner space starts here</p>
+      <h2>Tell us what needs care.</h2>
+      <p>Share the type of space, approximate size and your preferred date. We’ll recommend the right service and confirm the details.</p>
+    </div>
+    <div class="contact__actions">
+      <a class="button button--light" href={business.phoneHref}>Call {business.phone}</a>
+      <a class="button contact__email" href={business.emailHref}>Email for a quote →</a>
+      <small>{business.hours}</small>
+    </div>
+  </div>
+</section>
+<style>
+  .contact { padding: 1rem 0 clamp(4rem, 7vw, 7rem); background: var(--cream); }
+  .contact__inner { display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(17rem, .7fr); gap: clamp(2rem, 6vw, 6rem); align-items: center; padding: clamp(2rem, 6vw, 5rem); overflow: hidden; border-radius: var(--radius-lg); color: white; background: linear-gradient(125deg, var(--plum-deep), var(--plum) 68%, #875195); box-shadow: var(--shadow-lg); }
+  .contact .eyebrow { color: var(--gold-soft); }
+  .contact h2 { max-width: 12ch; margin: 0; font-size: clamp(2.8rem, 6vw, 5.6rem); line-height: .94; }
+  .contact p:not(.eyebrow) { max-width: 40rem; margin: 1rem 0 0; color: rgba(255,255,255,.76); }
+  .contact__actions { display: grid; gap: .7rem; }
+  .contact__email { color: white; border-color: rgba(255,255,255,.3); background: transparent; }
+  .contact__actions small { margin-top: .4rem; color: rgba(255,255,255,.6); text-align: center; }
+  .contact--compact { padding-top: 4rem; }
+  @media (max-width: 48rem) { .contact__inner { grid-template-columns: 1fr; } }
+</style>
