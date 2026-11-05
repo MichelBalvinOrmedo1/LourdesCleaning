@@ -1,5 +1,13 @@
 @import "@fontsource-variable/newsreader";
 
+@font-face {
+  font-family: "Great Vibes";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url("/fonts/great-vibes-latin-400-normal.woff2") format("woff2");
+}
+
 :root {
   --ink: #29192e;
   --ink-soft: #644f68;
@@ -23,6 +31,7 @@
   --container: 76rem;
   --header-height: 5.25rem;
   --font-display: "Newsreader Variable", Georgia, serif;
+  --font-script: "Great Vibes", "Segoe Script", cursive;
   --font-body: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 

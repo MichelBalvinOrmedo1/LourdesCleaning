@@ -7,28 +7,28 @@ import { business, services, reviews, faqs } from "../data/site";
 ---
 <BaseLayout>
   <section class="hero">
+    <div class="hero__media" aria-hidden="true">
+      <img src="/img/hero-brighter-day.png" width="1680" height="936" alt="" fetchpriority="high" />
+    </div>
     <div class="container hero__grid">
       <div class="hero__copy" data-reveal>
-        <p class="eyebrow">Home, apartment & office cleaning · New York City</p>
-        <h1 class="display-title">Professional cleaning <em>planned around your space.</em></h1>
-        <p class="hero__lede">Reliable care for NYC homes and workplaces, with clear communication from the first call to the finished space.</p>
+        <p class="eyebrow">Professional cleaning services</p>
+        <h1 class="display-title">
+          <span>A Cleaner Space,</span>
+          <em>A Brighter Day</em>
+        </h1>
+        <p class="hero__lede">Lules Cleaning Service provides reliable and high-quality cleaning services for homes and offices across Manhattan, Brooklyn, Queens, and the Bronx.</p>
         <div class="hero__actions">
-          <a class="button button--primary" href="/booking/">Plan your service</a>
-          <a class="button button--outline" href={business.phoneHref}>Call {business.phone}</a>
-        </div>
-        <ul class="hero__proof" aria-label="Service highlights">
-          <li>Cleaning tailored to your priorities</li>
-          <li>One-time or recurring visits</li>
-          <li>Homes, offices and move days</li>
-        </ul>
-      </div>
-      <div class="hero__visual" data-reveal>
-        <div class="hero__frame">
-          <img src="/img/hero.webp" width="900" height="1200" alt="Bright New York City dining area after professional cleaning" fetchpriority="high" />
+          <a class="button button--primary hero__quote" href="/booking/">Get a Free Quote <span aria-hidden="true">→</span></a>
+          <a class="button button--outline hero__phone" href={business.phoneHref} aria-label={`Call Lules Cleaning Service at ${business.phone}`}>
+            <span class="hero__phone-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.79 19.79 0 0 1 11.19 18.85a19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z" /></svg>
+            </span>
+            {business.phone}
+          </a>
         </div>
       </div>
     </div>
-    <div class="hero__wash" aria-hidden="true"></div>
   </section>
 
   <section class="services section warm-field" id="services">
@@ -142,19 +142,25 @@ import { business, services, reviews, faqs } from "../data/site";
 </BaseLayout>
 
 <style>
-  .hero { position: relative; overflow: hidden; border-bottom: 1px solid var(--line); background: var(--paper); }
-  .hero__grid { position: relative; z-index: 2; display: grid; grid-template-columns: .96fr 1.04fr; align-items: center; gap: clamp(2.5rem, 6vw, 5.5rem); padding: clamp(3.75rem, 6vw, 5.75rem) 0; }
-  .hero .display-title em { color: var(--rose); font-weight: 470; }
-  .hero .display-title { max-width: 13ch; font-size: clamp(3rem, 5.2vw, 4.9rem); line-height: .98; }
-  .hero__lede { max-width: 35rem; margin: 1.45rem 0 0; color: var(--ink-soft); font-size: clamp(1rem, 1.4vw, 1.16rem); }
-  .hero__actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.7rem; }
-  .hero__proof { display: grid; gap: .45rem; margin: 1.75rem 0 0; padding: 0; color: var(--ink-soft); font-size: .82rem; list-style: none; }
-  .hero__proof li { display: flex; align-items: center; gap: .65rem; }
-  .hero__proof li::before { display: grid; width: 1.15rem; height: 1.15rem; flex: none; place-items: center; border-radius: 50%; content: "✓"; color: white; background: var(--rose); font-size: .68rem; font-weight: 900; }
-  .hero__visual { position: relative; justify-self: end; width: 100%; }
-  .hero__frame { position: relative; aspect-ratio: 1.15 / 1; overflow: hidden; border-radius: var(--radius-lg); background: var(--blush); box-shadow: var(--shadow-lg); }
-  .hero__frame img { width: 100%; height: 100%; object-fit: cover; }
-  .hero__wash { position: absolute; top: -16rem; right: -12rem; width: min(50vw, 45rem); aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle, rgba(234,220,240,.55), rgba(245,220,227,.18) 58%, transparent 73%); }
+  .hero { position: relative; min-height: clamp(35rem, 48vw, 43rem); overflow: hidden; border-bottom: 1px solid var(--line); background: #fffaf5; }
+  .hero__media { position: absolute; inset: 0; }
+  .hero__media::after { position: absolute; inset: 0; content: ""; background: linear-gradient(90deg, rgba(255,250,246,.98) 0%, rgba(255,250,246,.91) 31%, rgba(255,250,246,.18) 54%, transparent 72%); }
+  .hero__media img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
+  .hero__grid { position: relative; z-index: 2; display: grid; min-height: clamp(35rem, 48vw, 43rem); grid-template-columns: minmax(0, 34rem) 1fr; align-items: center; }
+  .hero__copy { padding: 3.5rem 0 4rem; }
+  .hero .eyebrow { margin-bottom: .9rem; color: #b27b2a; font-size: .72rem; letter-spacing: .16em; }
+  .hero .display-title { max-width: none; font-size: clamp(3.4rem, 5.15vw, 5.15rem); line-height: .88; letter-spacing: -.045em; }
+  .hero .display-title span { display: block; color: #211d22; white-space: nowrap; }
+  .hero .display-title em { display: block; margin-top: .22em; color: #b68ac5; font-family: var(--font-script); font-size: 1.13em; font-weight: 400; line-height: .88; letter-spacing: 0; white-space: nowrap; }
+  .hero__lede { max-width: 31rem; margin: 1.55rem 0 0; color: #574f55; font-size: clamp(.96rem, 1.3vw, 1.08rem); line-height: 1.55; }
+  .hero__actions { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: 1.6rem; }
+  .hero__quote { min-width: 14.2rem; background: #a86fc1; box-shadow: 0 12px 28px rgba(133,79,158,.24); }
+  .hero__quote:hover { background: var(--plum); }
+  .hero__quote span { margin-left: .35rem; font-size: 1.15rem; transition: transform 180ms ease; }
+  .hero__quote:hover span { transform: translateX(.22rem); }
+  .hero__phone { gap: .65rem; min-width: 14.2rem; justify-content: flex-start; padding: .34rem 1.05rem .34rem .38rem; border-color: rgba(73,34,83,.22); background: rgba(255,255,255,.76); }
+  .hero__phone-icon { display: grid; width: 2.45rem; height: 2.45rem; flex: none; place-items: center; border-radius: 50%; color: white; background: #d0a14f; }
+  .hero__phone-icon svg { width: 1.2rem; height: 1.2rem; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
   .section-head, .voices__head { display: grid; grid-template-columns: 1.2fr .8fr; gap: 3rem; align-items: end; margin-bottom: 3rem; }
   .section-head > p, .voices__intro { max-width: 31rem; margin: 0 0 .25rem auto; color: var(--ink-soft); }
   .voices__intro p { margin: 0 0 1rem; }
@@ -218,8 +224,9 @@ import { business, services, reviews, faqs } from "../data/site";
   .faq-list details[open] summary span { transform: rotate(45deg); }
   .faq-list p { max-width: 42rem; margin: -.35rem 0 1.35rem; color: var(--ink-soft); }
   @media (max-width: 58rem) {
-    .hero__grid { min-height: auto; grid-template-columns: 1fr; }
-    .hero__visual { justify-self: center; width: min(86%, 31rem); }
+    .hero__media::after { background: linear-gradient(90deg, rgba(255,250,246,.97) 0%, rgba(255,250,246,.88) 48%, rgba(255,250,246,.28) 76%); }
+    .hero__media img { object-position: 58% center; }
+    .hero__grid { grid-template-columns: minmax(0, 31rem) 1fr; }
     .section-head, .voices__head, .results__grid, .care__grid, .voices__grid, .faq-preview__grid { grid-template-columns: 1fr; }
     .section-head > p, .voices__intro { margin-left: 0; }
     .services__list { grid-template-columns: 1fr; }
@@ -228,11 +235,17 @@ import { business, services, reviews, faqs } from "../data/site";
     .care__image { width: min(82%, 30rem); }
   }
   @media (max-width: 38rem) {
-    .hero__grid { padding-top: 2.5rem; }
+    .hero { min-height: 43rem; }
+    .hero__media { top: 19rem; }
+    .hero__media::after { background: linear-gradient(180deg, #fffaf5 0%, rgba(255,250,245,.58) 20%, rgba(255,250,245,0) 52%); }
+    .hero__media img { object-position: 66% center; }
+    .hero__grid { min-height: 43rem; grid-template-columns: 1fr; align-items: start; }
+    .hero__copy { padding: 2.6rem 0 0; }
+    .hero .display-title { font-size: clamp(2.85rem, 14vw, 4.15rem); }
+    .hero .display-title span, .hero .display-title em { white-space: normal; }
+    .hero__lede { margin-top: 1.1rem; font-size: .94rem; line-height: 1.48; }
     .hero__actions { display: grid; }
-    .hero__proof { grid-template-columns: 1fr; }
-    .hero__visual { width: 100%; }
-    .hero__frame { aspect-ratio: 4 / 3.4; border-radius: var(--radius-md); }
+    .hero__phone { justify-content: flex-start; }
     .services__primary { grid-template-columns: 1fr; }
     .voices__notes { grid-template-columns: 1fr; }
     .voices__notes blockquote:last-child { grid-column: auto; }
